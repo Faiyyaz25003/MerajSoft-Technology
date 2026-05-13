@@ -2,6 +2,13 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
+// ─── WhatsApp Config ─────────────────────────────────────────────────
+const WHATSAPP_NUMBER = "919372381936";
+function openWhatsApp(message) {
+  const encoded = encodeURIComponent(message);
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`, "_blank");
+}
+
 // ─── Animated Counter ───────────────────────────────────────────────
 function Counter({ target, suffix = "", duration = 2000 }) {
   const [count, setCount] = useState(0);
@@ -54,7 +61,6 @@ function TeamCard({ name, role, avatar, skills, color, bio }) {
           transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
         }}
       >
-        {/* Front */}
         <div
           style={{
             backfaceVisibility: "hidden",
@@ -101,7 +107,6 @@ function TeamCard({ name, role, avatar, skills, color, bio }) {
             Hover to learn more →
           </div>
         </div>
-        {/* Back */}
         <div
           style={{
             backfaceVisibility: "hidden",
@@ -147,7 +152,126 @@ function TeamCard({ name, role, avatar, skills, color, bio }) {
   );
 }
 
-// ─── Service Item ────────────────────────────────────────────────────
+// ─── Pricing Card ─────────────────────────────────────────────────
+function PriceCard({ service }) {
+  const {
+    icon,
+    title,
+    desc,
+    imageUrl,
+    color,
+    gradient,
+    lightBg,
+    lightBorder,
+    popular,
+    startPrice,
+    priceNote,
+    priceSuffix,
+    features,
+    waMessage,
+  } = service;
+  return (
+    <div className="group relative rounded-3xl overflow-hidden border border-gray-100 bg-white shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col">
+      {/* Image */}
+      <div className="relative h-44 overflow-hidden flex-shrink-0">
+        <img
+          src={imageUrl}
+          alt={title}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <div
+          className="absolute top-0 left-0 right-0 h-1"
+          style={{ background: gradient }}
+        />
+        <div
+          className="absolute bottom-4 left-4 w-11 h-11 rounded-xl flex items-center justify-center text-xl shadow-lg"
+          style={{ background: `${color}ee`, border: `1px solid ${color}60` }}
+        >
+          {icon}
+        </div>
+        {popular && (
+          <div
+            className="absolute top-3 right-3 text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm"
+            style={{
+              background: `${color}30`,
+              color: "#fff",
+              border: `1px solid ${color}60`,
+            }}
+          >
+            ⭐ Most Popular
+          </div>
+        )}
+      </div>
+
+      {/* Body */}
+      <div className="p-5 flex-1 flex flex-col">
+        <h3 className="font-bold text-gray-900 text-lg leading-tight mb-1">
+          {title}
+        </h3>
+        <p className="text-gray-400 text-sm leading-relaxed mb-4">{desc}</p>
+
+        <span className="text-xs text-gray-400 font-medium">Starting at</span>
+        <div className="flex items-baseline gap-1 mt-0.5 mb-1">
+          <span
+            className="text-3xl font-black leading-none"
+            style={{ fontFamily: "'Syne', sans-serif", color }}
+          >
+            {startPrice}
+          </span>
+          {priceSuffix && (
+            <span className="text-sm text-gray-400 font-medium">
+              {priceSuffix}
+            </span>
+          )}
+        </div>
+        <p className="text-xs text-gray-400 mb-4">{priceNote}</p>
+
+        <div className="h-px bg-gray-100 mb-4" />
+
+        <ul className="space-y-2 mb-5 flex-1">
+          {features.map((f) => (
+            <li
+              key={f}
+              className="flex items-center gap-2.5 text-sm text-gray-600"
+            >
+              <span
+                className="w-5 h-5 rounded-full flex items-center justify-center text-xs flex-shrink-0 font-bold"
+                style={{
+                  background: lightBg,
+                  color,
+                  border: `1px solid ${lightBorder}`,
+                }}
+              >
+                ✓
+              </span>
+              {f}
+            </li>
+          ))}
+        </ul>
+
+        <button
+          onClick={() => openWhatsApp(waMessage)}
+          className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl font-bold text-white text-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:scale-95"
+          style={{ background: gradient }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="w-4 h-4"
+          >
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.135.561 4.135 1.535 5.865L0 24l6.29-1.495A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.663-.5-5.195-1.372l-.372-.22-3.863.917.972-3.769-.242-.388A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+          </svg>
+          Get a Quote on WhatsApp
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ─── Service Item (for "What We Do" section) ────────────────────────
 function ServiceItem({ icon, title, desc, imageUrl, color, tags }) {
   return (
     <div className="group rounded-3xl overflow-hidden border border-gray-100 bg-white shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col">
@@ -204,7 +328,7 @@ function ServiceItem({ icon, title, desc, imageUrl, color, tags }) {
   );
 }
 
-// ─── Value Card ─────────────────────────────────────────────────────
+// ─── Value Card ──────────────────────────────────────────────────────
 function ValueCard({ icon, title, desc, color }) {
   return (
     <div className="group relative rounded-2xl p-6 border border-gray-100 bg-white shadow-sm hover:shadow-xl transition-all duration-400 hover:-translate-y-1 overflow-hidden">
@@ -260,7 +384,7 @@ function TimelineStep({ year, title, desc, color, isLast }) {
   );
 }
 
-// ─── Section Divider ─────────────────────────────────────────────────
+// ─── Dividers ────────────────────────────────────────────────────────
 function WaveDivider({ topColor, bottomColor, flip = false }) {
   return (
     <div style={{ background: bottomColor, marginTop: -1 }}>
@@ -294,290 +418,421 @@ function SlantDivider({ topColor, bottomColor }) {
   );
 }
 
-// ─── MAIN ABOUT PAGE ─────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════════════
+
+const pricingServices = [
+  {
+    icon: "🌐",
+    title: "Web Development",
+    desc: "Next.js / React websites, landing pages & enterprise platforms",
+    imageUrl:
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=85",
+    color: "#6366f1",
+    gradient: "linear-gradient(135deg,#6366f1,#a78bfa)",
+    lightBg: "#eef0ff",
+    lightBorder: "#c7d2fe",
+    startPrice: "₹15,000",
+    priceNote: "Single page · Full projects from ₹45,000",
+    features: [
+      "Responsive design",
+      "SEO-ready structure",
+      "CMS integration",
+      "2 rounds of revisions",
+    ],
+    waMessage:
+      "Hello Merajsoft! 👋\n\nI'm interested in your *Web Development* service.\n\nCould you please share more details about pricing and packages?\n\nThank you!",
+  },
+  {
+    icon: "📱",
+    title: "Mobile App Development",
+    desc: "Cross-platform iOS & Android apps with React Native",
+    imageUrl:
+      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=85",
+    color: "#3b82f6",
+    gradient: "linear-gradient(135deg,#3b82f6,#93c5fd)",
+    lightBg: "#eff6ff",
+    lightBorder: "#bfdbfe",
+    popular: true,
+    startPrice: "₹35,000",
+    priceNote: "MVP · Full-featured apps from ₹1,20,000",
+    features: [
+      "iOS + Android both",
+      "Firebase backend",
+      "Push notifications",
+      "App Store deployment",
+    ],
+    waMessage:
+      "Hello Merajsoft! 👋\n\nI'm interested in your *Mobile App Development* service.\n\nI'd like to know more about React Native development packages and pricing.\n\nThank you!",
+  },
+  {
+    icon: "🛒",
+    title: "E-Commerce Solutions",
+    desc: "Shopify, WooCommerce or headless stores that convert",
+    imageUrl:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=85",
+    color: "#10b981",
+    gradient: "linear-gradient(135deg,#10b981,#6ee7b7)",
+    lightBg: "#ecfdf5",
+    lightBorder: "#a7f3d0",
+    startPrice: "₹25,000",
+    priceNote: "Basic store · Headless commerce from ₹80,000",
+    features: [
+      "Payment gateway setup",
+      "Inventory management",
+      "Mobile-optimised",
+      "Order & CRM sync",
+    ],
+    waMessage:
+      "Hello Merajsoft! 👋\n\nI'm interested in your *E-Commerce Solutions* service.\n\nCould you share Shopify / WooCommerce store development pricing?\n\nThank you!",
+  },
+  {
+    icon: "🔍",
+    title: "SEO Optimization",
+    desc: "Page 1 rankings via technical SEO, content & Core Web Vitals",
+    imageUrl:
+      "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&q=85",
+    color: "#f59e0b",
+    gradient: "linear-gradient(135deg,#f59e0b,#fcd34d)",
+    lightBg: "#fffbeb",
+    lightBorder: "#fde68a",
+    startPrice: "₹8,000",
+    priceSuffix: "/mo",
+    priceNote: "Starter · Full strategy from ₹18,000/mo",
+    features: [
+      "Technical SEO audit",
+      "Content strategy",
+      "Monthly rank report",
+      "Core Web Vitals fix",
+    ],
+    waMessage:
+      "Hello Merajsoft! 👋\n\nI'm interested in your *SEO Optimization* service.\n\nI'd like to know more about monthly SEO packages and what's included.\n\nThank you!",
+  },
+  {
+    icon: "📍",
+    title: "Google Business Profile",
+    desc: "Dominate local search with a fully optimised GBP",
+    imageUrl:
+      "https://images.unsplash.com/photo-1529311956543-4a7a517cf2cf?w=600&q=85",
+    color: "#ec4899",
+    gradient: "linear-gradient(135deg,#ec4899,#f9a8d4)",
+    lightBg: "#fdf2f8",
+    lightBorder: "#fbcfe8",
+    startPrice: "₹5,000",
+    priceNote: "One-time setup · Monthly mgmt from ₹3,500/mo",
+    features: [
+      "Full profile optimisation",
+      "Reviews strategy",
+      "Posts & Q&A setup",
+      "GMB insights report",
+    ],
+    waMessage:
+      "Hello Merajsoft! 👋\n\nI'm interested in your *Google Business Profile* service.\n\nCould you share GBP setup and monthly management pricing?\n\nThank you!",
+  },
+  {
+    icon: "☁️",
+    title: "Cloud & DevOps",
+    desc: "AWS / GCP deployments, Docker, Kubernetes & CI/CD pipelines",
+    imageUrl:
+      "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=600&q=85",
+    color: "#06b6d4",
+    gradient: "linear-gradient(135deg,#06b6d4,#67e8f9)",
+    lightBg: "#ecfeff",
+    lightBorder: "#a5f3fc",
+    startPrice: "₹12,000",
+    priceNote: "Basic setup · Enterprise infra from ₹50,000",
+    features: [
+      "Cloud architecture",
+      "CI/CD pipeline",
+      "Zero-downtime deploy",
+      "Monitoring & alerts",
+    ],
+    waMessage:
+      "Hello Merajsoft! 👋\n\nI'm interested in your *Cloud & DevOps* service.\n\nI'd like to know more about AWS/GCP setup and infrastructure management pricing.\n\nThank you!",
+  },
+];
+
+const teamMembers = [
+  {
+    name: "Rahil Khan",
+    role: "Founder & CEO",
+    avatar: "RK",
+    color: "#6366f1",
+    skills: [
+      "Product Strategy",
+      "Business Dev",
+      "Client Relations",
+      "Leadership",
+      "Sales",
+    ],
+    bio: "Visionary founder with 7+ years of experience scaling digital products. Led 150+ successful projects across FinTech, HealthTech, and E-Commerce domains.",
+  },
+  {
+    name: "Faiyyaz Khan",
+    role: "Co-Founder & CTO",
+    avatar: "FK",
+    color: "#8b5cf6",
+    skills: ["System Architecture", "Node.js", "AWS", "DevOps", "PostgreSQL"],
+    bio: "Backend powerhouse and cloud architect. Designed zero-downtime systems handling millions of transactions.",
+  },
+  {
+    name: "Ayesha Siddiqui",
+    role: "Project Manager",
+    avatar: "AS",
+    color: "#ec4899",
+    skills: [
+      "Agile / Scrum",
+      "Jira",
+      "Risk Management",
+      "Stakeholder Mgmt",
+      "Delivery",
+    ],
+    bio: "PMP-certified project manager who has orchestrated 80+ full-cycle deliveries. Ensures every sprint hits its target.",
+  },
+  {
+    name: "Dev Sharma",
+    role: "Lead Frontend Developer",
+    avatar: "DS",
+    color: "#3b82f6",
+    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    bio: "Pixel-perfect UI craftsman obsessed with performance. Turns Figma designs into blazing-fast, accessible React applications.",
+  },
+  {
+    name: "Aryan Mehta",
+    role: "Lead Backend Developer",
+    avatar: "AM",
+    color: "#10b981",
+    skills: ["Node.js", "Express", "GraphQL", "MongoDB", "Redis"],
+    bio: "API architect who builds bullet-proof, scalable backends. Specializes in real-time systems with WebSockets.",
+  },
+  {
+    name: "Nisha Patel",
+    role: "UI/UX Designer",
+    avatar: "NP",
+    color: "#f59e0b",
+    skills: [
+      "Figma",
+      "User Research",
+      "Prototyping",
+      "Design Systems",
+      "Motion",
+    ],
+    bio: "Human-centered designer who crafts intuitive interfaces that users love. Reduces friction and increases conversion rates by 3x.",
+  },
+  {
+    name: "Kabir Singh",
+    role: "Mobile App Developer",
+    avatar: "KS",
+    color: "#06b6d4",
+    skills: ["React Native", "iOS", "Android", "Firebase", "App Store"],
+    bio: "Cross-platform mobile expert who shipped 20+ apps. Builds smooth, native-feeling experiences with React Native.",
+  },
+  {
+    name: "Zara Ali",
+    role: "SEO & Digital Marketing Lead",
+    avatar: "ZA",
+    color: "#ef4444",
+    skills: [
+      "Technical SEO",
+      "Content Strategy",
+      "Google Ads",
+      "Analytics",
+      "GBP",
+    ],
+    bio: "Data-driven marketer who turned 50+ businesses into Page 1 results. Grew organic traffic by 400% for multiple clients.",
+  },
+  {
+    name: "Rohit Joshi",
+    role: "DevOps & Cloud Engineer",
+    avatar: "RJ",
+    color: "#8b5cf6",
+    skills: ["AWS", "Docker", "Kubernetes", "CI/CD", "Terraform"],
+    bio: "Infrastructure whiz who architects systems for scale, reliability, and speed. Reduced deployment time by 80%.",
+  },
+];
+
+const servicesOverview = [
+  {
+    icon: "🌐",
+    title: "Web Development",
+    desc: "Blazing-fast, SEO-optimized websites and web applications using Next.js, React, and Vue.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=85",
+    color: "#6366f1",
+    tags: ["Frontend", "Next.js", "React", "TypeScript", "Tailwind"],
+  },
+  {
+    icon: "📱",
+    title: "Mobile App Development",
+    desc: "Cross-platform iOS & Android apps with React Native. Smooth, native-feeling with real-time features.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=85",
+    color: "#3b82f6",
+    tags: ["Mobile", "React Native", "iOS", "Android", "Firebase"],
+  },
+  {
+    icon: "🛒",
+    title: "E-Commerce Solutions",
+    desc: "Scalable online stores built to convert. Custom Shopify, WooCommerce or headless commerce.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=85",
+    color: "#10b981",
+    tags: ["E-Commerce", "Shopify", "WooCommerce", "Stripe", "GraphQL"],
+  },
+  {
+    icon: "🔍",
+    title: "SEO Optimization",
+    desc: "Technical SEO audits, Core Web Vitals optimization, and local SEO to get your business on Page 1.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&q=85",
+    color: "#f59e0b",
+    tags: [
+      "SEO",
+      "Google Analytics",
+      "Core Web Vitals",
+      "Content",
+      "Local SEO",
+    ],
+  },
+  {
+    icon: "📍",
+    title: "Google Business Profile",
+    desc: "Dominate local search with a fully optimized GBP — reviews strategy, posts, Q&A, and GMB insights.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1529311956543-4a7a517cf2cf?w=600&q=85",
+    color: "#ec4899",
+    tags: ["Local SEO", "GBP", "Reviews", "Maps", "Local Ads"],
+  },
+  {
+    icon: "☁️",
+    title: "Cloud & DevOps",
+    desc: "AWS, GCP, and Azure deployments with Docker, Kubernetes, and CI/CD pipelines.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=600&q=85",
+    color: "#06b6d4",
+    tags: ["AWS", "Docker", "CI/CD", "Kubernetes", "Terraform"],
+  },
+];
+
+const values = [
+  {
+    icon: "🎯",
+    title: "Clarity Over Complexity",
+    desc: "We simplify the complex. Clean code, clear communication, and transparent processes from kickoff to launch.",
+    color: "#6366f1",
+  },
+  {
+    icon: "🔥",
+    title: "Obsessive Quality",
+    desc: "Every line of code, every pixel, every API call — reviewed, tested, and refined until it's exceptional.",
+    color: "#ec4899",
+  },
+  {
+    icon: "⚡",
+    title: "Speed with Precision",
+    desc: "Fast delivery is non-negotiable. Two-week sprints with demos, feedback loops, and zero surprises at launch.",
+    color: "#f59e0b",
+  },
+  {
+    icon: "🛡️",
+    title: "Security by Default",
+    desc: "OWASP compliance, end-to-end encryption, and penetration testing are baked in — never bolted on.",
+    color: "#10b981",
+  },
+  {
+    icon: "📈",
+    title: "Growth Mindset",
+    desc: "We don't just build — we think about scale. Architectures that handle 10x traffic without rewrites.",
+    color: "#3b82f6",
+  },
+  {
+    icon: "🤝",
+    title: "Partnership, Not Projects",
+    desc: "Our clients aren't tickets in a CRM. We become invested in your success beyond the delivery date.",
+    color: "#8b5cf6",
+  },
+];
+
+const timeline = [
+  {
+    year: "2018",
+    title: "Merajsoft Founded",
+    desc: "Started from Ghatkopar West, Mumbai with 2 developers and a vision to build world-class software for Indian businesses.",
+    color: "#6366f1",
+  },
+  {
+    year: "2019",
+    title: "First 20 Clients",
+    desc: "Delivered web and mobile solutions for local businesses across Mumbai. Built our first e-commerce platform serving 10K+ daily users.",
+    color: "#3b82f6",
+  },
+  {
+    year: "2020",
+    title: "SEO & Digital Wing",
+    desc: "Launched our digital marketing vertical. Helped 15+ businesses achieve Page 1 rankings during the pandemic's digital boom.",
+    color: "#10b981",
+  },
+  {
+    year: "2021",
+    title: "Team Scales to 15",
+    desc: "Hired senior engineers, designers, and a dedicated DevOps team. Delivered our first enterprise FinTech platform.",
+    color: "#f59e0b",
+  },
+  {
+    year: "2022",
+    title: "100+ Projects Milestone",
+    desc: "Crossed 100 successful deliveries. Expanded to HealthTech and EdTech sectors. Achieved 99.9% uptime SLA for 5 enterprise clients.",
+    color: "#ec4899",
+  },
+  {
+    year: "2023",
+    title: "Cloud-First Transformation",
+    desc: "Launched full-stack DevOps practice. Migrated 20+ client applications to AWS with zero-downtime CI/CD pipelines.",
+    color: "#8b5cf6",
+  },
+  {
+    year: "2024",
+    title: "AI Integration Practice",
+    desc: "Integrated GPT-4, ML Kit, and OpenAI into client products. Built AI-powered dashboards, chatbots, and recommendation engines.",
+    color: "#06b6d4",
+  },
+  {
+    year: "2025",
+    title: "40+ Team, 150+ Projects",
+    desc: "Today, Merajsoft is a full-service digital agency trusted by 150+ businesses across India. We're just getting started.",
+    color: "#ef4444",
+    isLast: true,
+  },
+];
+
+const stats = [
+  { value: 150, suffix: "+", label: "Projects Delivered", color: "#6366f1" },
+  { value: 98, suffix: "%", label: "Client Satisfaction", color: "#10b981" },
+  { value: 7, suffix: "+", label: "Years Experience", color: "#f59e0b" },
+  { value: 40, suffix: "+", label: "Team Members", color: "#ec4899" },
+];
+
+const tabContent = {
+  mission: {
+    title: "Our Mission",
+    text: "To empower Indian businesses — from bootstrapped startups to established enterprises — with world-class digital products that compete on a global stage. We believe geography should never limit ambition, and great software should be accessible to every business.",
+  },
+  vision: {
+    title: "Our Vision",
+    text: "To be India's most trusted technology partner by 2030. We envision a future where every business in our ecosystem runs on reliable, scalable, and beautiful digital infrastructure built by Merajsoft.",
+  },
+  story: {
+    title: "Our Story",
+    text: "Founded in 2018 in Ghatkopar West, Mumbai, Merajsoft started with two engineers and a shared belief: that Indian businesses deserve the same software quality as Silicon Valley. Seven years later, we've delivered 150+ projects, built a team of 40+ specialists, and never once compromised on quality.",
+  },
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// MAIN PAGE
+// ═══════════════════════════════════════════════════════════════════
 export default function About() {
   const [tab, setTab] = useState("mission");
-
-  const teamMembers = [
-    {
-      name: "Rahil Khan",
-      role: "Founder & CEO",
-      avatar: "RK",
-      color: "#6366f1",
-      skills: [
-        "Product Strategy",
-        "Business Dev",
-        "Client Relations",
-        "Leadership",
-        "Sales",
-      ],
-      bio: "Visionary founder with 7+ years of experience scaling digital products. Led 150+ successful projects across FinTech, HealthTech, and E-Commerce domains. Believes great software solves real business problems.",
-    },
-    {
-      name: "Faiyyaz Khan",
-      role: "Co-Founder & CTO",
-      avatar: "FK",
-      color: "#8b5cf6",
-      skills: ["System Architecture", "Node.js", "AWS", "DevOps", "PostgreSQL"],
-      bio: "Backend powerhouse and cloud architect. Designed zero-downtime systems handling millions of transactions. Expert in microservices, distributed systems, and CI/CD automation.",
-    },
-    {
-      name: "Ayesha Siddiqui",
-      role: "Project Manager",
-      avatar: "AS",
-      color: "#ec4899",
-      skills: [
-        "Agile / Scrum",
-        "Jira",
-        "Risk Management",
-        "Stakeholder Mgmt",
-        "Delivery",
-      ],
-      bio: "PMP-certified project manager who has orchestrated 80+ full-cycle deliveries. Ensures every sprint hits its target. Masters the art of keeping clients informed and teams aligned.",
-    },
-    {
-      name: "Dev Sharma",
-      role: "Lead Frontend Developer",
-      avatar: "DS",
-      color: "#3b82f6",
-      skills: [
-        "React",
-        "Next.js",
-        "TypeScript",
-        "Tailwind CSS",
-        "Framer Motion",
-      ],
-      bio: "Pixel-perfect UI craftsman obsessed with performance. Turns Figma designs into blazing-fast, accessible React applications. Lighthouse 98+ scores are his standard, not the goal.",
-    },
-    {
-      name: "Aryan Mehta",
-      role: "Lead Backend Developer",
-      avatar: "AM",
-      color: "#10b981",
-      skills: ["Node.js", "Express", "GraphQL", "MongoDB", "Redis"],
-      bio: "API architect who builds bullet-proof, scalable backends. Specializes in real-time systems with WebSockets, payment gateways, and OAuth integrations. Clean code evangelist.",
-    },
-    {
-      name: "Nisha Patel",
-      role: "UI/UX Designer",
-      avatar: "NP",
-      color: "#f59e0b",
-      skills: [
-        "Figma",
-        "User Research",
-        "Prototyping",
-        "Design Systems",
-        "Motion",
-      ],
-      bio: "Human-centered designer who crafts intuitive interfaces that users love. From wireframes to interactive prototypes, her designs reduce friction and increase conversion rates by 3x on average.",
-    },
-    {
-      name: "Kabir Singh",
-      role: "Mobile App Developer",
-      avatar: "KS",
-      color: "#06b6d4",
-      skills: ["React Native", "iOS", "Android", "Firebase", "App Store"],
-      bio: "Cross-platform mobile expert who shipped 20+ apps on both stores. Builds smooth, native-feeling experiences with React Native. Obsessed with 60fps animations and minimal battery usage.",
-    },
-    {
-      name: "Zara Ali",
-      role: "SEO & Digital Marketing Lead",
-      avatar: "ZA",
-      color: "#ef4444",
-      skills: [
-        "Technical SEO",
-        "Content Strategy",
-        "Google Ads",
-        "Analytics",
-        "GBP",
-      ],
-      bio: "Data-driven marketer who turned 50+ businesses into Page 1 results. Expert in Core Web Vitals, structured data, and local SEO. Grew organic traffic by 400% for multiple clients in under 6 months.",
-    },
-    {
-      name: "Rohit Joshi",
-      role: "DevOps & Cloud Engineer",
-      avatar: "RJ",
-      color: "#8b5cf6",
-      skills: ["AWS", "Docker", "Kubernetes", "CI/CD", "Terraform"],
-      bio: "Infrastructure whiz who architects systems for scale, reliability, and speed. Set up zero-downtime pipelines for enterprise clients. Reduced deployment time by 80% across the board.",
-    },
-  ];
-
-  const services = [
-    {
-      icon: "🌐",
-      title: "Web Development",
-      desc: "We build blazing-fast, SEO-optimized websites and web applications using Next.js, React, and Vue. From landing pages to enterprise platforms — pixel-perfect and production-ready.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=85",
-      color: "#6366f1",
-      tags: ["Frontend", "Next.js", "React", "TypeScript", "Tailwind"],
-    },
-    {
-      icon: "📱",
-      title: "Mobile App Development",
-      desc: "Cross-platform iOS & Android apps built with React Native. We deliver smooth, native-feeling apps with real-time features, push notifications, and App Store deployments.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=85",
-      color: "#3b82f6",
-      tags: ["Mobile", "React Native", "iOS", "Android", "Firebase"],
-    },
-    {
-      icon: "🛒",
-      title: "E-Commerce Solutions",
-      desc: "Scalable online stores built to convert. Custom Shopify themes, WooCommerce setups, or fully headless commerce — integrated with payments, inventory, and CRM.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=85",
-      color: "#10b981",
-      tags: ["E-Commerce", "Shopify", "WooCommerce", "Stripe", "GraphQL"],
-    },
-    {
-      icon: "🔍",
-      title: "SEO Optimization",
-      desc: "Technical SEO audits, content strategy, Core Web Vitals optimization, and local SEO. We get your business on Page 1 and keep it there with data-driven strategies.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&q=85",
-      color: "#f59e0b",
-      tags: [
-        "SEO",
-        "Google Analytics",
-        "Core Web Vitals",
-        "Content",
-        "Local SEO",
-      ],
-    },
-    {
-      icon: "📍",
-      title: "Google Business Profile",
-      desc: "Dominate local search with a fully optimized Google Business Profile — reviews strategy, posts, Q&A, photos, and GMB insights to grow your local customer base.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1529311956543-4a7a517cf2cf?w=600&q=85",
-      color: "#ec4899",
-      tags: ["Local SEO", "GBP", "Reviews", "Maps", "Local Ads"],
-    },
-    {
-      icon: "☁️",
-      title: "Cloud & DevOps",
-      desc: "AWS, GCP, and Azure deployments with Docker, Kubernetes, and CI/CD pipelines. We automate your infrastructure so you can ship faster and sleep better.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=600&q=85",
-      color: "#06b6d4",
-      tags: ["AWS", "Docker", "CI/CD", "Kubernetes", "Terraform"],
-    },
-  ];
-
-  const values = [
-    {
-      icon: "🎯",
-      title: "Clarity Over Complexity",
-      desc: "We simplify the complex. Clean code, clear communication, and transparent processes from kickoff to launch.",
-      color: "#6366f1",
-    },
-    {
-      icon: "🔥",
-      title: "Obsessive Quality",
-      desc: "Every line of code, every pixel, every API call — reviewed, tested, and refined until it's exceptional.",
-      color: "#ec4899",
-    },
-    {
-      icon: "⚡",
-      title: "Speed with Precision",
-      desc: "Fast delivery is non-negotiable. Two-week sprints with demos, feedback loops, and zero surprises at launch.",
-      color: "#f59e0b",
-    },
-    {
-      icon: "🛡️",
-      title: "Security by Default",
-      desc: "OWASP compliance, end-to-end encryption, and penetration testing are baked in — never bolted on.",
-      color: "#10b981",
-    },
-    {
-      icon: "📈",
-      title: "Growth Mindset",
-      desc: "We don't just build — we think about scale. Architectures that handle 10x traffic without rewrites.",
-      color: "#3b82f6",
-    },
-    {
-      icon: "🤝",
-      title: "Partnership, Not Projects",
-      desc: "Our clients aren't tickets in a CRM. We become invested in your success beyond the delivery date.",
-      color: "#8b5cf6",
-    },
-  ];
-
-  const timeline = [
-    {
-      year: "2018",
-      title: "Merajsoft Founded",
-      desc: "Started from Ghatkopar West, Mumbai with 2 developers and a vision to build world-class software for Indian businesses.",
-      color: "#6366f1",
-    },
-    {
-      year: "2019",
-      title: "First 20 Clients",
-      desc: "Delivered web and mobile solutions for local businesses across Mumbai. Built our first e-commerce platform serving 10K+ daily users.",
-      color: "#3b82f6",
-    },
-    {
-      year: "2020",
-      title: "SEO & Digital Wing",
-      desc: "Launched our digital marketing vertical. Helped 15+ businesses achieve Page 1 rankings during the pandemic's digital boom.",
-      color: "#10b981",
-    },
-    {
-      year: "2021",
-      title: "Team Scales to 15",
-      desc: "Hired senior engineers, designers, and a dedicated DevOps team. Delivered our first enterprise FinTech platform.",
-      color: "#f59e0b",
-    },
-    {
-      year: "2022",
-      title: "100+ Projects Milestone",
-      desc: "Crossed 100 successful deliveries. Expanded to HealthTech and EdTech sectors. Achieved 99.9% uptime SLA for 5 enterprise clients.",
-      color: "#ec4899",
-    },
-    {
-      year: "2023",
-      title: "Cloud-First Transformation",
-      desc: "Launched full-stack DevOps practice. Migrated 20+ client applications to AWS with zero-downtime CI/CD pipelines.",
-      color: "#8b5cf6",
-    },
-    {
-      year: "2024",
-      title: "AI Integration Practice",
-      desc: "Integrated GPT-4, ML Kit, and OpenAI into client products. Built AI-powered dashboards, chatbots, and recommendation engines.",
-      color: "#06b6d4",
-    },
-    {
-      year: "2025",
-      title: "40+ Team, 150+ Projects",
-      desc: "Today, Merajsoft is a full-service digital agency trusted by 150+ businesses across India. We're just getting started.",
-      color: "#ef4444",
-      isLast: true,
-    },
-  ];
-
-  const stats = [
-    { value: 150, suffix: "+", label: "Projects Delivered", color: "#6366f1" },
-    { value: 98, suffix: "%", label: "Client Satisfaction", color: "#10b981" },
-    { value: 7, suffix: "+", label: "Years Experience", color: "#f59e0b" },
-    { value: 40, suffix: "+", label: "Team Members", color: "#ec4899" },
-  ];
-
-  const tabContent = {
-    mission: {
-      title: "Our Mission",
-      text: "To empower Indian businesses — from bootstrapped startups to established enterprises — with world-class digital products that compete on a global stage. We believe geography should never limit ambition, and great software should be accessible to every business.",
-    },
-    vision: {
-      title: "Our Vision",
-      text: "To be India's most trusted technology partner by 2030. We envision a future where every business in our ecosystem runs on reliable, scalable, and beautiful digital infrastructure built by Merajsoft.",
-    },
-    story: {
-      title: "Our Story",
-      text: "Founded in 2018 in Ghatkopar West, Mumbai, Merajsoft started with two engineers and a shared belief: that Indian businesses deserve the same software quality as Silicon Valley. Seven years later, we've delivered 150+ projects, built a team of 40+ specialists, and never once compromised on the quality that defines us.",
-    },
-  };
 
   return (
     <main
@@ -587,23 +842,16 @@ export default function About() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800;900&display=swap');
         .hero-title { font-family: 'Syne', sans-serif; }
-        .gradient-text {
-          background: linear-gradient(135deg, #6366f1 0%, #a78bfa 50%, #ec4899 100%);
-          -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        }
+        .gradient-text { background: linear-gradient(135deg, #6366f1 0%, #a78bfa 50%, #ec4899 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes borderFlow { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
         @keyframes spin { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
         .fade-1 { animation: fadeUp 0.8s ease 0.1s both; }
         .fade-2 { animation: fadeUp 0.8s ease 0.25s both; }
         .fade-3 { animation: fadeUp 0.8s ease 0.4s both; }
         .dot-grid { background-image: radial-gradient(circle, rgba(99,102,241,0.15) 1px, transparent 1px); background-size: 28px 28px; }
         .shimmer-border { position: relative; }
-        .shimmer-border::after {
-          content: ''; position: absolute; inset: -2px; border-radius: inherit;
-          background: linear-gradient(135deg, #6366f1, #a78bfa, #ec4899, #6366f1);
-          background-size: 300% 300%; animation: borderFlow 4s ease infinite; z-index: -1;
-        }
+        .shimmer-border::after { content: ''; position: absolute; inset: -2px; border-radius: inherit; background: linear-gradient(135deg, #6366f1, #a78bfa, #ec4899, #6366f1); background-size: 300% 300%; animation: borderFlow 4s ease infinite; z-index: -1; }
+        @keyframes borderFlow { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
         .tab-active { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white !important; border-color: transparent !important; }
         .section-label { display: inline-flex; align-items: center; gap: 8px; }
         .section-label::before, .section-label::after { content: ''; display: block; width: 24px; height: 2px; background: currentColor; opacity: 0.5; border-radius: 2px; }
@@ -611,7 +859,7 @@ export default function About() {
       `}</style>
 
       {/* ══════════════════════════════════════════════════════════
-          SECTION 1 — HERO  (dark navy)
+          SECTION 1 — HERO (dark navy)
       ══════════════════════════════════════════════════════════ */}
       <section
         className="relative overflow-hidden"
@@ -639,30 +887,11 @@ export default function About() {
             transform: "translate(-50%, -50%)",
           }}
         />
-
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-          <p className="fade-3 text-gray-400 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-            Merajsoft is a full-service software agency from Ghatkopar West,
-            Mumbai — crafting digital products that scale, convert, and inspire.
-            7 years. 150+ projects. Zero shortcuts.
-          </p>
           <div className="fade-3 flex flex-wrap justify-center gap-3">
-            <a
-              href="https://wa.me/919372381936"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl font-bold text-white text-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
-              style={{
-                background: "linear-gradient(135deg, #25D366, #128C7E)",
-              }}
-            >
-              💬 Start a Project
-            </a>
-            <Link href="/contact">
-              <button className="px-7 py-3.5 rounded-2xl font-bold text-white text-sm border border-white/20 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white/10">
-                See Our Work →
-              </button>
-            </Link>
+            <h2 className="hero-title text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
+              <span className="gradient-text">Simple, Honest Pricing</span>
+            </h2>
           </div>
         </div>
       </section>
@@ -671,25 +900,56 @@ export default function About() {
       <WaveDivider topColor="#060610" bottomColor="#ffffff" />
 
       {/* ══════════════════════════════════════════════════════════
-          SECTION 2 — STATS  (pure white)
+          SECTION 2 — PRICING (white bg, directly after hero)
       ══════════════════════════════════════════════════════════ */}
-      <section className="relative py-16 bg-white">
-        {/* top accent bar */}
+      <section className="relative py-20 px-6 bg-white">
+        {/* Rainbow top bar */}
         <div
           className="absolute top-0 left-0 right-0 h-1"
           style={{
             background:
-              "linear-gradient(90deg, #6366f1, #a78bfa, #ec4899, #06b6d4)",
+              "linear-gradient(90deg, #6366f1, #a78bfa, #ec4899, #f59e0b, #10b981, #06b6d4)",
           }}
         />
+
+        <div className="max-w-7xl mx-auto">
+          {/* Pricing Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+            {pricingServices.map((s) => (
+              <PriceCard key={s.title} service={s} />
+            ))}
+          </div>
+
+          {/* Footer note */}
+          <p className="text-center text-xs text-gray-400 mt-10">
+            All prices are indicative. Final quote depends on scope &
+            requirements.{" "}
+            <button
+              onClick={() =>
+                openWhatsApp(
+                  "Hello Merajsoft! 👋\n\nI'm interested in a *Custom Bundle* combining multiple services.\n\nCould you please share a custom quote?\n\nThank you!",
+                )
+              }
+              className="font-bold underline underline-offset-2"
+              style={{ color: "#6366f1" }}
+            >
+              Custom bundles available →
+            </button>
+          </p>
+        </div>
+      </section>
+
+      {/* Slant: white → lavender */}
+      <SlantDivider topColor="#ffffff" bottomColor="#f1f0fe" />
+
+      {/* ══════════════════════════════════════════════════════════
+          SECTION 3 — STATS (lavender tint)
+      ══════════════════════════════════════════════════════════ */}
+      <section className="relative py-16" style={{ background: "#f1f0fe" }}>
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((s) => (
               <div key={s.label} className="text-center group relative">
-                <div
-                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ background: `${s.color}06` }}
-                />
                 <div
                   className="hero-title text-4xl md:text-5xl font-black mb-1"
                   style={{ color: s.color }}
@@ -709,19 +969,19 @@ export default function About() {
         </div>
       </section>
 
-      {/* Slant: white → soft lavender */}
-      <SlantDivider topColor="#ffffff" bottomColor="#f1f0fe" />
+      {/* Wave: lavender → dark */}
+      <WaveDivider topColor="#f1f0fe" bottomColor="#0a0a18" />
 
       {/* ══════════════════════════════════════════════════════════
-          SECTION 3 — MISSION / VISION / STORY  (lavender tint)
+          SECTION 4 — MISSION / VISION / STORY (dark)
       ══════════════════════════════════════════════════════════ */}
-      <section className="py-20 px-6" style={{ background: "#f1f0fe" }}>
+      <section className="py-20 px-6" style={{ background: "#0a0a18" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <span className="section-label text-indigo-500 font-semibold text-xs uppercase tracking-[0.2em]">
+            <span className="section-label text-indigo-400 font-semibold text-xs uppercase tracking-[0.2em]">
               Who We Are
             </span>
-            <h2 className="hero-title text-4xl font-extrabold text-gray-900 mt-3">
+            <h2 className="hero-title text-4xl font-extrabold text-white mt-3">
               Driven by <span className="gradient-text">Purpose</span>
             </h2>
           </div>
@@ -730,7 +990,7 @@ export default function About() {
               <button
                 key={t}
                 onClick={() => setTab(t)}
-                className={`px-6 py-2.5 rounded-full text-sm font-bold border transition-all duration-300 capitalize ${tab === t ? "tab-active" : "border-indigo-200 text-gray-600 hover:border-indigo-400 hover:text-indigo-500 bg-white"}`}
+                className={`px-6 py-2.5 rounded-full text-sm font-bold border transition-all duration-300 capitalize ${tab === t ? "tab-active" : "border-indigo-800 text-gray-400 hover:border-indigo-400 hover:text-indigo-400 bg-white/5"}`}
               >
                 {t === "mission"
                   ? "🎯 Mission"
@@ -740,56 +1000,33 @@ export default function About() {
               </button>
             ))}
           </div>
-          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-lg border border-indigo-100 text-center transition-all duration-300">
+          <div
+            className="rounded-3xl p-8 md:p-10 text-center transition-all duration-300"
+            style={{
+              background: "linear-gradient(135deg, #0c0c1e, #12082e)",
+              border: "1px solid rgba(99,102,241,0.2)",
+            }}
+          >
             <div className="text-5xl mb-4">
               {tab === "mission" ? "🎯" : tab === "vision" ? "🔭" : "📖"}
             </div>
-            <h3 className="hero-title text-2xl font-bold text-gray-900 mb-4">
+            <h3 className="hero-title text-2xl font-bold text-white mb-4">
               {tabContent[tab].title}
             </h3>
-            <p className="text-gray-500 text-base leading-relaxed max-w-2xl mx-auto">
+            <p className="text-gray-400 text-base leading-relaxed max-w-2xl mx-auto">
               {tabContent[tab].text}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Wave: lavender → dark */}
-      <WaveDivider topColor="#f1f0fe" bottomColor="#0a0a18" />
-
-      {/* ══════════════════════════════════════════════════════════
-          SECTION 4 — SERVICES  (dark bg for contrast punch)
-      ══════════════════════════════════════════════════════════ */}
-      <section className="py-20 px-6" style={{ background: "#0a0a18" }}>
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-14">
-            <span className="section-label text-indigo-400 font-semibold text-xs uppercase tracking-[0.2em]">
-              What We Do
-            </span>
-            <h2 className="hero-title text-4xl md:text-5xl font-extrabold text-white mt-3">
-              Our Core <span className="gradient-text">Services</span>
-            </h2>
-            <p className="text-gray-500 max-w-xl mx-auto mt-3 text-sm">
-              End-to-end digital solutions across web, mobile, cloud, and growth
-              marketing.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-            {services.map((s) => (
-              <ServiceItem key={s.title} {...s} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Wave: dark → mint tint */}
+      {/* Wave: dark → white */}
       <WaveDivider topColor="#0a0a18" bottomColor="#f0fdf8" />
 
       {/* ══════════════════════════════════════════════════════════
-          SECTION 5 — CORE VALUES  (mint/green tint)
+          SECTION 5 — CORE VALUES (mint)
       ══════════════════════════════════════════════════════════ */}
       <section className="py-20 px-6" style={{ background: "#f0fdf8" }}>
-        {/* bottom accent line */}
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
             <span className="section-label text-emerald-600 font-semibold text-xs uppercase tracking-[0.2em]">
@@ -819,7 +1056,7 @@ export default function About() {
       </div>
 
       {/* ══════════════════════════════════════════════════════════
-          SECTION 6 — TEAM  (white, top rainbow border)
+          SECTION 6 — TEAM (white)
       ══════════════════════════════════════════════════════════ */}
       <section className="relative py-20 px-6 bg-white">
         <div
@@ -850,11 +1087,11 @@ export default function About() {
         </div>
       </section>
 
-      {/* Wave: white → amber tint */}
+      {/* Wave: white → amber */}
       <WaveDivider topColor="#ffffff" bottomColor="#fffbeb" flip />
 
       {/* ══════════════════════════════════════════════════════════
-          SECTION 7 — TIMELINE  (warm amber tint)
+          SECTION 7 — TIMELINE (amber)
       ══════════════════════════════════════════════════════════ */}
       <section className="py-20 px-6" style={{ background: "#fffbeb" }}>
         <div className="max-w-2xl mx-auto">
@@ -890,10 +1127,9 @@ export default function About() {
       </div>
 
       {/* ══════════════════════════════════════════════════════════
-          SECTION 8 — WHY CHOOSE US  (white, left accent border)
+          SECTION 8 — WHY CHOOSE US (white)
       ══════════════════════════════════════════════════════════ */}
       <section className="relative py-20 px-6 bg-white overflow-hidden">
-        {/* decorative side strip */}
         <div
           className="absolute left-0 top-0 bottom-0 w-2"
           style={{ background: "linear-gradient(180deg, #6366f1, #ec4899)" }}
@@ -988,11 +1224,11 @@ export default function About() {
         </div>
       </section>
 
-      {/* Wave: white → cyan tint */}
+      {/* Wave: white → cyan */}
       <WaveDivider topColor="#ffffff" bottomColor="#f0fdff" />
 
       {/* ══════════════════════════════════════════════════════════
-          SECTION 9 — LOCATION  (cyan/sky tint)
+          SECTION 9 — LOCATION (cyan)
       ══════════════════════════════════════════════════════════ */}
       <section className="py-20 px-6" style={{ background: "#f0fdff" }}>
         <div className="max-w-5xl mx-auto">
@@ -1067,11 +1303,11 @@ export default function About() {
         </div>
       </section>
 
-      {/* Wave: cyan → dark for CTA */}
+      {/* Wave: cyan → dark */}
       <WaveDivider topColor="#f0fdff" bottomColor="#060610" />
 
       {/* ══════════════════════════════════════════════════════════
-          SECTION 10 — CTA  (back to dark, full circle)
+          SECTION 10 — CTA (dark)
       ══════════════════════════════════════════════════════════ */}
       <section className="py-20 px-6" style={{ background: "#060610" }}>
         <div className="max-w-3xl mx-auto text-center">
@@ -1098,17 +1334,19 @@ export default function About() {
                 real conversation about what's possible.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="https://wa.me/919372381936?text=Hello%20Merajsoft!%20I%20want%20to%20discuss%20a%20project."
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={() =>
+                    openWhatsApp(
+                      "Hello Merajsoft! 👋\n\nI want to discuss a project with you.\n\nCould we connect?\n\nThank you!",
+                    )
+                  }
                   className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-white text-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
                   style={{
                     background: "linear-gradient(135deg, #25D366, #128C7E)",
                   }}
                 >
                   💬 WhatsApp Us Now
-                </a>
+                </button>
                 <Link href="/contact">
                   <button className="px-8 py-4 rounded-2xl font-bold text-white text-sm border border-white/20 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white/10">
                     Contact Us →
