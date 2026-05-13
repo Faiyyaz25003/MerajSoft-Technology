@@ -1,3 +1,4 @@
+
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
@@ -38,12 +39,10 @@ function Counter({ target, suffix = "", duration = 2000 }) {
 }
 
 // ─── Particle Field ─────────────────────────────────────────────────
-// Fixed: particles generated client-side only to avoid SSR hydration mismatch
 function ParticleField() {
   const [particles, setParticles] = useState([]);
 
   useEffect(() => {
-    // Generate particles only on client — never on server
     const generated = Array.from({ length: 40 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
@@ -70,7 +69,6 @@ function ParticleField() {
           }}
         />
       ))}
-      {/* Large orbs */}
       <div
         className="absolute rounded-full blur-3xl opacity-20 animate-pulse"
         style={{
@@ -108,8 +106,155 @@ function ParticleField() {
   );
 }
 
+// ─── Service Modal ───────────────────────────────────────────────────
+function ServiceModal({ service, onClose }) {
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  if (!service) return null;
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(6px)" }}
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-2xl rounded-2xl border border-white/10 p-8"
+        style={{
+          background: "linear-gradient(135deg, #0f0f1f 0%, #141428 100%)",
+          boxShadow: `0 0 80px ${service.color}30, 0 40px 80px rgba(0,0,0,0.7)`,
+          animation: "fadeUp 0.3s ease both",
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors text-xl leading-none"
+        >
+          ✕
+        </button>
+
+        {/* Header */}
+        <div className="flex items-center gap-4 mb-6">
+          <div
+            className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
+            style={{
+              background: `${service.color}20`,
+              border: `1px solid ${service.color}40`,
+            }}
+          >
+            {service.icon}
+          </div>
+          <div>
+            <h3 className="text-white font-bold text-2xl hero-title">
+              {service.title}
+            </h3>
+            <p
+              style={{ color: service.color }}
+              className="text-sm font-medium mt-0.5"
+            >
+              {service.modal.tagline}
+            </p>
+          </div>
+        </div>
+
+        {/* Body — two columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Left */}
+          <div>
+            <p className="text-gray-300 text-sm leading-relaxed mb-6">
+              {service.modal.detail}
+            </p>
+            <div className="mb-3 text-white font-bold text-sm">
+              Key Benefits
+            </div>
+            <ul className="space-y-2">
+              {service.modal.benefits.map((b) => (
+                <li
+                  key={b}
+                  className="flex items-center gap-2 text-gray-300 text-sm"
+                >
+                  <span style={{ color: service.color }}>✓</span> {b}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Right */}
+          <div>
+            <div className="mb-3 text-white font-bold text-sm">
+              Features Included
+            </div>
+            <ul className="space-y-2 mb-6">
+              {service.modal.features.map((f) => (
+                <li
+                  key={f}
+                  className="flex items-center gap-2 text-gray-300 text-sm"
+                >
+                  <span style={{ color: service.color }}>✓</span> {f}
+                </li>
+              ))}
+            </ul>
+
+            {/* Result chip */}
+            <div
+              className="rounded-xl p-4 border"
+              style={{
+                background: `${service.color}10`,
+                borderColor: `${service.color}30`,
+              }}
+            >
+              <div className="text-white font-bold text-sm mb-1">
+                Our Results
+              </div>
+              <div className="text-gray-400 text-xs mb-3">
+                {service.modal.result.label}
+              </div>
+              <span
+                className="text-xs font-bold px-3 py-1.5 rounded-full"
+                style={{ background: service.color, color: "#fff" }}
+              >
+                {service.modal.result.value}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer buttons */}
+        <div className="flex items-center justify-between mt-8 pt-6 border-t border-white/10">
+          <button
+            className="px-6 py-3 rounded-xl font-bold text-sm text-white transition-all duration-200 hover:opacity-90 flex items-center gap-2"
+            style={{
+              background: `linear-gradient(135deg, ${service.color}, ${service.color}aa)`,
+            }}
+          >
+            Get Started →
+          </button>
+          <button
+            onClick={onClose}
+            className="px-6 py-3 rounded-xl font-bold text-sm text-gray-300 border border-white/10 hover:border-white/25 hover:text-white transition-all duration-200"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Service Card ────────────────────────────────────────────────────
-function ServiceCard({ icon, title, desc, color, delay }) {
+function ServiceCard({ icon, title, desc, color, delay, onLearnMore }) {
   return (
     <div
       className="group relative rounded-2xl p-6 border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl cursor-pointer overflow-hidden"
@@ -135,17 +280,18 @@ function ServiceCard({ icon, title, desc, color, delay }) {
       </div>
       <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
       <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
-      <div
-        className="mt-4 flex items-center gap-2 text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0"
+      <button
+        onClick={onLearnMore}
+        className="mt-4 flex items-center gap-2 text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-transparent border-none cursor-pointer p-0"
         style={{ color }}
       >
         Learn more <span>→</span>
-      </div>
+      </button>
     </div>
   );
 }
 
-// ─── Project Card (Advanced) ─────────────────────────────────────────
+// ─── Project Card ────────────────────────────────────────────────────
 function ProjectCard({
   title,
   tech,
@@ -164,7 +310,6 @@ function ProjectCard({
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-        {/* Category badge */}
         <span
           className="absolute top-3 left-3 text-xs font-bold px-3 py-1 rounded-full border backdrop-blur-sm"
           style={{
@@ -184,7 +329,6 @@ function ProjectCard({
           {title}
         </h3>
         <p className="text-gray-500 text-xs mb-4 font-mono">{tech}</p>
-        {/* Stats row */}
         <div className="flex gap-4 border-t border-white/5 pt-4">
           {stats.map((s) => (
             <div key={s.label}>
@@ -199,7 +343,6 @@ function ProjectCard({
           ))}
         </div>
       </div>
-      {/* Glow on hover */}
       <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
         style={{ boxShadow: `inset 0 0 40px ${accentColor}15` }}
@@ -220,14 +363,12 @@ function TestimonialCard({
 }) {
   return (
     <div className="rounded-2xl p-6 border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/8 hover:border-white/20 transition-all duration-300 flex flex-col gap-4 group hover:-translate-y-1">
-      {/* Quote mark */}
       <div
         className="text-5xl font-serif leading-none -mb-2 opacity-30"
         style={{ color }}
       >
         "
       </div>
-      {/* Stars */}
       <div className="flex gap-1">
         {[...Array(5)].map((_, i) => (
           <span key={i} className="text-yellow-400 text-sm">
@@ -236,7 +377,6 @@ function TestimonialCard({
         ))}
       </div>
       <p className="text-gray-300 text-sm leading-relaxed flex-1">{text}</p>
-      {/* Highlight chip */}
       {highlight && (
         <div
           className="text-xs font-semibold px-3 py-1 rounded-full w-fit"
@@ -290,6 +430,7 @@ function TechItem({ name, logoUrl, color }) {
 // ─── MAIN PAGE ───────────────────────────────────────────────────────
 export default function HomePage() {
   const [heroVisible, setHeroVisible] = useState(false);
+  const [activeService, setActiveService] = useState(null);
 
   useEffect(() => {
     const t = setTimeout(() => setHeroVisible(true), 100);
@@ -300,38 +441,168 @@ export default function HomePage() {
     {
       icon: "🌐",
       title: "Web Development",
-      desc: "Blazing-fast, SEO-optimized websites with modern frameworks like Next.js, React & Vue.",
       color: "#6366f1",
+      desc: "Blazing-fast, SEO-optimized websites with modern frameworks like Next.js, React & Vue.",
+      modal: {
+        tagline: "Modern, fast & scalable web experiences",
+        detail:
+          "We build high-performance websites and web apps using cutting-edge frameworks. From landing pages to complex dashboards, every pixel is crafted for speed, SEO, and conversion.",
+        benefits: [
+          "Lightning-fast load times",
+          "SEO-optimized from ground up",
+          "Mobile-first responsive design",
+          "Scalable architecture",
+        ],
+        features: [
+          "Next.js / React / Vue.js",
+          "Tailwind CSS + Custom UI",
+          "API Integration",
+          "CMS Setup",
+          "Performance Audits",
+        ],
+        result: {
+          label: "Average performance score",
+          value: "98/100 Lighthouse",
+        },
+      },
     },
     {
       icon: "📱",
       title: "App Development",
-      desc: "Cross-platform mobile apps for iOS & Android using React Native & Flutter.",
       color: "#3b82f6",
+      desc: "Cross-platform mobile apps for iOS & Android using React Native & Flutter.",
+      modal: {
+        tagline: "Native-quality apps for every platform",
+        detail:
+          "We craft beautiful, performant mobile apps using React Native and Flutter. One codebase, two platforms — without compromising on quality or user experience.",
+        benefits: [
+          "Single codebase for iOS & Android",
+          "Native-like performance",
+          "Offline-first capabilities",
+          "Push notifications & analytics",
+        ],
+        features: [
+          "React Native / Flutter",
+          "Firebase Integration",
+          "App Store Deployment",
+          "In-App Purchases",
+          "Real-time features",
+        ],
+        result: { label: "Average app store rating", value: "4.8★ Rating" },
+      },
     },
     {
       icon: "🛒",
       title: "E-Commerce",
-      desc: "Scalable online stores with Shopify, WooCommerce, or custom-built solutions.",
       color: "#10b981",
+      desc: "Scalable online stores with Shopify, WooCommerce, or custom-built solutions.",
+      modal: {
+        tagline: "Sell more with smarter storefronts",
+        detail:
+          "From Shopify themes to fully custom headless commerce, we build stores that convert. Integrated payments, inventory, and analytics — all optimized for revenue growth.",
+        benefits: [
+          "Higher conversion rates",
+          "Fast checkout experience",
+          "Inventory & order management",
+          "Multi-currency support",
+        ],
+        features: [
+          "Shopify / WooCommerce",
+          "Headless Commerce",
+          "Stripe / Razorpay",
+          "Product Catalog",
+          "Analytics Dashboard",
+        ],
+        result: {
+          label: "Average client revenue growth",
+          value: "↑ 3x Revenue",
+        },
+      },
     },
     {
       icon: "🔍",
       title: "SEO Optimization",
-      desc: "Drive organic traffic with technical SEO, content strategies & performance audits.",
       color: "#f59e0b",
+      desc: "Drive organic traffic with technical SEO, content strategies & performance audits.",
+      modal: {
+        tagline: "Sustainable organic growth",
+        detail:
+          "Our SEO strategies combine technical excellence with content optimization to improve rankings and drive qualified traffic that converts.",
+        benefits: [
+          "Higher search rankings",
+          "Increased organic traffic",
+          "Better user experience",
+          "Long-term results",
+          "Competitive advantage",
+        ],
+        features: [
+          "Technical SEO Audits",
+          "Keyword Research",
+          "Content Optimization",
+          "Link Building",
+          "Local SEO",
+        ],
+        result: {
+          label: "Average improvement for clients",
+          value: "↑ 200% Traffic",
+        },
+      },
     },
     {
       icon: "📍",
       title: "Google Business Profile",
-      desc: "Dominate local search results and grow your local customer base effectively.",
       color: "#ec4899",
+      desc: "Dominate local search results and grow your local customer base effectively.",
+      modal: {
+        tagline: "Own your local market",
+        detail:
+          "We optimize and manage your Google Business Profile to ensure you appear prominently in local searches, Maps, and the local pack — turning nearby searches into real customers.",
+        benefits: [
+          "Top of local search results",
+          "More walk-in customers",
+          "Better online reputation",
+          "Increased call volume",
+        ],
+        features: [
+          "GBP Setup & Verification",
+          "Review Management",
+          "Post Scheduling",
+          "Q&A Optimization",
+          "Insights Reporting",
+        ],
+        result: {
+          label: "Average increase in local calls",
+          value: "↑ 150% Calls",
+        },
+      },
     },
     {
       icon: "☁️",
       title: "Cloud & DevOps",
-      desc: "AWS, GCP, and Azure deployments with CI/CD pipelines and infrastructure as code.",
       color: "#06b6d4",
+      desc: "AWS, GCP, and Azure deployments with CI/CD pipelines and infrastructure as code.",
+      modal: {
+        tagline: "Reliable infrastructure at any scale",
+        detail:
+          "We design, deploy, and manage cloud infrastructure that keeps your product running at 99.9% uptime. Automated pipelines, zero-downtime deployments, and cost-optimized architecture.",
+        benefits: [
+          "99.9% uptime guarantee",
+          "80% faster deployments",
+          "Auto-scaling infrastructure",
+          "Cost optimization",
+        ],
+        features: [
+          "AWS / GCP / Azure",
+          "Docker & Kubernetes",
+          "CI/CD Pipelines",
+          "Infrastructure as Code",
+          "Monitoring & Alerts",
+        ],
+        result: {
+          label: "Average deployment time reduction",
+          value: "↓ 80% Deploy Time",
+        },
+      },
     },
   ];
 
@@ -342,7 +613,6 @@ export default function HomePage() {
     { value: 40, suffix: "+", label: "Expert Team Members" },
   ];
 
-  // ── ADVANCED PROJECTS ──────────────────────────────────────────────
   const projects = [
     {
       title: "NeoBank — AI Finance Platform",
@@ -402,7 +672,6 @@ export default function HomePage() {
     },
   ];
 
-  // ── TESTIMONIALS — software quality focused ────────────────────────
   const testimonials = [
     {
       name: "Priya Sharma",
@@ -460,7 +729,6 @@ export default function HomePage() {
     },
   ];
 
-  // ── TECH STACK — Express.js instead of Python, React Native instead of Flutter ──
   const techStack = [
     {
       name: "React",
@@ -656,9 +924,7 @@ export default function HomePage() {
           border: 1px solid rgba(255,255,255,0.08);
           backdrop-filter: blur(20px);
         }
-        .glow-border {
-          position: relative;
-        }
+        .glow-border { position: relative; }
         .glow-border::before {
           content: '';
           position: absolute;
@@ -716,9 +982,8 @@ export default function HomePage() {
         }
       `}</style>
 
-      {/* ── HERO — Full Screen Background Image ── */}
+      {/* ── HERO ── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* ── FULL SCREEN BG IMAGE ── */}
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1800&q=90"
@@ -726,7 +991,6 @@ export default function HomePage() {
             className="w-full h-full object-cover"
             style={{ animation: "heroImgReveal 1.4s ease both" }}
           />
-          {/* Dark overlay — top heavy so text is readable */}
           <div
             className="absolute inset-0"
             style={{
@@ -734,7 +998,6 @@ export default function HomePage() {
                 "linear-gradient(to bottom, rgba(6,6,16,0.82) 0%, rgba(6,6,16,0.55) 45%, rgba(6,6,16,0.80) 75%, rgba(6,6,16,1) 100%)",
             }}
           />
-          {/* Side vignettes */}
           <div
             className="absolute inset-0"
             style={{
@@ -742,7 +1005,6 @@ export default function HomePage() {
                 "linear-gradient(to right, rgba(6,6,16,0.6) 0%, transparent 25%, transparent 75%, rgba(6,6,16,0.6) 100%)",
             }}
           />
-          {/* Indigo color cast */}
           <div
             className="absolute inset-0 opacity-30"
             style={{
@@ -752,10 +1014,8 @@ export default function HomePage() {
           />
         </div>
 
-        {/* Particle layer on top of image */}
         <ParticleField />
 
-        {/* Rotating rings */}
         <div
           className="animate-spin-slow opacity-[0.08]"
           style={{
@@ -775,7 +1035,6 @@ export default function HomePage() {
           }}
         />
 
-        {/* Grid overlay */}
         <div
           className="absolute inset-0 opacity-[0.03] z-[1]"
           style={{
@@ -784,25 +1043,7 @@ export default function HomePage() {
           }}
         />
 
-        {/* Content */}
-        <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full">
-          {/* Floating badges — bottom corners */}
-          {/* <div className="badge-left absolute left-6 md:left-12 bottom-16 glass-card rounded-2xl px-4 py-3 flex items-center gap-3 shadow-2xl z-10 border border-white/15">
-            <div className="w-10 h-10 rounded-xl bg-green-500/25 flex items-center justify-center text-xl">✅</div>
-            <div>
-              <div className="text-white font-bold text-sm">150+ Projects</div>
-              <div className="text-gray-400 text-xs">Successfully Delivered</div>
-            </div>
-          </div> */}
-
-          {/* <div className="badge-right absolute right-6 md:right-12 bottom-16 glass-card rounded-2xl px-4 py-3 flex items-center gap-3 shadow-2xl z-10 border border-white/15">
-            <div className="w-10 h-10 rounded-xl bg-indigo-500/25 flex items-center justify-center text-xl">⭐</div>
-            <div>
-              <div className="text-white font-bold text-sm">98% Satisfaction</div>
-              <div className="text-gray-400 text-xs">Client Rating</div>
-            </div>
-          </div> */}
-        </div>
+        <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full" />
       </section>
 
       {/* ── STATS ── */}
@@ -816,7 +1057,7 @@ export default function HomePage() {
         />
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((s, i) => (
+            {stats.map((s) => (
               <div key={s.label} className="text-center group relative">
                 <div
                   className="absolute -inset-3 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -853,7 +1094,12 @@ export default function HomePage() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
-            <ServiceCard key={s.title} {...s} delay={i * 80} />
+            <ServiceCard
+              key={s.title}
+              {...s}
+              delay={i * 80}
+              onLearnMore={() => setActiveService(s)}
+            />
           ))}
         </div>
       </section>
@@ -1033,6 +1279,14 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── SERVICE MODAL ── */}
+      {activeService && (
+        <ServiceModal
+          service={activeService}
+          onClose={() => setActiveService(null)}
+        />
+      )}
     </main>
   );
 }
