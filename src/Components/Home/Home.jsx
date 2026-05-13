@@ -1,4 +1,5 @@
 
+
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
@@ -137,15 +138,12 @@ function ServiceModal({ service, onClose }) {
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
         <button
           onClick={onClose}
           className="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors text-xl leading-none"
         >
           ✕
         </button>
-
-        {/* Header */}
         <div className="flex items-center gap-4 mb-6">
           <div
             className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
@@ -168,10 +166,7 @@ function ServiceModal({ service, onClose }) {
             </p>
           </div>
         </div>
-
-        {/* Body — two columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Left */}
           <div>
             <p className="text-gray-300 text-sm leading-relaxed mb-6">
               {service.modal.detail}
@@ -190,8 +185,6 @@ function ServiceModal({ service, onClose }) {
               ))}
             </ul>
           </div>
-
-          {/* Right */}
           <div>
             <div className="mb-3 text-white font-bold text-sm">
               Features Included
@@ -206,8 +199,6 @@ function ServiceModal({ service, onClose }) {
                 </li>
               ))}
             </ul>
-
-            {/* Result chip */}
             <div
               className="rounded-xl p-4 border"
               style={{
@@ -230,8 +221,6 @@ function ServiceModal({ service, onClose }) {
             </div>
           </div>
         </div>
-
-        {/* Footer buttons */}
         <div className="flex items-center justify-between mt-8 pt-6 border-t border-white/10">
           <button
             className="px-6 py-3 rounded-xl font-bold text-sm text-white transition-all duration-200 hover:opacity-90 flex items-center gap-2"
@@ -291,7 +280,7 @@ function ServiceCard({ icon, title, desc, color, delay, onLearnMore }) {
   );
 }
 
-// ─── Project Card ────────────────────────────────────────────────────
+// ─── Project Card (3D Flip) ──────────────────────────────────────────
 function ProjectCard({
   title,
   tech,
@@ -300,53 +289,324 @@ function ProjectCard({
   emoji,
   stats,
   accentColor,
+  about,
+  features,
+  devInfo,
+  metrics,
 }) {
+  const [flipped, setFlipped] = useState(false);
+
   return (
-    <div className="group relative rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:border-white/25 transition-all duration-500 hover:-translate-y-2 cursor-pointer">
-      <div className="h-52 relative overflow-hidden">
-        <img
-          src={imageUrl}
-          alt={title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-        <span
-          className="absolute top-3 left-3 text-xs font-bold px-3 py-1 rounded-full border backdrop-blur-sm"
+    <div
+      style={{ height: "360px", perspective: "1200px", cursor: "pointer" }}
+      onMouseEnter={() => setFlipped(true)}
+      onMouseLeave={() => setFlipped(false)}
+    >
+      {/* Flip wrapper */}
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          transformStyle: "preserve-3d",
+          transition: "transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1)",
+          transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+        }}
+      >
+        {/* ── FRONT FACE ── */}
+        <div
           style={{
-            background: `${accentColor}25`,
-            borderColor: `${accentColor}50`,
-            color: accentColor,
+            position: "absolute",
+            inset: 0,
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            borderRadius: "16px",
+            overflow: "hidden",
+            border: "1px solid rgba(255,255,255,0.10)",
+            background: "rgba(255,255,255,0.05)",
           }}
         >
-          {category}
-        </span>
-        <span className="absolute top-3 right-3 text-2xl group-hover:scale-125 transition-transform duration-500">
-          {emoji}
-        </span>
-      </div>
-      <div className="p-5">
-        <h3 className="text-white font-bold text-lg mb-1 group-hover:text-indigo-300 transition-colors duration-300">
-          {title}
-        </h3>
-        <p className="text-gray-500 text-xs mb-4 font-mono">{tech}</p>
-        <div className="flex gap-4 border-t border-white/5 pt-4">
-          {stats.map((s) => (
-            <div key={s.label}>
-              <div
-                className="text-white font-bold text-sm"
-                style={{ color: accentColor }}
-              >
-                {s.value}
-              </div>
-              <div className="text-gray-600 text-xs">{s.label}</div>
+          {/* Image */}
+          <div
+            style={{
+              height: "200px",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            <img
+              src={imageUrl}
+              alt={title}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background:
+                  "linear-gradient(to bottom, transparent 40%, rgba(6,6,16,0.92) 100%)",
+              }}
+            />
+            {/* Category badge */}
+            <span
+              style={{
+                position: "absolute",
+                top: 10,
+                left: 10,
+                fontSize: 11,
+                fontWeight: 700,
+                padding: "3px 10px",
+                borderRadius: 99,
+                background: `${accentColor}25`,
+                border: `1px solid ${accentColor}50`,
+                color: accentColor,
+                backdropFilter: "blur(6px)",
+              }}
+            >
+              {category}
+            </span>
+            {/* Emoji */}
+            <span
+              style={{ position: "absolute", top: 10, right: 10, fontSize: 22 }}
+            >
+              {emoji}
+            </span>
+          </div>
+
+          {/* Body */}
+          <div style={{ padding: "14px 16px" }}>
+            <h3
+              className="hero-title"
+              style={{
+                color: "#fff",
+                fontWeight: 700,
+                fontSize: 14,
+                margin: "0 0 4px",
+              }}
+            >
+              {title}
+            </h3>
+            <p
+              style={{
+                color: "#6b7280",
+                fontSize: 11,
+                fontFamily: "monospace",
+                margin: "0 0 12px",
+              }}
+            >
+              {tech}
+            </p>
+            <div
+              style={{
+                display: "flex",
+                gap: 16,
+                borderTop: "1px solid rgba(255,255,255,0.06)",
+                paddingTop: 10,
+              }}
+            >
+              {stats.map((s) => (
+                <div key={s.label}>
+                  <div
+                    style={{
+                      color: accentColor,
+                      fontWeight: 700,
+                      fontSize: 13,
+                    }}
+                  >
+                    {s.value}
+                  </div>
+                  <div style={{ color: "#6b7280", fontSize: 10 }}>
+                    {s.label}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+        </div>
+
+        {/* ── BACK FACE ── */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            transform: "rotateY(180deg)",
+            borderRadius: "16px",
+            border: `1px solid ${accentColor}30`,
+            background: "linear-gradient(135deg, #0f0f1f 0%, #141428 100%)",
+            padding: "20px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 0,
+            boxShadow: `0 0 40px ${accentColor}20`,
+          }}
+        >
+          {/* Glow line at top */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: 2,
+              borderRadius: "16px 16px 0 0",
+              background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)`,
+            }}
+          />
+
+          <h3
+            className="hero-title"
+            style={{
+              color: accentColor,
+              fontWeight: 700,
+              fontSize: 14,
+              marginBottom: 14,
+            }}
+          >
+            {title}
+          </h3>
+
+          {/* About */}
+          <div style={{ marginBottom: 10 }}>
+            <div
+              style={{
+                fontSize: 9,
+                fontWeight: 700,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: accentColor,
+                opacity: 0.75,
+                marginBottom: 4,
+              }}
+            >
+              About Project
+            </div>
+            <p
+              style={{
+                color: "#d1d5db",
+                fontSize: 11,
+                lineHeight: 1.55,
+                margin: 0,
+              }}
+            >
+              {about}
+            </p>
+          </div>
+
+          {/* Main Features */}
+          <div style={{ marginBottom: 10 }}>
+            <div
+              style={{
+                fontSize: 9,
+                fontWeight: 700,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: accentColor,
+                opacity: 0.75,
+                marginBottom: 4,
+              }}
+            >
+              Main Features
+            </div>
+            <p
+              style={{
+                color: "#d1d5db",
+                fontSize: 11,
+                lineHeight: 1.55,
+                margin: 0,
+              }}
+            >
+              {features}
+            </p>
+          </div>
+
+          {/* Development Info */}
+          <div style={{ marginBottom: 10 }}>
+            <div
+              style={{
+                fontSize: 9,
+                fontWeight: 700,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: accentColor,
+                opacity: 0.75,
+                marginBottom: 5,
+              }}
+            >
+              Development Info
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+              {devInfo.map((d) => (
+                <span
+                  key={d}
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 600,
+                    padding: "2px 8px",
+                    borderRadius: 6,
+                    background: `${accentColor}18`,
+                    color: accentColor,
+                    border: `1px solid ${accentColor}30`,
+                  }}
+                >
+                  {d}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Project Metrics */}
+          <div style={{ marginBottom: 14 }}>
+            <div
+              style={{
+                fontSize: 9,
+                fontWeight: 700,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: accentColor,
+                opacity: 0.75,
+                marginBottom: 4,
+              }}
+            >
+              Project Metrics
+            </div>
+            <p
+              style={{
+                color: "#d1d5db",
+                fontSize: 11,
+                lineHeight: 1.55,
+                margin: 0,
+              }}
+            >
+              {metrics}
+            </p>
+          </div>
+
+          {/* CTA */}
+          <button
+            style={{
+              marginTop: "auto",
+              alignSelf: "flex-start",
+              fontSize: 11,
+              fontWeight: 700,
+              padding: "7px 14px",
+              borderRadius: 8,
+              background: `linear-gradient(135deg, ${accentColor}, ${accentColor}99)`,
+              color: "#fff",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            View Project →
+          </button>
         </div>
       </div>
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
-        style={{ boxShadow: `inset 0 0 40px ${accentColor}15` }}
-      />
     </div>
   );
 }
@@ -613,6 +873,7 @@ export default function HomePage() {
     { value: 40, suffix: "+", label: "Expert Team Members" },
   ];
 
+  // ── All 4 projects with unique flip-back data ──
   const projects = [
     {
       title: "NeoBank — AI Finance Platform",
@@ -627,6 +888,20 @@ export default function HomePage() {
         { value: "99.9%", label: "Uptime" },
         { value: "4.8★", label: "Rating" },
       ],
+      about:
+        "AI-powered banking dashboard with real-time fraud detection, personalized financial insights, and seamless multi-currency support for 2.4M+ transactions.",
+      features:
+        "Real-time analytics · AI fraud detection · Multi-currency wallet · Instant transfers · KYC onboarding · Smart budgeting",
+      devInfo: [
+        "Next.js",
+        "Node.js",
+        "PostgreSQL",
+        "OpenAI",
+        "Stripe",
+        "Redis",
+      ],
+      metrics:
+        "2.4M+ transactions · 99.9% uptime · 12ms TTFB · 98/100 Lighthouse · 4.8★ rating",
     },
     {
       title: "PulseHealth — Telemedicine App",
@@ -641,6 +916,20 @@ export default function HomePage() {
         { value: "HIPAA", label: "Compliant" },
         { value: "< 1s", label: "Load Time" },
       ],
+      about:
+        "Cross-platform telemedicine app enabling HD video consultations, e-prescriptions, and AI-assisted health monitoring for 50,000+ active patients.",
+      features:
+        "HD video consultations · E-prescriptions · Vitals tracking · Doctor booking · Lab reports · Appointment reminders",
+      devInfo: [
+        "React Native",
+        "Firebase",
+        "Node.js",
+        "WebRTC",
+        "ML Kit",
+        "AWS",
+      ],
+      metrics:
+        "50K+ patients · HIPAA certified · <1s load time · 4.9★ App Store · 300+ doctors onboarded",
     },
     {
       title: "NexCart — Headless Commerce",
@@ -655,6 +944,13 @@ export default function HomePage() {
         { value: "98/100", label: "Lighthouse" },
         { value: "12ms", label: "TTFB" },
       ],
+      about:
+        "Headless Shopify storefront with blazing-fast performance, AI-powered product recommendations, and a seamless checkout flow that tripled client revenue.",
+      features:
+        "Headless storefront · AI recommendations · One-click checkout · Inventory management · Multi-currency · Analytics dashboard",
+      devInfo: ["Next.js", "Shopify", "GraphQL", "Stripe", "Redis", "Vercel"],
+      metrics:
+        "3x revenue growth · 98/100 Lighthouse · 12ms TTFB · 40% cart abandonment reduction",
     },
     {
       title: "SkillForge — AI Learning Platform",
@@ -669,6 +965,13 @@ export default function HomePage() {
         { value: "500+", label: "Courses" },
         { value: "4.9★", label: "App Store" },
       ],
+      about:
+        "GPT-4 powered adaptive learning platform that personalizes course paths for 100,000+ learners across 500+ courses with real-time progress tracking.",
+      features:
+        "AI adaptive learning · Live coding sandbox · Peer collaboration · Certificates · Progress analytics · Mentor sessions",
+      devInfo: ["Vue.js", "Django", "AWS", "GPT-4", "WebSockets", "PostgreSQL"],
+      metrics:
+        "100K+ learners · 500+ courses · 4.9★ App Store · 87% course completion rate · 40+ languages",
     },
   ];
 
@@ -1145,7 +1448,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── PROJECTS ── */}
+      {/* ── PROJECTS (3D Flip Cards) ── */}
       <section className="py-28 px-6 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-4">
           <div>
@@ -1158,6 +1461,9 @@ export default function HomePage() {
             <p className="text-gray-400 mt-2 text-sm max-w-md">
               Real-world platforms serving millions of users, built with
               precision.
+              <span className="text-indigo-400 ml-1 text-xs">
+                Hover to explore ↗
+              </span>
             </p>
           </div>
           <Link href="/projects">
