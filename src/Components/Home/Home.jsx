@@ -627,7 +627,6 @@ function TestimonialCard({
         className="text-5xl font-serif leading-none -mb-2 opacity-30"
         style={{ color }}
       >
-        "
       </div>
       <div className="flex gap-1">
         {[...Array(5)].map((_, i) => (
@@ -904,7 +903,7 @@ export default function HomePage() {
         "2.4M+ transactions · 99.9% uptime · 12ms TTFB · 98/100 Lighthouse · 4.8★ rating",
     },
     {
-      title: "PulseHealth — Telemedicine App",
+      title: "PulseHealth — Telemedicine",
       tech: "React Native · Firebase · Node.js · WebRTC · ML Kit",
       category: "HealthTech",
       imageUrl:
@@ -953,7 +952,7 @@ export default function HomePage() {
         "3x revenue growth · 98/100 Lighthouse · 12ms TTFB · 40% cart abandonment reduction",
     },
     {
-      title: "SkillForge — AI Learning Platform",
+      title: "SkillForge — AI Learning",
       tech: "Vue.js · Django · AWS · GPT-4 · WebSockets",
       category: "EdTech",
       imageUrl:
