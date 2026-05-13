@@ -152,6 +152,7 @@ const pricingServices = [
     color: "#6366f1",
     gradient: "linear-gradient(135deg,#6366f1,#a78bfa)",
     lightBg: "#eef0ff",
+    popular: true,
     lightBorder: "#c7d2fe",
     startPrice: "₹15,000",
     priceNote: "Single page · Full projects from ₹45,000",
@@ -174,7 +175,7 @@ const pricingServices = [
     gradient: "linear-gradient(135deg,#3b82f6,#93c5fd)",
     lightBg: "#eff6ff",
     lightBorder: "#bfdbfe",
-    popular: true,
+    popular: false,
     startPrice: "₹35,000",
     priceNote: "MVP · Full-featured apps from ₹1,20,000",
     features: [
@@ -218,6 +219,7 @@ const pricingServices = [
     lightBg: "#fffbeb",
     lightBorder: "#fde68a",
     startPrice: "₹8,000",
+    popular: true,
     priceSuffix: "/mo",
     priceNote: "Starter · Full strategy from ₹18,000/mo",
     features: [
@@ -240,6 +242,7 @@ const pricingServices = [
     lightBg: "#fdf2f8",
     lightBorder: "#fbcfe8",
     startPrice: "₹5,000",
+    popular: true,
     priceNote: "One-time setup · Monthly mgmt from ₹3,500/mo",
     features: [
       "Full profile optimisation",
