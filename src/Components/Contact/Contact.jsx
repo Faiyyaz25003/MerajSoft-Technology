@@ -369,7 +369,7 @@ export default function Contact() {
           <div className="fade-1 inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-5 py-2 mb-6 backdrop-blur-sm">
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             <span className="text-gray-300 text-xs font-semibold tracking-widest uppercase">
-              We're Available Now
+              We are Available Now
             </span>
           </div>
 
@@ -521,7 +521,7 @@ export default function Contact() {
               Ready to Get Started?
             </h3>
             <p className="text-gray-500 text-sm mb-7 max-w-sm mx-auto">
-              Let's discuss your project on WhatsApp — quick, easy, and no
+              Lets discuss your project on WhatsApp — quick, easy, and no
               commitment.
             </p>
             <a
