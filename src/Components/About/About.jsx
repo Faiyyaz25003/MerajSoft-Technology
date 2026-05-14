@@ -718,11 +718,8 @@ export default function About() {
       <section className="py-20 px-6" style={{ background: "#f1f0fe" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <span className="section-label text-indigo-500 font-semibold text-xs uppercase tracking-[0.2em]">
-              Who We Are
-            </span>
             <h2 className="hero-title text-4xl font-extrabold text-gray-900 mt-3">
-              Driven by <span className="gradient-text">Purpose</span>
+              Who W<span className="gradient-text">e Are</span>
             </h2>
           </div>
           <div className="flex justify-center gap-3 mb-8 flex-wrap">
@@ -763,16 +760,9 @@ export default function About() {
       <section className="py-20 px-6" style={{ background: "#0a0a18" }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <span className="section-label text-indigo-400 font-semibold text-xs uppercase tracking-[0.2em]">
-              What We Do
-            </span>
             <h2 className="hero-title text-4xl md:text-5xl font-extrabold text-white mt-3">
-              Our Core <span className="gradient-text">Services</span>
+              What <span className="gradient-text">We Do</span>
             </h2>
-            <p className="text-gray-500 max-w-xl mx-auto mt-3 text-sm">
-              End-to-end digital solutions across web, mobile, cloud, and growth
-              marketing.
-            </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
             {services.map((s) => (
@@ -792,11 +782,8 @@ export default function About() {
         {/* bottom accent line */}
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <span className="section-label text-emerald-600 font-semibold text-xs uppercase tracking-[0.2em]">
-              What We Stand For
-            </span>
             <h2 className="hero-title text-4xl md:text-5xl font-extrabold text-gray-900 mt-3">
-              Our Core <span className="gradient-text">Values</span>
+              What We <span className="gradient-text">Stand For</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -831,16 +818,9 @@ export default function About() {
         />
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <span className="section-label text-indigo-500 font-semibold text-xs uppercase tracking-[0.2em]">
-              The People
-            </span>
             <h2 className="hero-title text-4xl md:text-5xl font-extrabold text-gray-900 mt-3">
-              Meet the <span className="gradient-text">Dream Team</span>
+              Our <span className="gradient-text">Team</span>
             </h2>
-            <p className="text-gray-500 max-w-xl mx-auto mt-3 text-sm">
-              40+ experts in development, design, DevOps, and growth. Hover any
-              card to learn more.
-            </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {teamMembers.map((m) => (
@@ -859,11 +839,8 @@ export default function About() {
       <section className="py-20 px-6" style={{ background: "#fffbeb" }}>
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-14">
-            <span className="section-label text-amber-600 font-semibold text-xs uppercase tracking-[0.2em]">
-              Our Journey
-            </span>
             <h2 className="hero-title text-4xl font-extrabold text-gray-900 mt-3">
-              7 Years of <span className="gradient-text">Growth</span>
+              Our <span className="gradient-text">Journey</span>
             </h2>
           </div>
           <div className="bg-white rounded-3xl p-8 shadow-lg border border-amber-100">
@@ -901,19 +878,14 @@ export default function About() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <span className="section-label text-indigo-500 font-semibold text-xs uppercase tracking-[0.2em]">
-                Why Merajsoft
-              </span>
               <h2 className="hero-title text-4xl font-extrabold text-gray-900 mt-3 mb-6">
-                The <span className="gradient-text">Merajsoft</span>
-                <br />
-                Difference
+                Why <span className="gradient-text">Merajsoft</span>
               </h2>
               <p className="text-gray-500 text-sm leading-relaxed mb-8">
-                We've worked with agencies who overpromise. We've worked with
-                freelancers who disappear mid-project. We built Merajsoft to be
-                the alternative — a team that ships on time, communicates
-                clearly, and builds software you're proud to show the world.
+                We have worked with agencies who overpromise. We have worked
+                with freelancers who disappear mid-project. We built Merajsoft
+                to be the alternative — a team that ships on time, communicates
+                clearly, and builds software you are proud to show the world.
               </p>
               <div className="space-y-4">
                 {[
@@ -997,11 +969,8 @@ export default function About() {
       <section className="py-20 px-6" style={{ background: "#f0fdff" }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <span className="section-label text-cyan-600 font-semibold text-xs uppercase tracking-[0.2em]">
-              Where We Are
-            </span>
             <h2 className="hero-title text-4xl font-extrabold text-gray-900 mt-3">
-              Based in <span className="gradient-text">Mumbai</span>
+              Where <span className="gradient-text">We Are</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
