@@ -1381,18 +1381,11 @@ export default function HomePage() {
       </section>
 
       {/* ── SERVICES ── */}
-      <section className="py-28 px-6 max-w-7xl mx-auto">
+      <section className="py-4 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <span className="text-indigo-400 font-semibold text-xs uppercase tracking-[0.2em]">
-            What We Do
-          </span>
-          <h2 className="hero-title text-4xl md:text-5xl font-extrabold mt-3 mb-5">
-            Services That <span className="gradient-text">Drive Growth</span>
+          <h2 className="hero-title text-4xl md:text-5xl font-extrabold mt-3">
+            What <span className="gradient-text">We Do</span>
           </h2>
-          <p className="text-gray-400 max-w-xl mx-auto">
-            End-to-end digital solutions — from ideation to deployment and
-            beyond.
-          </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
@@ -1408,14 +1401,11 @@ export default function HomePage() {
 
       {/* ── PROCESS ── */}
       <section
-        className="py-28 px-6"
+        className="py-10 px-6"
         style={{ background: "rgba(99,102,241,0.03)" }}
       >
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="text-indigo-400 font-semibold text-xs uppercase tracking-[0.2em]">
-              How We Work
-            </span>
+          <div className="text-center mb-4">
             <h2 className="hero-title text-4xl md:text-5xl font-extrabold mt-3">
               Our <span className="gradient-text">Process</span>
             </h2>
@@ -1451,19 +1441,9 @@ export default function HomePage() {
       <section className="py-28 px-6 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-4">
           <div>
-            <span className="text-indigo-400 font-semibold text-xs uppercase tracking-[0.2em]">
-              Our Work
-            </span>
             <h2 className="hero-title text-4xl md:text-5xl font-extrabold mt-3">
-              Featured <span className="gradient-text">Projects</span>
+              Our<span className="gradient-text"> Work</span>
             </h2>
-            <p className="text-gray-400 mt-2 text-sm max-w-md">
-              Real-world platforms serving millions of users, built with
-              precision.
-              <span className="text-indigo-400 ml-1 text-xs">
-                Hover to explore ↗
-              </span>
-            </p>
           </div>
           <Link href="/projects">
             <button className="text-indigo-400 font-semibold hover:text-indigo-300 transition flex items-center gap-2 group">
@@ -1483,20 +1463,13 @@ export default function HomePage() {
 
       {/* ── TECH STACK ── */}
       <section
-        className="py-28 px-6"
+        className="py-10 px-6"
         style={{ background: "rgba(99,102,241,0.03)" }}
       >
         <div className="max-w-6xl mx-auto text-center">
-          <span className="text-indigo-400 font-semibold text-xs uppercase tracking-[0.2em]">
-            Technologies
-          </span>
           <h2 className="hero-title text-4xl font-extrabold mt-3 mb-4">
             Our <span className="gradient-text">Tech Stack</span>
           </h2>
-          <p className="text-gray-400 mb-14 max-w-lg mx-auto">
-            We work with industry-leading tools and frameworks to build
-            scalable, modern solutions.
-          </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5 w-full">
             {techStack.map((t) => (
               <TechItem key={t.name} {...t} />
@@ -1506,19 +1479,11 @@ export default function HomePage() {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section className="py-28 px-6 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="text-indigo-400 font-semibold text-xs uppercase tracking-[0.2em]">
-            Client Love
-          </span>
+      <section className="py-10 px-6 max-w-7xl mx-auto">
+        <div className="text-center mb-6">
           <h2 className="hero-title text-4xl md:text-5xl font-extrabold mt-3">
             What Clients <span className="gradient-text">Say</span>
           </h2>
-          <p className="text-gray-500 mt-3 text-sm">
-            Businesses that chose{" "}
-            <span className="text-indigo-400 font-semibold">Merajsoft</span>{" "}
-            never looked back.
-          </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((t) => (
@@ -1529,16 +1494,13 @@ export default function HomePage() {
 
       {/* ── WHY US ── */}
       <section
-        className="py-24 px-6"
+        className="py-10 px-6"
         style={{ background: "rgba(99,102,241,0.03)" }}
       >
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <span className="text-indigo-400 font-semibold text-xs uppercase tracking-[0.2em]">
-              Why Merajsoft
-            </span>
             <h2 className="hero-title text-4xl md:text-5xl font-extrabold mt-3">
-              The <span className="gradient-text">Difference</span>
+              Why <span className="gradient-text">Merajsoft</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
