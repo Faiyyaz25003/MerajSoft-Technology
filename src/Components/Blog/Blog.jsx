@@ -6,40 +6,30 @@ const services = [
     id: 1,
     title: "Web Development",
     icon: "🌐",
-    color: "from-cyan-500 to-blue-600",
-    accent: "#06b6d4",
     desc: "Modern, scalable web applications built with cutting-edge technologies.",
   },
   {
     id: 2,
     title: "App Development",
     icon: "📱",
-    color: "from-violet-500 to-purple-700",
-    accent: "#8b5cf6",
-    desc: "Native and cross-platform mobile apps that deliver exceptional user experiences.",
+    desc: "Native and cross-platform mobile apps for exceptional user experiences.",
   },
   {
     id: 3,
-    title: "Google Business Profile",
+    title: "Google Business",
     icon: "📍",
-    color: "from-emerald-400 to-teal-600",
-    accent: "#10b981",
-    desc: "Optimize your Google presence to attract more local customers and boost visibility.",
+    desc: "Optimize your Google presence to attract more local customers.",
   },
   {
     id: 4,
     title: "E-commerce",
     icon: "🛒",
-    color: "from-orange-400 to-rose-600",
-    accent: "#f97316",
     desc: "Powerful online stores with seamless checkout and inventory management.",
   },
   {
     id: 5,
     title: "SEO",
     icon: "🚀",
-    color: "from-yellow-400 to-amber-600",
-    accent: "#f59e0b",
     desc: "Data-driven SEO strategies to rank higher and drive organic traffic.",
   },
 ];
@@ -48,366 +38,477 @@ const blogPosts = [
   {
     id: 1,
     category: "Web Development",
-    categoryColor: "bg-cyan-500",
+    catColor: "#0ea5e9",
+    catBg: "#f0f9ff",
+    accent: "#0ea5e9",
     title: "Building Scalable Web Apps with Next.js 14 & Server Components",
     excerpt:
       "Discover how React Server Components revolutionize data fetching, reduce bundle sizes, and supercharge performance in modern web development.",
     author: "Arjun Mehta",
-    authorAvatar: "AM",
-    avatarColor: "from-cyan-400 to-blue-500",
+    initials: "AM",
+    avatarColor: "#0ea5e9",
     date: "May 10, 2026",
-    readTime: "8 min read",
-    image: "web-dev",
-    featured: true,
+    readTime: "8 min",
     tags: ["Next.js", "React", "Performance"],
-    videoThumb: false,
+    featured: true,
   },
   {
     id: 2,
     category: "App Development",
-    categoryColor: "bg-violet-500",
+    catColor: "#8b5cf6",
+    catBg: "#f5f3ff",
+    accent: "#8b5cf6",
     title: "React Native vs Flutter: The Ultimate 2026 Comparison",
     excerpt:
-      "A deep-dive into choosing the right cross-platform framework for your next mobile project — performance benchmarks, ecosystem, and developer experience.",
+      "A deep-dive into choosing the right cross-platform framework — performance benchmarks, ecosystem, and developer experience.",
     author: "Priya Sharma",
-    authorAvatar: "PS",
-    avatarColor: "from-violet-400 to-purple-600",
+    initials: "PS",
+    avatarColor: "#8b5cf6",
     date: "May 7, 2026",
-    readTime: "12 min read",
-    image: "app-dev",
-    featured: false,
+    readTime: "12 min",
     tags: ["Flutter", "React Native", "Mobile"],
-    videoThumb: true,
+    featured: false,
+    video: true,
   },
   {
     id: 3,
     category: "SEO",
-    categoryColor: "bg-amber-500",
+    catColor: "#f59e0b",
+    catBg: "#fffbeb",
+    accent: "#f59e0b",
     title: "AI-Powered SEO: How Semantic Search is Changing Rankings",
     excerpt:
       "Google's AI-driven ranking algorithms now prioritize intent and context. Learn how to future-proof your content strategy.",
     author: "Rohan Verma",
-    authorAvatar: "RV",
-    avatarColor: "from-yellow-400 to-amber-500",
+    initials: "RV",
+    avatarColor: "#f59e0b",
     date: "May 3, 2026",
-    readTime: "6 min read",
-    image: "seo",
-    featured: false,
+    readTime: "6 min",
     tags: ["SEO", "AI", "Content"],
-    videoThumb: false,
+    featured: false,
   },
   {
     id: 4,
     category: "E-commerce",
-    categoryColor: "bg-rose-500",
+    catColor: "#ef4444",
+    catBg: "#fef2f2",
+    accent: "#ef4444",
     title: "Headless Commerce: Building Lightning-Fast Storefronts",
     excerpt:
       "Decouple your frontend from the backend and unlock unprecedented speed and flexibility for your online store.",
     author: "Sneha Joshi",
-    authorAvatar: "SJ",
-    avatarColor: "from-rose-400 to-pink-600",
+    initials: "SJ",
+    avatarColor: "#ef4444",
     date: "Apr 28, 2026",
-    readTime: "10 min read",
-    image: "ecommerce",
-    featured: false,
+    readTime: "10 min",
     tags: ["E-commerce", "Headless", "API"],
-    videoThumb: true,
+    featured: false,
+    video: true,
   },
   {
     id: 5,
-    category: "Google Business Profile",
-    categoryColor: "bg-emerald-500",
+    category: "Google Business",
+    catColor: "#10b981",
+    catBg: "#ecfdf5",
+    accent: "#10b981",
     title: "Google Business Profile Mastery: From Zero to Local Authority",
     excerpt:
       "Step-by-step guide to dominating local search results with an optimized Google Business Profile in 2026.",
     author: "Karan Patel",
-    authorAvatar: "KP",
-    avatarColor: "from-emerald-400 to-teal-500",
+    initials: "KP",
+    avatarColor: "#10b981",
     date: "Apr 22, 2026",
-    readTime: "7 min read",
-    image: "gbp",
-    featured: false,
+    readTime: "7 min",
     tags: ["Local SEO", "Google", "Maps"],
-    videoThumb: false,
+    featured: false,
   },
 ];
 
-const videoPost = {
+const CATEGORIES = [
+  "All",
+  "Web Development",
+  "App Development",
+  "Google Business",
+  "E-commerce",
+  "SEO",
+];
+
+const VIDEO = {
   title: "Inside Our Dev Process: From Wireframe to Live Product",
   duration: "14:32",
   views: "12.4K views",
   date: "May 12, 2026",
-  thumbnail: "video-thumb",
 };
 
-const ImagePlaceholder = ({ type, className }) => {
-  const configs = {
-    "web-dev": {
-      bg: "from-slate-900 via-cyan-950 to-slate-900",
-      lines: [
-        { w: "70%", c: "bg-cyan-400", o: "opacity-80" },
-        { w: "50%", c: "bg-slate-500", o: "opacity-50" },
-        { w: "85%", c: "bg-cyan-300", o: "opacity-40" },
-        { w: "40%", c: "bg-slate-500", o: "opacity-50" },
-        { w: "65%", c: "bg-cyan-400", o: "opacity-60" },
-      ],
-    },
-    "app-dev": {
-      bg: "from-slate-900 via-violet-950 to-slate-900",
-      lines: [
-        { w: "40%", c: "bg-violet-400", o: "opacity-80" },
-        { w: "60%", c: "bg-slate-500", o: "opacity-50" },
-        { w: "35%", c: "bg-purple-300", o: "opacity-40" },
-        { w: "55%", c: "bg-slate-500", o: "opacity-50" },
-      ],
-    },
-    seo: {
-      bg: "from-slate-900 via-amber-950 to-slate-900",
-      lines: [
-        { w: "30%", c: "bg-amber-400", o: "opacity-80" },
-        { w: "50%", c: "bg-amber-300", o: "opacity-60" },
-        { w: "70%", c: "bg-amber-200", o: "opacity-40" },
-        { w: "85%", c: "bg-amber-100", o: "opacity-20" },
-      ],
-    },
-    ecommerce: {
-      bg: "from-slate-900 via-rose-950 to-slate-900",
-      lines: [
-        { w: "60%", c: "bg-rose-400", o: "opacity-60" },
-        { w: "40%", c: "bg-pink-400", o: "opacity-50" },
-        { w: "75%", c: "bg-rose-300", o: "opacity-40" },
-        { w: "50%", c: "bg-slate-500", o: "opacity-30" },
-      ],
-    },
-    gbp: {
-      bg: "from-slate-900 via-emerald-950 to-slate-900",
-      lines: [
-        { w: "55%", c: "bg-emerald-400", o: "opacity-70" },
-        { w: "35%", c: "bg-teal-400", o: "opacity-50" },
-        { w: "65%", c: "bg-emerald-300", o: "opacity-40" },
-        { w: "45%", c: "bg-slate-500", o: "opacity-30" },
-      ],
-    },
-    "video-thumb": {
-      bg: "from-slate-900 via-indigo-950 to-slate-900",
-      lines: [],
-    },
-  };
-
-  const cfg = configs[type] || configs["web-dev"];
-
+function ArticleThumb({ accent, video }) {
   return (
     <div
-      className={`relative bg-gradient-to-br ${cfg.bg} overflow-hidden ${className}`}
+      style={{
+        position: "relative",
+        width: "100%",
+        height: "100%",
+        background: `${accent}0d`,
+        overflow: "hidden",
+      }}
     >
-      <div
-        className="absolute inset-0 opacity-10"
+      <svg
         style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          opacity: 0.07,
         }}
-      />
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-32 h-32 rounded-full opacity-20 blur-3xl bg-white" />
+      >
+        <defs>
+          <pattern
+            id={`dots-${accent}`}
+            x="0"
+            y="0"
+            width="18"
+            height="18"
+            patternUnits="userSpaceOnUse"
+          >
+            <circle cx="2" cy="2" r="1.2" fill={accent} />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill={`url(#dots-${accent})`} />
+      </svg>
+      <div
+        style={{
+          position: "absolute",
+          bottom: 16,
+          left: 16,
+          right: 16,
+          display: "flex",
+          flexDirection: "column",
+          gap: 6,
+        }}
+      >
+        <div
+          style={{
+            height: 3,
+            borderRadius: 8,
+            width: "68%",
+            background: accent,
+            opacity: 0.7,
+          }}
+        />
+        <div
+          style={{
+            height: 3,
+            borderRadius: 8,
+            width: "44%",
+            background: "#94a3b8",
+            opacity: 0.3,
+          }}
+        />
+        <div
+          style={{
+            height: 3,
+            borderRadius: 8,
+            width: "56%",
+            background: accent,
+            opacity: 0.4,
+          }}
+        />
       </div>
-      <div className="absolute bottom-6 left-6 right-6 space-y-2">
-        {cfg.lines.map((l, i) => (
+      <div
+        style={{
+          position: "absolute",
+          top: 12,
+          right: 12,
+          width: 32,
+          height: 32,
+          borderRadius: "50%",
+          background: `${accent}1a`,
+          border: `1.5px solid ${accent}33`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            width: 10,
+            height: 10,
+            borderRadius: "50%",
+            background: accent,
+            opacity: 0.5,
+          }}
+        />
+      </div>
+      {video && (
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <div
-            key={i}
-            className={`h-1.5 rounded-full ${l.c} ${l.o}`}
-            style={{ width: l.w }}
-          />
-        ))}
-      </div>
-      {type === "video-thumb" && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center">
-            <div className="w-0 h-0 border-t-[10px] border-b-[10px] border-l-[18px] border-t-transparent border-b-transparent border-l-white ml-1" />
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: "50%",
+              background: "rgba(255,255,255,0.9)",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.12)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                marginLeft: 3,
+                width: 0,
+                height: 0,
+                borderTop: "7px solid transparent",
+                borderBottom: "7px solid transparent",
+                borderLeft: `12px solid ${accent}`,
+              }}
+            />
           </div>
         </div>
       )}
     </div>
   );
-};
+}
+
+function Avatar({ initials, color, size = 32 }) {
+  return (
+    <div
+      style={{
+        width: size,
+        height: size,
+        borderRadius: "50%",
+        background: `${color}1a`,
+        border: `1.5px solid ${color}33`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: size * 0.35,
+        fontWeight: 600,
+        color,
+        letterSpacing: "0.03em",
+        flexShrink: 0,
+      }}
+    >
+      {initials}
+    </div>
+  );
+}
+
+function Tag({ label }) {
+  return (
+    <span
+      style={{
+        fontSize: 11,
+        background: "#f1f5f9",
+        color: "#64748b",
+        padding: "3px 9px",
+        borderRadius: 20,
+        fontWeight: 500,
+        letterSpacing: "0.01em",
+      }}
+    >
+      #{label}
+    </span>
+  );
+}
 
 export default function BlogPage() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [email, setEmail] = useState("");
 
-  const categories = [
-    "All",
-    "Web Development",
-    "App Development",
-    "Google Business Profile",
-    "E-commerce",
-    "SEO",
-  ];
-
-  const filteredPosts = blogPosts.filter((p) => {
+  const filtered = blogPosts.filter((p) => {
     const matchCat = activeFilter === "All" || p.category === activeFilter;
+    const q = searchQuery.toLowerCase();
     const matchSearch =
-      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+      !q ||
+      p.title.toLowerCase().includes(q) ||
+      p.excerpt.toLowerCase().includes(q);
     return matchCat && matchSearch;
   });
 
-  const featured = filteredPosts.find((p) => p.featured) || filteredPosts[0];
-  const rest = filteredPosts.filter((p) => p.id !== (featured?.id || -1));
+  const featured = filtered.find((p) => p.featured) || filtered[0];
+  const rest = filtered.filter((p) => p.id !== (featured?.id ?? -1));
 
   return (
     <div
+      className="blog-root"
       style={{
         minHeight: "100vh",
-        background: "#080c14",
-        color: "white",
-        fontFamily: "'DM Sans', sans-serif",
+        background: "#fafafa",
+        fontFamily: "'DM Sans', 'Helvetica Neue', Arial, sans-serif",
+        color: "#1e293b",
       }}
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Bebas+Neue&display=swap');
-        .font-display { font-family: 'Bebas Neue', sans-serif; }
-        .font-heading { font-family: 'Space Grotesk', sans-serif; }
-        .card-hover { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease; }
-        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-        .tag-pill { transition: all 0.2s; }
-        .tag-pill:hover { transform: scale(1.05); }
-        .glow-cyan { box-shadow: 0 0 30px rgba(6,182,212,0.15); }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        .hero-grid { background-image: radial-gradient(rgba(6,182,212,0.08) 1px, transparent 1px); background-size: 32px 32px; }
-        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-        .float { animation: float 4s ease-in-out infinite; }
-        @keyframes fadeInUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
-        .fade-in { animation: fadeInUp 0.6s ease forwards; }
-        .delay-1 { animation-delay: 0.1s; opacity: 0; }
-        .delay-2 { animation-delay: 0.2s; opacity: 0; }
-        .delay-3 { animation-delay: 0.3s; opacity: 0; }
-        * { box-sizing: border-box; }
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,700;1,600&display=swap');
+        .blog-root *, .blog-root *::before, .blog-root *::after { box-sizing: border-box; }
+        .blog-root .card-hover { transition: transform 0.22s ease, box-shadow 0.22s ease; cursor: pointer; }
+        .blog-root .card-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(15,23,42,0.10) !important; }
+        .blog-root .filter-btn { transition: all 0.15s ease; border: none; cursor: pointer; font-family: inherit; }
+        .blog-root .tag-hover:hover { background: #e2e8f0 !important; }
+        .blog-root input:focus { outline: none; }
+        .blog-root .service-card { transition: all 0.2s ease; cursor: pointer; }
+        .blog-root .service-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(15,23,42,0.08) !important; border-color: #bfdbfe !important; }
+        .blog-root .read-btn { transition: all 0.15s ease; }
+        .blog-root .read-btn:hover { background: #1e293b !important; color: white !important; }
+        .blog-root .subscribe-btn { transition: all 0.15s ease; }
+        .blog-root .subscribe-btn:hover { background: #1e40af !important; }
       `}</style>
 
-      {/* HERO */}
-      <section
-        className="hero-grid"
+      {/* ── HERO ── */}
+      <div
         style={{
+          background:
+            "linear-gradient(135deg, #020617 0%, #0f172a 40%, #1e1b4b 100%)",
           position: "relative",
           overflow: "hidden",
-          padding: "80px 24px",
+          padding: "80px 40px 72px",
         }}
       >
+        {/* Geometric accents */}
         <div
           style={{
             position: "absolute",
-            top: 0,
-            left: "33%",
-            width: 384,
-            height: 384,
-            background: "rgba(6,182,212,0.10)",
+            top: -60,
+            right: -60,
+            width: 320,
+            height: 320,
             borderRadius: "50%",
-            filter: "blur(80px)",
+            background:
+              "radial-gradient(circle, #3b82f620 0%, transparent 70%)",
             pointerEvents: "none",
           }}
         />
         <div
           style={{
             position: "absolute",
-            bottom: 0,
-            right: "25%",
-            width: 288,
-            height: 288,
-            background: "rgba(139,92,246,0.10)",
+            bottom: -80,
+            left: -40,
+            width: 280,
+            height: 280,
             borderRadius: "50%",
-            filter: "blur(80px)",
+            background:
+              "radial-gradient(circle, #6366f115 0%, transparent 70%)",
             pointerEvents: "none",
           }}
         />
+        <svg
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            opacity: 0.03,
+            pointerEvents: "none",
+          }}
+        >
+          <defs>
+            <pattern
+              id="hero-grid"
+              x="0"
+              y="0"
+              width="40"
+              height="40"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M 40 0 L 0 0 0 40"
+                fill="none"
+                stroke="white"
+                strokeWidth="0.5"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#hero-grid)" />
+        </svg>
+
         <div
           style={{
-            maxWidth: 1280,
+            position: "relative",
+            maxWidth: 760,
             margin: "0 auto",
             textAlign: "center",
-            position: "relative",
-            zIndex: 10,
           }}
         >
           <div
-            className="fade-in"
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: 8,
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid rgba(255,255,255,0.10)",
-              borderRadius: 999,
+              border: "1px solid rgba(255,255,255,0.12)",
+              borderRadius: 40,
               padding: "6px 16px",
-              marginBottom: 24,
+              marginBottom: 28,
             }}
           >
-            <span
+            <div
               style={{
-                width: 8,
-                height: 8,
-                background: "#22d3ee",
+                width: 7,
+                height: 7,
                 borderRadius: "50%",
-                display: "inline-block",
-                animation: "pulse 2s infinite",
+                background: "#34d399",
               }}
             />
             <span
               style={{
-                fontSize: 12,
-                color: "#cbd5e1",
-                fontWeight: 500,
-                letterSpacing: "0.08em",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "0.13em",
+                color: "#7dd3fc",
+                textTransform: "uppercase",
               }}
             >
-              NEXACODE INSIGHTS BLOG
+              NexaCode Insights
             </span>
           </div>
+
           <h1
-            className="font-display fade-in delay-1"
             style={{
-              fontSize: "clamp(48px,8vw,96px)",
-              color: "white",
-              marginBottom: 24,
-              lineHeight: 1,
-              letterSpacing: "0.02em",
+              fontFamily: "'Playfair Display', Georgia, serif",
+              fontSize: "clamp(34px, 5.5vw, 58px)",
+              fontWeight: 700,
+              color: "#fff",
+              lineHeight: 1.12,
+              marginBottom: 20,
             }}
           >
-            EXPERT INSIGHTS
+            Expert Insights for
             <br />
-            <span
-              style={{
-                background: "linear-gradient(90deg,#22d3ee,#8b5cf6)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
+            <em
+              style={{ color: "#7dd3fc", fontStyle: "italic", fontWeight: 600 }}
             >
-              FOR DIGITAL GROWTH
-            </span>
+              Digital Growth
+            </em>
           </h1>
+
           <p
-            className="fade-in delay-2"
             style={{
-              color: "#94a3b8",
-              fontSize: 18,
-              maxWidth: 640,
-              margin: "0 auto 40px",
+              color: "rgba(148,163,184,0.9)",
+              fontSize: 16,
+              maxWidth: 480,
+              margin: "0 auto 36px",
+              lineHeight: 1.75,
             }}
           >
-            Actionable guides, tutorials, and strategies on Web Development, App
-            Development, SEO, E-commerce, and Google Business Profile.
+            Actionable guides on Web Development, Mobile Apps, SEO, E-commerce &
+            Google Business Profile.
           </p>
+
           <div
-            className="fade-in delay-3"
-            style={{ maxWidth: 480, margin: "0 auto", position: "relative" }}
+            style={{ position: "relative", maxWidth: 400, margin: "0 auto" }}
           >
             <svg
               style={{
                 position: "absolute",
-                left: 16,
+                left: 14,
                 top: "50%",
                 transform: "translateY(-50%)",
                 width: 16,
@@ -415,7 +516,7 @@ export default function BlogPage() {
                 color: "#64748b",
               }}
               fill="none"
-              stroke="currentColor"
+              stroke="#64748b"
               viewBox="0 0 24 24"
             >
               <path
@@ -432,40 +533,39 @@ export default function BlogPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{
                 width: "100%",
-                background: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.10)",
-                borderRadius: 12,
-                paddingLeft: 40,
+                paddingLeft: 42,
                 paddingRight: 16,
-                paddingTop: 12,
-                paddingBottom: 12,
+                paddingTop: 13,
+                paddingBottom: 13,
                 fontSize: 14,
-                color: "white",
-                outline: "none",
+                borderRadius: 14,
+                border: "1px solid rgba(255,255,255,0.15)",
+                background: "rgba(255,255,255,0.07)",
+                color: "#f8fafc",
+                caretColor: "#7dd3fc",
               }}
             />
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* SERVICES STRIP */}
-      <section
+      {/* ── EXPERTISE STRIP ── */}
+      <div
         style={{
-          borderTop: "1px solid rgba(255,255,255,0.05)",
-          borderBottom: "1px solid rgba(255,255,255,0.05)",
-          background: "rgba(255,255,255,0.02)",
-          padding: "40px 24px",
+          background: "#fff",
+          borderBottom: "1px solid #f1f5f9",
+          padding: "36px 40px",
         }}
       >
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <p
             style={{
-              fontSize: 12,
-              color: "#64748b",
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: "0.13em",
+              color: "#94a3b8",
               textTransform: "uppercase",
-              letterSpacing: "0.15em",
-              fontWeight: 500,
-              marginBottom: 24,
+              marginBottom: 20,
             }}
           >
             Our Expertise
@@ -473,152 +573,156 @@ export default function BlogPage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-              gap: 16,
+              gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+              gap: 12,
             }}
           >
-            {services.map((s) => (
+            {services.map((sv) => (
               <div
-                key={s.id}
-                className="card-hover"
+                key={sv.id}
+                className="service-card"
                 style={{
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,255,255,0.05)",
-                  borderRadius: 12,
-                  padding: 16,
-                  cursor: "pointer",
-                  position: "relative",
-                  overflow: "hidden",
+                  background: "#fff",
+                  border: "1px solid #f1f5f9",
+                  borderRadius: 16,
+                  padding: "18px 16px",
+                  boxShadow: "0 1px 4px rgba(15,23,42,0.04)",
                 }}
               >
+                <div style={{ fontSize: 24, marginBottom: 10 }}>{sv.icon}</div>
                 <div
-                  className="float"
-                  style={{ fontSize: 28, marginBottom: 8 }}
-                >
-                  {s.icon}
-                </div>
-                <div
-                  className="font-heading"
                   style={{
                     fontWeight: 600,
-                    fontSize: 14,
-                    color: "white",
-                    marginBottom: 4,
+                    fontSize: 13,
+                    color: "#0f172a",
+                    marginBottom: 5,
                   }}
                 >
-                  {s.title}
+                  {sv.title}
                 </div>
-                <div
-                  style={{
-                    fontSize: 12,
-                    color: "#64748b",
-                    display: "-webkit-box",
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                  }}
-                >
-                  {s.desc}
-                </div>
+                <p style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.6 }}>
+                  {sv.desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* FILTER TABS */}
-      <section style={{ padding: "40px 24px 24px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div
-            className="scrollbar-hide"
-            style={{
-              display: "flex",
-              gap: 12,
-              overflowX: "auto",
-              paddingBottom: 8,
-            }}
-          >
-            {categories.map((cat) => (
+      {/* ── FILTER TABS ── */}
+      <div
+        style={{
+          background: "#fff",
+          borderBottom: "1px solid #f1f5f9",
+          padding: "14px 40px",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 1000,
+            margin: "0 auto",
+            display: "flex",
+            gap: 8,
+            overflowX: "auto",
+          }}
+        >
+          {CATEGORIES.map((cat) => {
+            const active = activeFilter === cat;
+            return (
               <button
                 key={cat}
                 onClick={() => setActiveFilter(cat)}
-                className="tag-pill"
+                className="filter-btn"
                 style={{
                   flexShrink: 0,
-                  padding: "8px 16px",
-                  borderRadius: 999,
-                  fontSize: 14,
+                  padding: "8px 18px",
+                  borderRadius: 10,
+                  fontSize: 13,
                   fontWeight: 500,
-                  cursor: "pointer",
-                  border:
-                    activeFilter === cat
-                      ? "none"
-                      : "1px solid rgba(255,255,255,0.10)",
-                  background:
-                    activeFilter === cat
-                      ? "linear-gradient(90deg,#06b6d4,#7c3aed)"
-                      : "rgba(255,255,255,0.05)",
-                  color: activeFilter === cat ? "white" : "#94a3b8",
-                  transition: "all 0.2s",
+                  background: active ? "#0f172a" : "transparent",
+                  color: active ? "#fff" : "#64748b",
+                  border: active ? "1px solid #0f172a" : "1px solid #e2e8f0",
                 }}
               >
                 {cat}
               </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
-      </section>
+      </div>
 
-      {/* FEATURED POST */}
-      {featured && (
-        <section style={{ padding: "0 24px 40px" }}>
-          <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+      {/* ── MAIN CONTENT ── */}
+      <div
+        style={{ maxWidth: 1000, margin: "0 auto", padding: "48px 40px 80px" }}
+      >
+        {/* ── FEATURED ── */}
+        {featured && (
+          <section style={{ marginBottom: 56 }}>
             <div
-              className="card-hover glow-cyan"
               style={{
-                position: "relative",
-                borderRadius: 16,
-                overflow: "hidden",
-                border: "1px solid rgba(255,255,255,0.05)",
-                background: "rgba(255,255,255,0.02)",
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                marginBottom: 24,
               }}
-              onMouseEnter={() => setHoveredCard("featured")}
-              onMouseLeave={() => setHoveredCard(null)}
             >
               <div
-                style={{ position: "absolute", top: 20, left: 20, zIndex: 10 }}
+                style={{
+                  width: 3,
+                  height: 20,
+                  borderRadius: 4,
+                  background: "#0f172a",
+                }}
+              />
+              <span
+                style={{
+                  fontWeight: 600,
+                  fontSize: 14,
+                  color: "#0f172a",
+                  letterSpacing: "0.01em",
+                }}
               >
-                <span
-                  style={{
-                    background: "linear-gradient(90deg,#06b6d4,#3b82f6)",
-                    color: "white",
-                    fontSize: 12,
-                    fontWeight: 700,
-                    padding: "4px 12px",
-                    borderRadius: 999,
-                  }}
-                >
-                  ⭐ FEATURED
-                </span>
+                Featured Post
+              </span>
+            </div>
+
+            <div
+              className="card-hover"
+              style={{
+                border: "1px solid #f1f5f9",
+                borderRadius: 20,
+                overflow: "hidden",
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                background: "#fff",
+                boxShadow: "0 2px 12px rgba(15,23,42,0.06)",
+              }}
+            >
+              <div style={{ position: "relative", minHeight: 260 }}>
+                <div style={{ position: "absolute", inset: 0 }}>
+                  <ArticleThumb accent={featured.accent} video={false} />
+                </div>
+                <div style={{ position: "absolute", top: 16, left: 16 }}>
+                  <span
+                    style={{
+                      background: "#0f172a",
+                      color: "#f8fafc",
+                      fontSize: 11,
+                      fontWeight: 700,
+                      letterSpacing: "0.07em",
+                      padding: "6px 12px",
+                      borderRadius: 20,
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    ⭐ Featured
+                  </span>
+                </div>
               </div>
-              <div style={{ position: "relative", minHeight: 280 }}>
-                <ImagePlaceholder
-                  type={featured.image}
-                  className="absolute inset-0 w-full h-full"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                  }}
-                />
-              </div>
+
               <div
                 style={{
-                  padding: 32,
+                  padding: "32px 32px 28px",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
@@ -629,52 +733,51 @@ export default function BlogPage() {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: 12,
+                      gap: 10,
                       marginBottom: 16,
                     }}
                   >
                     <span
-                      className={featured.categoryColor}
                       style={{
-                        color: "white",
-                        fontSize: 12,
+                        background: featured.catBg,
+                        color: featured.catColor,
+                        fontSize: 11,
                         fontWeight: 700,
-                        padding: "4px 10px",
-                        borderRadius: 6,
-                        background: featured.categoryColor
-                          .replace("bg-", "")
-                          .includes("cyan")
-                          ? "#06b6d4"
-                          : featured.categoryColor
-                                .replace("bg-", "")
-                                .includes("violet")
-                            ? "#7c3aed"
-                            : "#f59e0b",
+                        padding: "5px 10px",
+                        borderRadius: 8,
+                        letterSpacing: "0.04em",
                       }}
                     >
                       {featured.category}
                     </span>
-                    <span style={{ color: "#64748b", fontSize: 12 }}>
-                      {featured.readTime}
+                    <span
+                      style={{
+                        fontSize: 12,
+                        color: "#94a3b8",
+                        fontWeight: 500,
+                      }}
+                    >
+                      {featured.readTime} read
                     </span>
                   </div>
                   <h2
-                    className="font-heading"
                     style={{
+                      fontFamily: "'Playfair Display', Georgia, serif",
+                      fontSize: 21,
                       fontWeight: 700,
-                      fontSize: 22,
-                      color: "white",
+                      color: "#0f172a",
+                      lineHeight: 1.35,
                       marginBottom: 12,
-                      lineHeight: 1.3,
                     }}
                   >
                     {featured.title}
                   </h2>
                   <p
                     style={{
-                      color: "#94a3b8",
-                      fontSize: 14,
-                      lineHeight: 1.7,
+                      fontSize: 13.5,
+                      color: "#64748b",
+                      lineHeight: 1.75,
+                      marginBottom: 16,
                       display: "-webkit-box",
                       WebkitLineClamp: 3,
                       WebkitBoxOrient: "vertical",
@@ -683,84 +786,58 @@ export default function BlogPage() {
                   >
                     {featured.excerpt}
                   </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      gap: 8,
-                      marginTop: 16,
-                    }}
-                  >
-                    {featured.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        style={{
-                          fontSize: 12,
-                          background: "rgba(255,255,255,0.05)",
-                          border: "1px solid rgba(255,255,255,0.10)",
-                          color: "#94a3b8",
-                          padding: "4px 10px",
-                          borderRadius: 999,
-                        }}
-                      >
-                        #{tag}
-                      </span>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {featured.tags.map((t) => (
+                      <Tag key={t} label={t} />
                     ))}
                   </div>
                 </div>
+
                 <div
                   style={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
                     marginTop: 24,
+                    paddingTop: 20,
+                    borderTop: "1px solid #f1f5f9",
                   }}
                 >
                   <div
-                    style={{ display: "flex", alignItems: "center", gap: 12 }}
+                    style={{ display: "flex", alignItems: "center", gap: 10 }}
                   >
-                    <div
-                      style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: "50%",
-                        background: "linear-gradient(135deg,#22d3ee,#3b82f6)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: 12,
-                        fontWeight: 700,
-                        color: "white",
-                      }}
-                    >
-                      {featured.authorAvatar}
-                    </div>
+                    <Avatar
+                      initials={featured.initials}
+                      color={featured.avatarColor}
+                      size={34}
+                    />
                     <div>
                       <div
                         style={{
-                          fontSize: 14,
-                          fontWeight: 500,
-                          color: "white",
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: "#1e293b",
                         }}
                       >
                         {featured.author}
                       </div>
-                      <div style={{ fontSize: 12, color: "#64748b" }}>
+                      <div style={{ fontSize: 11, color: "#94a3b8" }}>
                         {featured.date}
                       </div>
                     </div>
                   </div>
                   <button
+                    className="read-btn"
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 8,
-                      color: "#22d3ee",
-                      fontSize: 14,
+                      fontSize: 13,
                       fontWeight: 600,
-                      background: "none",
-                      border: "none",
+                      color: "#0f172a",
+                      border: "1.5px solid #e2e8f0",
+                      padding: "9px 20px",
+                      borderRadius: 12,
+                      background: "#fff",
                       cursor: "pointer",
+                      fontFamily: "inherit",
                     }}
                   >
                     Read More →
@@ -768,13 +845,11 @@ export default function BlogPage() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )}
 
-      {/* VIDEO SPOTLIGHT */}
-      <section style={{ padding: "0 24px 40px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        {/* ── VIDEO SPOTLIGHT ── */}
+        <section style={{ marginBottom: 56 }}>
           <div
             style={{
               display: "flex",
@@ -783,58 +858,84 @@ export default function BlogPage() {
               marginBottom: 24,
             }}
           >
-            <h2
-              className="font-heading"
-              style={{
-                fontWeight: 700,
-                fontSize: 20,
-                color: "white",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-              }}
-            >
-              <span
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div
                 style={{
-                  width: 4,
-                  height: 24,
-                  background: "linear-gradient(180deg,#7c3aed,#06b6d4)",
+                  width: 3,
+                  height: 20,
                   borderRadius: 4,
-                  display: "inline-block",
+                  background: "#0f172a",
                 }}
               />
-              Video Spotlight
-            </h2>
+              <span style={{ fontWeight: 600, fontSize: 14, color: "#0f172a" }}>
+                Video Spotlight
+              </span>
+            </div>
             <a
               href="#"
-              style={{ fontSize: 14, color: "#94a3b8", textDecoration: "none" }}
+              style={{
+                fontSize: 13,
+                color: "#3b82f6",
+                fontWeight: 500,
+                textDecoration: "none",
+              }}
             >
-              View all videos →
+              View all →
             </a>
           </div>
+
           <div
             className="card-hover"
             style={{
               position: "relative",
-              borderRadius: 16,
+              height: 260,
+              background: "linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)",
+              borderRadius: 20,
               overflow: "hidden",
-              border: "1px solid rgba(255,255,255,0.05)",
-              cursor: "pointer",
+              boxShadow: "0 4px 20px rgba(15,23,42,0.14)",
             }}
           >
-            <ImagePlaceholder
-              type="video-thumb"
-              className="w-full"
-              style={{ width: "100%", height: 288 }}
-            />
-            <div
+            <svg
               style={{
                 position: "absolute",
                 inset: 0,
+                width: "100%",
+                height: "100%",
+                opacity: 0.04,
+              }}
+            >
+              <defs>
+                <pattern
+                  id="vgrid"
+                  x="0"
+                  y="0"
+                  width="32"
+                  height="32"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <path
+                    d="M 32 0 L 0 0 0 32"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="0.5"
+                  />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#vgrid)" />
+            </svg>
+            <div
+              style={{
+                position: "absolute",
+                top: "20%",
+                left: "38%",
+                width: 200,
+                height: 200,
+                borderRadius: "50%",
                 background:
-                  "linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3), transparent)",
+                  "radial-gradient(circle, #6366f130 0%, transparent 70%)",
               }}
             />
+
             <div
               style={{
                 position: "absolute",
@@ -846,12 +947,11 @@ export default function BlogPage() {
             >
               <div
                 style={{
-                  width: 80,
-                  height: 80,
+                  width: 64,
+                  height: 64,
                   borderRadius: "50%",
-                  background: "rgba(255,255,255,0.15)",
-                  backdropFilter: "blur(8px)",
-                  border: "1px solid rgba(255,255,255,0.3)",
+                  background: "rgba(255,255,255,0.12)",
+                  border: "1.5px solid rgba(255,255,255,0.22)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -859,78 +959,85 @@ export default function BlogPage() {
               >
                 <div
                   style={{
+                    marginLeft: 4,
                     width: 0,
                     height: 0,
-                    borderTop: "14px solid transparent",
-                    borderBottom: "14px solid transparent",
-                    borderLeft: "24px solid white",
-                    marginLeft: 6,
+                    borderTop: "10px solid transparent",
+                    borderBottom: "10px solid transparent",
+                    borderLeft: "18px solid white",
                   }}
                 />
               </div>
             </div>
+
             <div
               style={{
                 position: "absolute",
                 bottom: 0,
                 left: 0,
                 right: 0,
-                padding: 24,
+                padding: "28px 28px 24px",
+                background:
+                  "linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%)",
               }}
             >
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 8,
+                  gap: 10,
                   marginBottom: 8,
                 }}
               >
                 <span
                   style={{
                     background: "#ef4444",
-                    color: "white",
-                    fontSize: 12,
+                    color: "#fff",
+                    fontSize: 10,
                     fontWeight: 700,
-                    padding: "2px 8px",
-                    borderRadius: 4,
+                    padding: "4px 8px",
+                    borderRadius: 5,
+                    letterSpacing: "0.06em",
                   }}
                 >
                   ▶ VIDEO
                 </span>
-                <span style={{ color: "rgba(255,255,255,0.6)", fontSize: 12 }}>
-                  {videoPost.duration}
+                <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 12 }}>
+                  {VIDEO.duration}
                 </span>
-                <span style={{ color: "rgba(255,255,255,0.6)", fontSize: 12 }}>
-                  •
+                <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 12 }}>
+                  ·
                 </span>
-                <span style={{ color: "rgba(255,255,255,0.6)", fontSize: 12 }}>
-                  {videoPost.views}
+                <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 12 }}>
+                  {VIDEO.views}
                 </span>
               </div>
               <h3
-                className="font-heading"
-                style={{ fontWeight: 700, fontSize: 20, color: "white" }}
+                style={{
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                  color: "#fff",
+                  fontSize: 19,
+                  fontWeight: 700,
+                  lineHeight: 1.3,
+                }}
               >
-                {videoPost.title}
+                {VIDEO.title}
               </h3>
               <p
                 style={{
-                  color: "rgba(255,255,255,0.6)",
-                  fontSize: 14,
-                  marginTop: 4,
+                  color: "rgba(255,255,255,0.4)",
+                  fontSize: 12,
+                  marginTop: 6,
                 }}
               >
-                {videoPost.date}
+                {VIDEO.date}
               </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* BLOG GRID */}
-      <section style={{ padding: "0 24px 64px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        {/* ── LATEST ARTICLES ── */}
+        <section style={{ marginBottom: 56 }}>
           <div
             style={{
               display: "flex",
@@ -939,333 +1046,292 @@ export default function BlogPage() {
               marginBottom: 24,
             }}
           >
-            <h2
-              className="font-heading"
-              style={{
-                fontWeight: 700,
-                fontSize: 20,
-                color: "white",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-              }}
-            >
-              <span
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div
                 style={{
-                  width: 4,
-                  height: 24,
-                  background: "linear-gradient(180deg,#06b6d4,#10b981)",
+                  width: 3,
+                  height: 20,
                   borderRadius: 4,
-                  display: "inline-block",
+                  background: "#0f172a",
                 }}
               />
-              Latest Articles
-              <span
-                style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(255,255,255,0.10)",
-                  color: "#94a3b8",
-                  fontSize: 12,
-                  padding: "2px 8px",
-                  borderRadius: 999,
-                  marginLeft: 4,
-                }}
-              >
-                {rest.length}
+              <span style={{ fontWeight: 600, fontSize: 14, color: "#0f172a" }}>
+                Latest Articles
+                <span
+                  style={{
+                    color: "#94a3b8",
+                    fontWeight: 400,
+                    fontSize: 13,
+                    marginLeft: 6,
+                  }}
+                >
+                  ({rest.length})
+                </span>
               </span>
-            </h2>
+            </div>
             <a
               href="#"
-              style={{ fontSize: 14, color: "#94a3b8", textDecoration: "none" }}
+              style={{
+                fontSize: 13,
+                color: "#3b82f6",
+                fontWeight: 500,
+                textDecoration: "none",
+              }}
             >
               View all →
             </a>
           </div>
-          {rest.length === 0 && (
+
+          {rest.length === 0 ? (
             <div
               style={{
                 textAlign: "center",
-                padding: "80px 0",
-                color: "#64748b",
+                padding: "60px 0",
+                color: "#94a3b8",
               }}
             >
-              <div style={{ fontSize: 48, marginBottom: 16 }}>🔍</div>
-              <p>No articles found. Try a different filter or search term.</p>
+              <div style={{ fontSize: 40, marginBottom: 12 }}>🔍</div>
+              <p style={{ fontSize: 14 }}>
+                No articles found. Try a different filter or search.
+              </p>
             </div>
-          )}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-              gap: 24,
-            }}
-          >
-            {rest.map((post) => (
-              <article
-                key={post.id}
-                className="card-hover"
-                style={{
-                  background: "rgba(255,255,255,0.02)",
-                  border: "1px solid rgba(255,255,255,0.05)",
-                  borderRadius: 16,
-                  overflow: "hidden",
-                  cursor: "pointer",
-                }}
-                onMouseEnter={() => setHoveredCard(post.id)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                <div
+          ) : (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+                gap: 20,
+              }}
+            >
+              {rest.map((post) => (
+                <article
+                  key={post.id}
+                  className="card-hover"
                   style={{
-                    position: "relative",
-                    height: 192,
+                    background: "#fff",
+                    border: "1px solid #f1f5f9",
+                    borderRadius: 18,
                     overflow: "hidden",
+                    boxShadow: "0 1px 6px rgba(15,23,42,0.05)",
                   }}
                 >
-                  <ImagePlaceholder
-                    type={post.image}
-                    className="w-full h-full"
-                    style={{ width: "100%", height: "100%" }}
-                  />
-                  {post.videoThumb && (
+                  <div
+                    style={{
+                      position: "relative",
+                      height: 176,
+                      overflow: "hidden",
+                    }}
+                  >
+                    <div style={{ position: "absolute", inset: 0 }}>
+                      <ArticleThumb accent={post.accent} video={post.video} />
+                    </div>
                     <div
                       style={{
                         position: "absolute",
-                        inset: 0,
+                        top: 12,
+                        left: 12,
+                        display: "flex",
+                        gap: 6,
+                      }}
+                    >
+                      <span
+                        style={{
+                          background: post.catBg,
+                          color: post.catColor,
+                          fontSize: 11,
+                          fontWeight: 700,
+                          padding: "4px 10px",
+                          borderRadius: 7,
+                          letterSpacing: "0.03em",
+                        }}
+                      >
+                        {post.category}
+                      </span>
+                      {post.video && (
+                        <span
+                          style={{
+                            background: "#ef4444",
+                            color: "#fff",
+                            fontSize: 10,
+                            fontWeight: 700,
+                            padding: "4px 8px",
+                            borderRadius: 7,
+                          }}
+                        >
+                          ▶
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div style={{ padding: "20px 20px 18px" }}>
+                    <div
+                      style={{
                         display: "flex",
                         alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: 48,
-                          height: 48,
-                          borderRadius: "50%",
-                          background: "rgba(255,255,255,0.20)",
-                          backdropFilter: "blur(4px)",
-                          border: "1px solid rgba(255,255,255,0.3)",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <div
-                          style={{
-                            width: 0,
-                            height: 0,
-                            borderTop: "7px solid transparent",
-                            borderBottom: "7px solid transparent",
-                            borderLeft: "12px solid white",
-                            marginLeft: 2,
-                          }}
-                        />
-                      </div>
-                    </div>
-                  )}
-                  <div style={{ position: "absolute", top: 12, left: 12 }}>
-                    <span
-                      style={{
-                        color: "white",
+                        gap: 6,
                         fontSize: 12,
-                        fontWeight: 700,
-                        padding: "4px 10px",
-                        borderRadius: 6,
-                        background: post.categoryColor.includes("violet")
-                          ? "#7c3aed"
-                          : post.categoryColor.includes("amber")
-                            ? "#f59e0b"
-                            : post.categoryColor.includes("rose")
-                              ? "#f43f5e"
-                              : post.categoryColor.includes("emerald")
-                                ? "#10b981"
-                                : "#06b6d4",
+                        color: "#94a3b8",
+                        marginBottom: 10,
                       }}
                     >
-                      {post.category}
-                    </span>
-                  </div>
-                  {post.videoThumb && (
-                    <div style={{ position: "absolute", top: 12, right: 12 }}>
-                      <span
-                        style={{
-                          background: "#ef4444",
-                          color: "white",
-                          fontSize: 11,
-                          fontWeight: 700,
-                          padding: "2px 6px",
-                          borderRadius: 4,
-                        }}
-                      >
-                        ▶ VIDEO
-                      </span>
+                      <span>{post.date}</span>
+                      <span style={{ color: "#e2e8f0" }}>·</span>
+                      <span>{post.readTime} read</span>
                     </div>
-                  )}
-                </div>
-                <div style={{ padding: 20 }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 8,
-                      marginBottom: 12,
-                      fontSize: 12,
-                      color: "#64748b",
-                    }}
-                  >
-                    <span>{post.date}</span>
-                    <span>•</span>
-                    <span>{post.readTime}</span>
-                  </div>
-                  <h3
-                    className="font-heading"
-                    style={{
-                      fontWeight: 600,
-                      fontSize: 15,
-                      color: hoveredCard === post.id ? "#22d3ee" : "white",
-                      lineHeight: 1.4,
-                      marginBottom: 8,
-                      display: "-webkit-box",
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical",
-                      overflow: "hidden",
-                      transition: "color 0.2s",
-                    }}
-                  >
-                    {post.title}
-                  </h3>
-                  <p
-                    style={{
-                      color: "#64748b",
-                      fontSize: 12,
-                      lineHeight: 1.7,
-                      marginBottom: 16,
-                      display: "-webkit-box",
-                      WebkitLineClamp: 3,
-                      WebkitBoxOrient: "vertical",
-                      overflow: "hidden",
-                    }}
-                  >
-                    {post.excerpt}
-                  </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      gap: 6,
-                      marginBottom: 16,
-                    }}
-                  >
-                    {post.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        style={{
-                          fontSize: 11,
-                          background: "rgba(255,255,255,0.05)",
-                          border: "1px solid rgba(255,255,255,0.10)",
-                          color: "#64748b",
-                          padding: "2px 8px",
-                          borderRadius: 999,
-                        }}
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <div
-                      style={{ display: "flex", alignItems: "center", gap: 8 }}
-                    >
-                      <div
-                        style={{
-                          width: 28,
-                          height: 28,
-                          borderRadius: "50%",
-                          background: `linear-gradient(135deg,${post.avatarColor.includes("violet") ? "#a78bfa,#7c3aed" : post.avatarColor.includes("yellow") ? "#fbbf24,#f59e0b" : post.avatarColor.includes("rose") ? "#fb7185,#e11d48" : post.avatarColor.includes("emerald") ? "#34d399,#0d9488" : "#22d3ee,#3b82f6"})`,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: 11,
-                          fontWeight: 700,
-                          color: "white",
-                        }}
-                      >
-                        {post.authorAvatar}
-                      </div>
-                      <span style={{ fontSize: 12, color: "#94a3b8" }}>
-                        {post.author}
-                      </span>
-                    </div>
-                    <span
-                      style={{
-                        color: "#22d3ee",
-                        fontSize: 12,
-                        fontWeight: 600,
-                      }}
-                    >
-                      →
-                    </span>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* NEWSLETTER CTA */}
-      <section style={{ padding: "0 24px 64px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+                    <h3
+                      style={{
+                        fontFamily: "'Playfair Display', Georgia, serif",
+                        fontSize: 15,
+                        fontWeight: 700,
+                        color: "#0f172a",
+                        lineHeight: 1.4,
+                        marginBottom: 8,
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {post.title}
+                    </h3>
+
+                    <p
+                      style={{
+                        fontSize: 13,
+                        color: "#64748b",
+                        lineHeight: 1.7,
+                        marginBottom: 14,
+                        display: "-webkit-box",
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {post.excerpt}
+                    </p>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: 5,
+                        marginBottom: 16,
+                      }}
+                    >
+                      {post.tags.map((t) => (
+                        <Tag key={t} label={t} />
+                      ))}
+                    </div>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        paddingTop: 14,
+                        borderTop: "1px solid #f1f5f9",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 8,
+                        }}
+                      >
+                        <Avatar
+                          initials={post.initials}
+                          color={post.avatarColor}
+                          size={28}
+                        />
+                        <span
+                          style={{
+                            fontSize: 12,
+                            color: "#475569",
+                            fontWeight: 500,
+                          }}
+                        >
+                          {post.author}
+                        </span>
+                      </div>
+                      <span style={{ fontSize: 14, color: "#cbd5e1" }}>→</span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* ── NEWSLETTER ── */}
+        <section>
           <div
-            className="hero-grid"
             style={{
-              position: "relative",
-              borderRadius: 16,
-              overflow: "hidden",
-              border: "1px solid rgba(255,255,255,0.10)",
-              background:
-                "linear-gradient(135deg,rgba(6,182,212,0.10),rgba(139,92,246,0.10),#0f172a)",
-              padding: 40,
+              background: "linear-gradient(135deg, #f8fafc 0%, #f0f4ff 100%)",
+              border: "1px solid #e2e8f0",
+              borderRadius: 24,
+              padding: "56px 40px",
               textAlign: "center",
+              position: "relative",
+              overflow: "hidden",
             }}
           >
-            <div style={{ position: "relative", zIndex: 10 }}>
-              <div style={{ fontSize: 40, marginBottom: 16 }}>📬</div>
+            <div
+              style={{
+                position: "absolute",
+                top: -40,
+                right: -40,
+                width: 200,
+                height: 200,
+                borderRadius: "50%",
+                background:
+                  "radial-gradient(circle, #3b82f610 0%, transparent 70%)",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                bottom: -30,
+                left: -30,
+                width: 160,
+                height: 160,
+                borderRadius: "50%",
+                background:
+                  "radial-gradient(circle, #8b5cf610 0%, transparent 70%)",
+              }}
+            />
+            <div style={{ position: "relative" }}>
+              <div style={{ fontSize: 38, marginBottom: 16 }}>📬</div>
               <h2
-                className="font-heading"
                 style={{
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                  fontSize: 26,
                   fontWeight: 700,
-                  fontSize: 24,
-                  color: "white",
-                  marginBottom: 8,
+                  color: "#0f172a",
+                  marginBottom: 10,
                 }}
               >
                 Stay Ahead of the Curve
               </h2>
               <p
                 style={{
-                  color: "#94a3b8",
-                  fontSize: 14,
-                  marginBottom: 24,
-                  maxWidth: 400,
-                  margin: "0 auto 24px",
+                  fontSize: 14.5,
+                  color: "#64748b",
+                  maxWidth: 380,
+                  margin: "0 auto 32px",
+                  lineHeight: 1.75,
                 }}
               >
-                Weekly tips on web development, SEO, e-commerce, and digital
-                strategy — delivered to your inbox.
+                Weekly tips on web development, SEO, e-commerce & digital
+                strategy — straight to your inbox.
               </p>
               <div
                 style={{
                   display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 12,
-                  maxWidth: 480,
+                  gap: 10,
+                  maxWidth: 440,
                   margin: "0 auto",
                   flexWrap: "wrap",
                   justifyContent: "center",
@@ -1273,42 +1339,46 @@ export default function BlogPage() {
               >
                 <input
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="Enter your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   style={{
                     flex: 1,
                     minWidth: 200,
-                    background: "rgba(255,255,255,0.10)",
-                    border: "1px solid rgba(255,255,255,0.15)",
+                    border: "1.5px solid #e2e8f0",
                     borderRadius: 12,
-                    padding: "12px 16px",
+                    padding: "12px 18px",
                     fontSize: 14,
-                    color: "white",
-                    outline: "none",
+                    color: "#1e293b",
+                    background: "#fff",
+                    fontFamily: "inherit",
                   }}
                 />
                 <button
+                  className="subscribe-btn"
                   style={{
-                    background: "linear-gradient(90deg,#06b6d4,#7c3aed)",
-                    color: "white",
-                    fontSize: 14,
+                    background: "#1e293b",
+                    color: "#fff",
+                    fontSize: 13,
                     fontWeight: 600,
                     padding: "12px 24px",
                     borderRadius: 12,
                     border: "none",
                     cursor: "pointer",
+                    fontFamily: "inherit",
                     whiteSpace: "nowrap",
                   }}
                 >
                   Subscribe Free →
                 </button>
               </div>
-              <p style={{ fontSize: 12, color: "#334155", marginTop: 12 }}>
+              <p style={{ fontSize: 12, color: "#cbd5e1", marginTop: 14 }}>
                 No spam. Unsubscribe anytime.
               </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }
