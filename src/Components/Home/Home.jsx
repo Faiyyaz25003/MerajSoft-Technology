@@ -539,45 +539,38 @@ export default function Home() {
       `}</style>
 
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden" style={{ minHeight: "92vh", display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg, #f0f0ff 0%, #faf5ff 40%, #fff0f8 70%, #f0f9ff 100%)" }}>
-        {/* Subtle grid */}
-        <div className="absolute inset-0 opacity-[0.04]" style={{
-          backgroundImage: `linear-gradient(rgba(99,102,241,1) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,1) 1px, transparent 1px)`,
-          backgroundSize: "56px 56px",
-        }} />
-        <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full">
-          <div className="text-center max-w-4xl mx-auto">
+      <section
+        className="relative overflow-hidden"
+        style={{
+          minHeight: "92vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {/* Background Image */}
+        <img
+          src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1800&q=90"
+          alt="Team working"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          style={{ zIndex: 0 }}
+        />
 
-            {/* Hero image */}
-            <div className="mt-16 relative" style={{ animation: "heroImgReveal 1.2s ease 0.4s both" }}>
-              <div className="rounded-3xl overflow-hidden border border-gray-200" style={{ boxShadow: "0 32px 80px rgba(99,102,241,0.12), 0 8px 32px rgba(0,0,0,0.08)" }}>
-                <img
-                  src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1800&q=90"
-                  alt="Team working"
-                  className="w-full object-cover"
-                  style={{ height: "380px" }}
-                />
-                <div className="absolute inset-0 rounded-3xl" style={{ background: "linear-gradient(to bottom, transparent 55%, rgba(248,250,252,0.6) 100%)" }} />
-              </div>
-              {/* Floating badges */}
-              <div className="absolute -left-4 top-1/3 bg-white rounded-2xl px-4 py-3 border border-gray-100 flex items-center gap-2"
-                style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)", animation: "fadeUp 0.8s ease 1.2s both" }}>
-                <span className="text-xl">✅</span>
-                <div>
-                  <div className="text-xs font-bold text-gray-800">98/100 Lighthouse</div>
-                  <div className="text-xs text-gray-400">Performance Score</div>
-                </div>
-              </div>
-              <div className="absolute -right-4 bottom-1/4 bg-white rounded-2xl px-4 py-3 border border-gray-100 flex items-center gap-2"
-                style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)", animation: "fadeUp 0.8s ease 1.4s both" }}>
-                <span className="text-xl">🚀</span>
-                <div>
-                  <div className="text-xs font-bold text-gray-800">150+ Projects</div>
-                  <div className="text-xs text-gray-400">Delivered on time</div>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Dark overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(10,10,30,0.78) 0%, rgba(20,10,40,0.72) 50%, rgba(30,10,30,0.75) 100%)",
+            zIndex: 1,
+          }}
+        />
+
+        {/* Content */}
+        <div
+          className="relative z-10 flex flex-col items-center justify-center text-center px-6"
+          style={{ zIndex: 3 }}
+        >
         </div>
       </section>
 
@@ -586,13 +579,25 @@ export default function Home() {
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((s, i) => (
-              <div key={s.label} className="text-center group relative" style={{ animation: `fadeUp 0.6s ease ${i * 100}ms both` }}>
+              <div
+                key={s.label}
+                className="text-center group relative"
+                style={{ animation: `fadeUp 0.6s ease ${i * 100}ms both` }}
+              >
                 <div className="hero-title text-4xl md:text-5xl font-black gradient-text mb-2">
                   <Counter target={s.value} suffix={s.suffix} />
                 </div>
-                <div className="text-gray-500 text-sm font-medium">{s.label}</div>
+                <div className="text-gray-500 text-sm font-medium">
+                  {s.label}
+                </div>
                 {i < stats.length - 1 && (
-                  <div className="hidden md:block absolute right-0 top-1/4 h-1/2 w-px" style={{ background: "linear-gradient(to bottom, transparent, #e5e7eb, transparent)" }} />
+                  <div
+                    className="hidden md:block absolute right-0 top-1/4 h-1/2 w-px"
+                    style={{
+                      background:
+                        "linear-gradient(to bottom, transparent, #e5e7eb, transparent)",
+                    }}
+                  />
                 )}
               </div>
             ))}
@@ -603,20 +608,32 @@ export default function Home() {
       {/* ── SERVICES ── */}
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
-            style={{ background: "rgba(99,102,241,0.06)", borderColor: "rgba(99,102,241,0.15)", color: "#6366f1" }}>
+          <div
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
+            style={{
+              background: "rgba(99,102,241,0.06)",
+              borderColor: "rgba(99,102,241,0.15)",
+              color: "#6366f1",
+            }}
+          >
             OUR SERVICES
           </div>
           <h2 className="hero-title text-4xl md:text-5xl font-extrabold">
             What <span className="gradient-text">We Do</span>
           </h2>
           <p className="text-gray-500 mt-4 max-w-xl mx-auto text-sm leading-relaxed">
-            End-to-end digital solutions — from strategy to deployment, we handle it all.
+            End-to-end digital solutions — from strategy to deployment, we
+            handle it all.
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
-            <ServiceCard key={s.title} {...s} delay={i * 80} onLearnMore={() => setActiveService(s)} />
+            <ServiceCard
+              key={s.title}
+              {...s}
+              delay={i * 80}
+              onLearnMore={() => setActiveService(s)}
+            />
           ))}
         </div>
       </section>
@@ -627,8 +644,14 @@ export default function Home() {
       <section className="py-24 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
-              style={{ background: "rgba(99,102,241,0.06)", borderColor: "rgba(99,102,241,0.15)", color: "#6366f1" }}>
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
+              style={{
+                background: "rgba(99,102,241,0.06)",
+                borderColor: "rgba(99,102,241,0.15)",
+                color: "#6366f1",
+              }}
+            >
               HOW WE WORK
             </div>
             <h2 className="hero-title text-4xl md:text-5xl font-extrabold">
@@ -641,11 +664,18 @@ export default function Home() {
                 key={step.num}
                 className="group rounded-2xl p-7 border border-gray-100 bg-white hover:border-indigo-200 transition-all duration-300 hover:-translate-y-2 cursor-default"
                 style={{
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.03), 0 4px 16px rgba(0,0,0,0.04)",
+                  boxShadow:
+                    "0 1px 3px rgba(0,0,0,0.03), 0 4px 16px rgba(0,0,0,0.04)",
                   animation: `fadeUp 0.6s ease ${i * 80}ms both`,
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 40px rgba(99,102,241,0.12), 0 0 0 1px rgba(99,102,241,0.15)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.03), 0 4px 16px rgba(0,0,0,0.04)"; }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow =
+                    "0 12px 40px rgba(99,102,241,0.12), 0 0 0 1px rgba(99,102,241,0.15)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow =
+                    "0 1px 3px rgba(0,0,0,0.03), 0 4px 16px rgba(0,0,0,0.04)";
+                }}
               >
                 <div className="flex items-start justify-between mb-5">
                   <div className="text-4xl font-black hero-title text-gray-100 group-hover:text-indigo-100 transition-colors duration-300">
@@ -653,8 +683,12 @@ export default function Home() {
                   </div>
                   <span className="text-2xl">{step.icon}</span>
                 </div>
-                <h3 className="text-gray-900 font-bold text-lg mb-2">{step.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
+                <h3 className="text-gray-900 font-bold text-lg mb-2">
+                  {step.title}
+                </h3>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  {step.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -667,8 +701,14 @@ export default function Home() {
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
-              style={{ background: "rgba(99,102,241,0.06)", borderColor: "rgba(99,102,241,0.15)", color: "#6366f1" }}>
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
+              style={{
+                background: "rgba(99,102,241,0.06)",
+                borderColor: "rgba(99,102,241,0.15)",
+                color: "#6366f1",
+              }}
+            >
               CASE STUDIES
             </div>
             <h2 className="hero-title text-4xl md:text-5xl font-extrabold">
@@ -676,9 +716,14 @@ export default function Home() {
             </h2>
           </div>
           <Link href="/projects">
-            <button className="text-indigo-500 font-semibold hover:text-indigo-600 transition flex items-center gap-2 group text-sm border border-indigo-200 hover:border-indigo-300 px-4 py-2 rounded-xl bg-white"
-              style={{ boxShadow: "0 2px 8px rgba(99,102,241,0.08)" }}>
-              View All Projects <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
+            <button
+              className="text-indigo-500 font-semibold hover:text-indigo-600 transition flex items-center gap-2 group text-sm border border-indigo-200 hover:border-indigo-300 px-4 py-2 rounded-xl bg-white"
+              style={{ boxShadow: "0 2px 8px rgba(99,102,241,0.08)" }}
+            >
+              View All Projects{" "}
+              <span className="group-hover:translate-x-1 transition-transform duration-200">
+                →
+              </span>
             </button>
           </Link>
         </div>
@@ -694,8 +739,14 @@ export default function Home() {
       {/* ── TECH STACK ── */}
       <section className="py-24 px-6 bg-white">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
-            style={{ background: "rgba(99,102,241,0.06)", borderColor: "rgba(99,102,241,0.15)", color: "#6366f1" }}>
+          <div
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
+            style={{
+              background: "rgba(99,102,241,0.06)",
+              borderColor: "rgba(99,102,241,0.15)",
+              color: "#6366f1",
+            }}
+          >
             TECHNOLOGIES
           </div>
           <h2 className="hero-title text-4xl font-extrabold mb-10">
@@ -714,8 +765,14 @@ export default function Home() {
       {/* ── TESTIMONIALS ── */}
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
-            style={{ background: "rgba(99,102,241,0.06)", borderColor: "rgba(99,102,241,0.15)", color: "#6366f1" }}>
+          <div
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
+            style={{
+              background: "rgba(99,102,241,0.06)",
+              borderColor: "rgba(99,102,241,0.15)",
+              color: "#6366f1",
+            }}
+          >
             CLIENT REVIEWS
           </div>
           <h2 className="hero-title text-4xl md:text-5xl font-extrabold">
@@ -735,8 +792,14 @@ export default function Home() {
       <section className="py-24 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
-              style={{ background: "rgba(99,102,241,0.06)", borderColor: "rgba(99,102,241,0.15)", color: "#6366f1" }}>
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
+              style={{
+                background: "rgba(99,102,241,0.06)",
+                borderColor: "rgba(99,102,241,0.15)",
+                color: "#6366f1",
+              }}
+            >
               WHY CHOOSE US
             </div>
             <h2 className="hero-title text-4xl md:text-5xl font-extrabold">
@@ -745,25 +808,62 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {[
-              ["⚡", "#6366f1", "Fast Delivery", "Two-week sprints with continuous demos so you're never in the dark."],
-              ["🛡️", "#10b981", "Secure by Default", "OWASP compliance, data encryption, and security audits baked in from day one."],
-              ["📈", "#f59e0b", "Scalable Architecture", "Built to handle 10x your current traffic without a rewrite."],
-              ["🎯", "#ec4899", "Business-First Thinking", "We don't just write code — we solve business problems with technology."],
+              [
+                "⚡",
+                "#6366f1",
+                "Fast Delivery",
+                "Two-week sprints with continuous demos so you're never in the dark.",
+              ],
+              [
+                "🛡️",
+                "#10b981",
+                "Secure by Default",
+                "OWASP compliance, data encryption, and security audits baked in from day one.",
+              ],
+              [
+                "📈",
+                "#f59e0b",
+                "Scalable Architecture",
+                "Built to handle 10x your current traffic without a rewrite.",
+              ],
+              [
+                "🎯",
+                "#ec4899",
+                "Business-First Thinking",
+                "We don't just write code — we solve business problems with technology.",
+              ],
             ].map(([icon, color, title, desc]) => (
               <div
                 key={title}
                 className="flex gap-5 p-6 rounded-2xl border border-gray-100 bg-white hover:border-gray-200 transition-all duration-300 group hover:-translate-y-1"
-                style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.03), 0 4px 16px rgba(0,0,0,0.04)" }}
-                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 12px 40px rgba(0,0,0,0.08), 0 0 0 1px ${color}20`; }}
-                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.03), 0 4px 16px rgba(0,0,0,0.04)"; }}
+                style={{
+                  boxShadow:
+                    "0 1px 3px rgba(0,0,0,0.03), 0 4px 16px rgba(0,0,0,0.04)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 12px 40px rgba(0,0,0,0.08), 0 0 0 1px ${color}20`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow =
+                    "0 1px 3px rgba(0,0,0,0.03), 0 4px 16px rgba(0,0,0,0.04)";
+                }}
               >
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300 mt-0.5"
-                  style={{ background: `${color}10`, border: `1.5px solid ${color}20` }}>
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300 mt-0.5"
+                  style={{
+                    background: `${color}10`,
+                    border: `1.5px solid ${color}20`,
+                  }}
+                >
                   {icon}
                 </div>
                 <div>
-                  <div className="text-gray-900 font-bold text-base mb-1">{title}</div>
-                  <div className="text-gray-500 text-sm leading-relaxed">{desc}</div>
+                  <div className="text-gray-900 font-bold text-base mb-1">
+                    {title}
+                  </div>
+                  <div className="text-gray-500 text-sm leading-relaxed">
+                    {desc}
+                  </div>
                 </div>
               </div>
             ))}
@@ -773,21 +873,37 @@ export default function Home() {
 
       {/* ── CTA BANNER ── */}
       <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center rounded-3xl p-14 border border-indigo-100 relative overflow-hidden"
-          style={{ background: "linear-gradient(135deg, #eef2ff 0%, #f5f3ff 50%, #fdf2f8 100%)", boxShadow: "0 20px 60px rgba(99,102,241,0.10)" }}>
-          <div className="absolute inset-0 opacity-[0.04]" style={{
-            backgroundImage: `linear-gradient(rgba(99,102,241,1) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,1) 1px, transparent 1px)`,
-            backgroundSize: "40px 40px",
-          }} />
+        <div
+          className="max-w-4xl mx-auto text-center rounded-3xl p-14 border border-indigo-100 relative overflow-hidden"
+          style={{
+            background:
+              "linear-gradient(135deg, #eef2ff 0%, #f5f3ff 50%, #fdf2f8 100%)",
+            boxShadow: "0 20px 60px rgba(99,102,241,0.10)",
+          }}
+        >
+          <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage: `linear-gradient(rgba(99,102,241,1) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,1) 1px, transparent 1px)`,
+              backgroundSize: "40px 40px",
+            }}
+          />
           <h2 className="hero-title text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 relative z-10">
-            Ready to Build <span className="gradient-text">Something Great?</span>
+            Ready to Build{" "}
+            <span className="gradient-text">Something Great?</span>
           </h2>
           <p className="text-gray-500 mb-8 max-w-xl mx-auto relative z-10">
-            Join 150+ businesses that trust Merajsoft to deliver world-class digital products.
+            Join 150+ businesses that trust Merajsoft to deliver world-class
+            digital products.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-            <button className="px-8 py-4 rounded-2xl font-bold text-white text-base transition-all duration-300 hover:opacity-90 hover:-translate-y-1"
-              style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)", boxShadow: "0 12px 40px rgba(99,102,241,0.30)" }}>
+            <button
+              className="px-8 py-4 rounded-2xl font-bold text-white text-base transition-all duration-300 hover:opacity-90 hover:-translate-y-1"
+              style={{
+                background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                boxShadow: "0 12px 40px rgba(99,102,241,0.30)",
+              }}
+            >
               Get a Free Consultation →
             </button>
             <button className="px-8 py-4 rounded-2xl font-bold text-gray-700 text-base border border-gray-200 bg-white hover:border-indigo-300 hover:text-indigo-600 transition-all duration-300 hover:-translate-y-1">
@@ -799,7 +915,10 @@ export default function Home() {
 
       {/* ── SERVICE MODAL ── */}
       {activeService && (
-        <ServiceModal service={activeService} onClose={() => setActiveService(null)} />
+        <ServiceModal
+          service={activeService}
+          onClose={() => setActiveService(null)}
+        />
       )}
     </main>
   );
