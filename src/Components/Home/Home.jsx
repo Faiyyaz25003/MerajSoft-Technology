@@ -294,7 +294,7 @@ function TechItem({ name, logoUrl, color }) {
 }
 
 // ─── MAIN PAGE ───────────────────────────────────────────────────────
-export default function HomePage() {
+export default function Home() {
   const [activeService, setActiveService] = useState(null);
 
   const services = [
@@ -545,42 +545,8 @@ export default function HomePage() {
           backgroundImage: `linear-gradient(rgba(99,102,241,1) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,1) 1px, transparent 1px)`,
           backgroundSize: "56px 56px",
         }} />
-        {/* Orbit rings */}
-        <div className="animate-spin-slow opacity-[0.12]" style={{ width: 700, height: 700, borderRadius: "50%", border: "1px dashed #6366f1" }} />
-        <div className="animate-spin-slow-rev opacity-[0.08]" style={{ width: 500, height: 500, borderRadius: "50%", border: "1px solid #8b5cf6" }} />
-        {/* Blobs */}
-        <div className="absolute rounded-full blur-3xl opacity-20 animate-pulse" style={{ width: 500, height: 500, background: "radial-gradient(circle, #c7d2fe, #ddd6fe)", top: "-10%", left: "-10%", animationDuration: "8s" }} />
-        <div className="absolute rounded-full blur-3xl opacity-15" style={{ width: 400, height: 400, background: "radial-gradient(circle, #fce7f3, #ddd6fe)", bottom: "5%", right: "-8%", animation: "pulse 10s ease-in-out infinite" }} />
-
         <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full">
           <div className="text-center max-w-4xl mx-auto">
-            {/* Badge */}
-            <div className="hero-fade-1 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold mb-6 border"
-              style={{ background: "rgba(99,102,241,0.06)", borderColor: "rgba(99,102,241,0.18)", color: "#6366f1" }}>
-              <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
-              Trusted by 150+ businesses worldwide
-            </div>
-
-            <h1 className="hero-title font-black mb-6 leading-tight text-gray-900" style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)" }}>
-              We Build Software<br />
-              <span className="shimmer-text">That Drives Growth</span>
-            </h1>
-
-            <p className="hero-fade-3 text-gray-500 text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
-              From blazing-fast web apps to intelligent mobile platforms — Merajsoft delivers
-              world-class digital products that scale with your ambitions.
-            </p>
-
-            <div className="hero-fade-4 flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <button className="px-8 py-4 rounded-2xl font-bold text-white text-base transition-all duration-300 hover:opacity-90 hover:-translate-y-1 flex items-center gap-2"
-                style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)", boxShadow: "0 12px 40px rgba(99,102,241,0.35)" }}>
-                Start a Project →
-              </button>
-              <button className="px-8 py-4 rounded-2xl font-bold text-gray-700 text-base border border-gray-200 bg-white hover:border-indigo-300 hover:text-indigo-600 transition-all duration-300 hover:-translate-y-1"
-                style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
-                View Our Work
-              </button>
-            </div>
 
             {/* Hero image */}
             <div className="mt-16 relative" style={{ animation: "heroImgReveal 1.2s ease 0.4s both" }}>
