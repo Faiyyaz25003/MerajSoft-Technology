@@ -570,8 +570,7 @@ export default function Home() {
         <div
           className="relative z-10 flex flex-col items-center justify-center text-center px-6"
           style={{ zIndex: 3 }}
-        >
-        </div>
+        ></div>
       </section>
 
       {/* ── STATS ── */}
@@ -606,25 +605,11 @@ export default function Home() {
       </section>
 
       {/* ── SERVICES ── */}
-      <section className="py-24 px-6 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <div
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
-            style={{
-              background: "rgba(99,102,241,0.06)",
-              borderColor: "rgba(99,102,241,0.15)",
-              color: "#6366f1",
-            }}
-          >
-            OUR SERVICES
-          </div>
+      <section className="py-10 px-6 max-w-7xl mx-auto">
+        <div className="text-center mb-10">
           <h2 className="hero-title text-4xl md:text-5xl font-extrabold">
             What <span className="gradient-text">We Do</span>
           </h2>
-          <p className="text-gray-500 mt-4 max-w-xl mx-auto text-sm leading-relaxed">
-            End-to-end digital solutions — from strategy to deployment, we
-            handle it all.
-          </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
@@ -641,21 +626,11 @@ export default function Home() {
       <div className="section-divider" />
 
       {/* ── PROCESS ── */}
-      <section className="py-24 px-6 bg-white">
+      <section className="py-10 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <div
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
-              style={{
-                background: "rgba(99,102,241,0.06)",
-                borderColor: "rgba(99,102,241,0.15)",
-                color: "#6366f1",
-              }}
-            >
-              HOW WE WORK
-            </div>
+          <div className="text-center mb-10">
             <h2 className="hero-title text-4xl md:text-5xl font-extrabold">
-              Our <span className="gradient-text">Process</span>
+              From Idea <span className="gradient-text">to Launch</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -698,21 +673,11 @@ export default function Home() {
       <div className="section-divider" />
 
       {/* ── PROJECTS ── */}
-      <section className="py-24 px-6 max-w-7xl mx-auto">
+      <section className="py-10 px-6 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-4">
           <div>
-            <div
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
-              style={{
-                background: "rgba(99,102,241,0.06)",
-                borderColor: "rgba(99,102,241,0.15)",
-                color: "#6366f1",
-              }}
-            >
-              CASE STUDIES
-            </div>
             <h2 className="hero-title text-4xl md:text-5xl font-extrabold">
-              Our <span className="gradient-text">Work</span>
+              Our <span className="gradient-text">Projects</span>
             </h2>
           </div>
           <Link href="/projects">
@@ -737,20 +702,10 @@ export default function Home() {
       <div className="section-divider" />
 
       {/* ── TECH STACK ── */}
-      <section className="py-24 px-6 bg-white">
+      <section className="py-10 px-6 bg-white">
         <div className="max-w-6xl mx-auto text-center">
-          <div
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
-            style={{
-              background: "rgba(99,102,241,0.06)",
-              borderColor: "rgba(99,102,241,0.15)",
-              color: "#6366f1",
-            }}
-          >
-            TECHNOLOGIES
-          </div>
           <h2 className="hero-title text-4xl font-extrabold mb-10">
-            Our <span className="gradient-text">Tech Stack</span>
+            Innovation <span className="gradient-text">TechStack</span>
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5">
             {techStack.map((t) => (
@@ -763,20 +718,10 @@ export default function Home() {
       <div className="section-divider" />
 
       {/* ── TESTIMONIALS ── */}
-      <section className="py-24 px-6 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <div
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
-            style={{
-              background: "rgba(99,102,241,0.06)",
-              borderColor: "rgba(99,102,241,0.15)",
-              color: "#6366f1",
-            }}
-          >
-            CLIENT REVIEWS
-          </div>
+      <section className="py-10 px-6 max-w-7xl mx-auto">
+        <div className="text-center mb-10">
           <h2 className="hero-title text-4xl md:text-5xl font-extrabold">
-            What Clients <span className="gradient-text">Say</span>
+            Success <span className="gradient-text">Stories</span>
           </h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -789,21 +734,11 @@ export default function Home() {
       <div className="section-divider" />
 
       {/* ── WHY US ── */}
-      <section className="py-24 px-6 bg-white">
+      <section className="py-10 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <div
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border"
-              style={{
-                background: "rgba(99,102,241,0.06)",
-                borderColor: "rgba(99,102,241,0.15)",
-                color: "#6366f1",
-              }}
-            >
-              WHY CHOOSE US
-            </div>
+          <div className="text-center mb-10">
             <h2 className="hero-title text-4xl md:text-5xl font-extrabold">
-              Why <span className="gradient-text">Merajsoft</span>
+              What Makes <span className="gradient-text">Us Different</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
