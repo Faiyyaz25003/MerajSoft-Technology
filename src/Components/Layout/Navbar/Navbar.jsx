@@ -10,19 +10,84 @@ const navLinks = [
     icon: "ti-apps",
     href: "#",
     children: [
-      { name: "Web Development", icon: "ti-code", href: "/services/web", desc: "Modern, fast websites" },
-      { name: "App Development", icon: "ti-device-mobile", href: "/services/app", desc: "iOS & Android apps" },
-      { name: "Google Business Profile", icon: "ti-map-pin", href: "/services/GoogleBusinessProfile", desc: "Local SEO presence" },
-      { name: "E-commerce Development", icon: "ti-shopping-cart", href: "/services/ecommerce", desc: "Online stores & shops" },
-      { name: "SEO", icon: "ti-search", href: "/services/seo", desc: "Rank higher on Google" },
-      { name: "AI Solutions & Chatbots", icon: "ti-robot", href: "/services/ai-chatbots", desc: "Smart AI integrations" },
-      { name: "UI/UX Design", icon: "ti-palette", href: "/services/ui-ux", desc: "Beautiful interfaces" },
-      { name: "Cybersecurity", icon: "ti-shield-lock", href: "/services/cybersecurity", desc: "Protect your business" },
-      { name: "Custom Software Development", icon: "ti-cpu", href: "/services/custom-software", desc: "Built for your needs" },
-      { name: "Maintenance & Support", icon: "ti-tool", href: "/services/maintenance", desc: "Always-on assistance" },
-      { name: "Graphic Design", icon: "ti-vector", href: "/services/graphic-design", desc: "Logos & brand visuals" },
-      { name: "Enterprise Solutions", icon: "ti-building", href: "/services/enterprise", desc: "Large-scale systems" },
-      { name: "Industry-Specific Software", icon: "ti-layout-grid", href: "/services/industry-software", desc: "Tailored for your sector" },
+      {
+        name: "Web Development",
+        icon: "ti-code",
+        href: "/services/web",
+        desc: "Modern, fast websites",
+      },
+      {
+        name: "App Development",
+        icon: "ti-device-mobile",
+        href: "/services/app",
+        desc: "iOS & Android apps",
+      },
+      {
+        name: "Google Business Profile",
+        icon: "ti-map-pin",
+        href: "/services/GoogleBusinessProfile",
+        desc: "Local SEO presence",
+      },
+      {
+        name: "E-commerce Development",
+        icon: "ti-shopping-cart",
+        href: "/services/ecommerce",
+        desc: "Online stores & shops",
+      },
+      {
+        name: "SEO",
+        icon: "ti-search",
+        href: "/services/seo",
+        desc: "Rank higher on Google",
+      },
+      {
+        name: "AI Solutions & Chatbots",
+        icon: "ti-robot",
+        href: "/services/chatbots",
+        desc: "Smart AI integrations",
+      },
+      {
+        name: "UI/UX Design",
+        icon: "ti-palette",
+        href: "/services/ui-ux",
+        desc: "Beautiful interfaces",
+      },
+      {
+        name: "Cybersecurity",
+        icon: "ti-shield-lock",
+        href: "/services/cybersecurity",
+        desc: "Protect your business",
+      },
+      {
+        name: "Custom Software Development",
+        icon: "ti-cpu",
+        href: "/services/custom-software",
+        desc: "Built for your needs",
+      },
+      {
+        name: "Maintenance & Support",
+        icon: "ti-tool",
+        href: "/services/maintenance",
+        desc: "Always-on assistance",
+      },
+      {
+        name: "Graphic Design",
+        icon: "ti-vector",
+        href: "/services/graphic-design",
+        desc: "Logos & brand visuals",
+      },
+      {
+        name: "Enterprise Solutions",
+        icon: "ti-building",
+        href: "/services/enterprise",
+        desc: "Large-scale systems",
+      },
+      {
+        name: "Industry-Specific Software",
+        icon: "ti-layout-grid",
+        href: "/services/industry-software",
+        desc: "Tailored for your sector",
+      },
     ],
   },
   { name: "Projects", icon: "ti-briefcase", href: "/projects" },
@@ -558,8 +623,11 @@ export default function Navbar() {
         }
       `}</style>
 
-      <nav className="nb-wrapper" role="navigation" aria-label="Main navigation">
-
+      <nav
+        className="nb-wrapper"
+        role="navigation"
+        aria-label="Main navigation"
+      >
         {/* TOP BAR */}
         <div className="nb-top">
           <div className="nb-top-inner">
@@ -569,7 +637,10 @@ export default function Navbar() {
                 +91 93723 81936
               </a>
               <div className="nb-top-divider" />
-              <a href="mailto:khanfaiyyaz25003@gmail.com" className="nb-contact-item">
+              <a
+                href="mailto:khanfaiyyaz25003@gmail.com"
+                className="nb-contact-item"
+              >
                 <i className="ti ti-mail" />
                 khanfaiyyaz25003@gmail.com
               </a>
@@ -578,14 +649,27 @@ export default function Navbar() {
             <div className="nb-top-right">
               <span className="nb-follow-label">Follow us</span>
               <div className="nb-socials">
-                <a href="#" className="nb-social-btn" aria-label="Facebook"><i className="ti ti-brand-facebook" /></a>
-                <a href="#" className="nb-social-btn" aria-label="X"><i className="ti ti-brand-x" /></a>
-                <a href="#" className="nb-social-btn" aria-label="Instagram"><i className="ti ti-brand-instagram" /></a>
-                <a href="#" className="nb-social-btn" aria-label="LinkedIn"><i className="ti ti-brand-linkedin" /></a>
+                <a href="#" className="nb-social-btn" aria-label="Facebook">
+                  <i className="ti ti-brand-facebook" />
+                </a>
+                <a href="#" className="nb-social-btn" aria-label="X">
+                  <i className="ti ti-brand-x" />
+                </a>
+                <a href="#" className="nb-social-btn" aria-label="Instagram">
+                  <i className="ti ti-brand-instagram" />
+                </a>
+                <a href="#" className="nb-social-btn" aria-label="LinkedIn">
+                  <i className="ti ti-brand-linkedin" />
+                </a>
               </div>
             </div>
 
-            <button className="nb-hamburger" onClick={() => setMenuOpen(true)} aria-label="Open menu" aria-expanded={menuOpen}>
+            <button
+              className="nb-hamburger"
+              onClick={() => setMenuOpen(true)}
+              aria-label="Open menu"
+              aria-expanded={menuOpen}
+            >
               <i className="ti ti-menu-2" />
             </button>
           </div>
@@ -594,7 +678,11 @@ export default function Navbar() {
         {/* MAIN NAV (desktop) */}
         <div className="nb-bottom">
           <div className="nb-bottom-inner">
-            <Link href="/" className="nb-logo" aria-label="Software Technology Home">
+            <Link
+              href="/"
+              className="nb-logo"
+              aria-label="Software Technology Home"
+            >
               <div className="nb-logo-icon">
                 <i className="ti ti-code-circle" />
               </div>
@@ -614,25 +702,43 @@ export default function Navbar() {
                       role="button"
                       aria-haspopup="true"
                     >
-                      <i className={`ti ${item.icon} nav-icon`} aria-hidden="true" />
+                      <i
+                        className={`ti ${item.icon} nav-icon`}
+                        aria-hidden="true"
+                      />
                       {item.name}
-                      <i className="ti ti-chevron-down nb-chevron" aria-hidden="true" />
+                      <i
+                        className="ti ti-chevron-down nb-chevron"
+                        aria-hidden="true"
+                      />
                     </span>
 
                     <div className="nb-dropdown" role="menu">
                       <div className="nb-dropdown-header">
                         <span>Our Services</span>
-                        <span className="nb-dropdown-header-count">13 services</span>
+                        <span className="nb-dropdown-header-count">
+                          13 services
+                        </span>
                       </div>
                       <div className="nb-dropdown-grid">
                         {item.children.map((child) => (
-                          <Link key={child.name} href={child.href} className="nb-dropdown-link" role="menuitem">
+                          <Link
+                            key={child.name}
+                            href={child.href}
+                            className="nb-dropdown-link"
+                            role="menuitem"
+                          >
                             <div className="nb-dd-icon">
-                              <i className={`ti ${child.icon}`} aria-hidden="true" />
+                              <i
+                                className={`ti ${child.icon}`}
+                                aria-hidden="true"
+                              />
                             </div>
                             <div className="nb-dd-text">
                               <div className="nb-dd-name">{child.name}</div>
-                              {child.desc && <div className="nb-dd-desc">{child.desc}</div>}
+                              {child.desc && (
+                                <div className="nb-dd-desc">{child.desc}</div>
+                              )}
                             </div>
                           </Link>
                         ))}
@@ -646,11 +752,14 @@ export default function Navbar() {
                       className={`nb-nav-link${activeLink === item.name ? " active" : ""}`}
                       onClick={() => setActiveLink(item.name)}
                     >
-                      <i className={`ti ${item.icon} nav-icon`} aria-hidden="true" />
+                      <i
+                        className={`ti ${item.icon} nav-icon`}
+                        aria-hidden="true"
+                      />
                       {item.name}
                     </Link>
                   </div>
-                )
+                ),
               )}
 
               <Link href="/contact" className="nb-contact-btn">
@@ -663,7 +772,12 @@ export default function Navbar() {
       </nav>
 
       {/* MOBILE DRAWER */}
-      <div className={`nb-overlay${menuOpen ? " open" : ""}`} role="dialog" aria-modal="true" aria-label="Mobile menu">
+      <div
+        className={`nb-overlay${menuOpen ? " open" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile menu"
+      >
         <div className="nb-overlay-bg" onClick={() => setMenuOpen(false)} />
         <div className="nb-drawer">
           <div className="nb-drawer-header">
@@ -673,10 +787,16 @@ export default function Navbar() {
               </div>
               <div>
                 <div className="nb-drawer-logo-text">Software Technology</div>
-                <div className="nb-drawer-logo-sub">Web · App · SEO · E-commerce</div>
+                <div className="nb-drawer-logo-sub">
+                  Web · App · SEO · E-commerce
+                </div>
               </div>
             </div>
-            <button className="nb-drawer-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">
+            <button
+              className="nb-drawer-close"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close menu"
+            >
               <i className="ti ti-x" />
             </button>
           </div>
@@ -690,15 +810,31 @@ export default function Navbar() {
                     onClick={() => setMobileServiceOpen(!mobileServiceOpen)}
                     aria-expanded={mobileServiceOpen}
                   >
-                    <i className={`ti ${item.icon} drawer-icon`} aria-hidden="true" />
+                    <i
+                      className={`ti ${item.icon} drawer-icon`}
+                      aria-hidden="true"
+                    />
                     {item.name}
-                    <i className={`ti ti-chevron-right nb-drawer-chevron${mobileServiceOpen ? " rotated" : ""}`} aria-hidden="true" />
+                    <i
+                      className={`ti ti-chevron-right nb-drawer-chevron${mobileServiceOpen ? " rotated" : ""}`}
+                      aria-hidden="true"
+                    />
                   </button>
-                  <div className={`nb-drawer-sub${mobileServiceOpen ? " open" : ""}`}>
+                  <div
+                    className={`nb-drawer-sub${mobileServiceOpen ? " open" : ""}`}
+                  >
                     {item.children.map((child) => (
-                      <Link key={child.name} href={child.href} className="nb-drawer-sub-link" onClick={() => setMenuOpen(false)}>
+                      <Link
+                        key={child.name}
+                        href={child.href}
+                        className="nb-drawer-sub-link"
+                        onClick={() => setMenuOpen(false)}
+                      >
                         <div className="nb-drawer-sub-icon">
-                          <i className={`ti ${child.icon}`} aria-hidden="true" />
+                          <i
+                            className={`ti ${child.icon}`}
+                            aria-hidden="true"
+                          />
                         </div>
                         {child.name}
                       </Link>
@@ -706,11 +842,19 @@ export default function Navbar() {
                   </div>
                 </div>
               ) : (
-                <Link key={item.name} href={item.href} className="nb-drawer-link" onClick={() => setMenuOpen(false)}>
-                  <i className={`ti ${item.icon} drawer-icon`} aria-hidden="true" />
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="nb-drawer-link"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <i
+                    className={`ti ${item.icon} drawer-icon`}
+                    aria-hidden="true"
+                  />
                   {item.name}
                 </Link>
-              )
+              ),
             )}
           </div>
 
@@ -720,12 +864,19 @@ export default function Navbar() {
                 <i className="ti ti-phone-call" />
                 +91 93723 81936
               </a>
-              <a href="mailto:khanfaiyyaz25003@gmail.com" className="nb-drawer-ci">
+              <a
+                href="mailto:khanfaiyyaz25003@gmail.com"
+                className="nb-drawer-ci"
+              >
                 <i className="ti ti-mail" />
                 khanfaiyyaz25003@gmail.com
               </a>
             </div>
-            <Link href="/contact" className="nb-drawer-cta" onClick={() => setMenuOpen(false)}>
+            <Link
+              href="/contact"
+              className="nb-drawer-cta"
+              onClick={() => setMenuOpen(false)}
+            >
               <i className="ti ti-send" />
               Get in Touch
             </Link>
