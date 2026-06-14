@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MousePointer2,
   ArrowUpRight,
@@ -14,7 +14,6 @@ import {
   Gauge,
   Component,
   Users,
-  Mail,
   X,
 } from "lucide-react";
 
@@ -64,14 +63,14 @@ const services = [
   {
     id: "F08",
     icon: Gauge,
-    title: "User Experience Optimization",
+    title: "UX Optimization",
     desc: "Audits and redesigns that fix drop-off points, confusing flows and friction inside your existing product.",
   },
   {
     id: "F09",
     icon: Component,
     title: "Design Systems & Style Guides",
-    desc: "Reusable components, tokens and documentation, so every new screen ships consistent — and fast.",
+    desc: "Reusable components, tokens and documentation so every new screen ships consistent — and fast.",
   },
 ];
 
@@ -89,7 +88,7 @@ const process = [
   {
     n: "03",
     title: "Design",
-    desc: "High-fidelity UI, design systems and interactive prototypes that are ready to hand off and build.",
+    desc: "High-fidelity UI, design systems and interactive prototypes ready to hand off and build.",
   },
   {
     n: "04",
@@ -126,7 +125,7 @@ const work = [
     tag: "Wireframes & User Flows",
     dims: "Sketch / Flow",
     img: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=900&q=80",
-    desc: "End-to-end user flows and low-fidelity wireframes for a B2B SaaS platform, mapping 14 distinct user roles across onboarding, billing, and admin modules.",
+    desc: "End-to-end user flows for a B2B SaaS platform, mapping 14 distinct user roles across onboarding, billing, and admin modules.",
     client: "Northstar HQ",
     year: "2023",
     platform: "Web (B2B SaaS)",
@@ -167,24 +166,56 @@ const work = [
   },
 ];
 
+/* ── Modal ─────────────────────────────────────────────────────────────── */
 const Modal = ({ item, onClose }) => {
+  // Lock body scroll when open
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
+  // Close on Escape
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onClose]);
+
   if (!item) return null;
+
   return (
     <div
-      className="ux-modal-bg"
-      onClick={(e) => e.target.classList.contains("ux-modal-bg") && onClose()}
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "rgba(20,20,28,0.72)",
+        zIndex: 9999,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "20px",
+      }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
       <div className="ux-modal">
-        <button className="ux-modal-close" onClick={onClose}>
-          <X size={18} />
+        <button
+          className="ux-modal-close"
+          onClick={onClose}
+          aria-label="Close modal"
+        >
+          <X size={16} />
         </button>
-        <div className="ux-modal-img-wrap">
-          <img src={item.img} alt={item.name} className="ux-modal-img" />
-        </div>
+        <img src={item.img} alt={item.name} className="ux-modal-img" />
         <div className="ux-modal-body">
           <p className="ux-modal-tag">{item.tag}</p>
           <h2 className="ux-display ux-modal-title">{item.name}</h2>
-          <p className="ux-mono ux-modal-dims">Canvas: {item.dims}</p>
+          <span className="ux-mono ux-modal-dims">Canvas: {item.dims}</span>
           <p className="ux-modal-desc">{item.desc}</p>
           <div className="ux-modal-meta">
             <div className="ux-modal-meta-item">
@@ -213,6 +244,7 @@ const Modal = ({ item, onClose }) => {
   );
 };
 
+/* ── Work Card ─────────────────────────────────────────────────────────── */
 const WorkCard = ({ w, onClick }) => {
   const [hovered, setHovered] = useState(false);
   return (
@@ -231,12 +263,15 @@ const WorkCard = ({ w, onClick }) => {
           alt={`${w.name} — ${w.tag}`}
           style={{
             transform: hovered ? "scale(1.06)" : "scale(1)",
-            filter: hovered ? "grayscale(0%)" : "grayscale(20%)",
+            filter: hovered ? "grayscale(0%)" : "grayscale(15%)",
           }}
         />
         <div
           className="ux-read-more-overlay"
-          style={{ opacity: hovered ? 1 : 0 }}
+          style={{
+            opacity: hovered ? 1 : 0,
+            pointerEvents: hovered ? "auto" : "none",
+          }}
         >
           <button className="ux-read-more-btn" onClick={onClick}>
             Read more <ArrowRight size={13} />
@@ -254,6 +289,7 @@ const WorkCard = ({ w, onClick }) => {
   );
 };
 
+/* ── Page ──────────────────────────────────────────────────────────────── */
 const Uiuxdesign = () => {
   const [activeWork, setActiveWork] = useState(null);
 
@@ -278,363 +314,177 @@ const Uiuxdesign = () => {
         .uiux-page *, .uiux-page *::before, .uiux-page *::after { box-sizing: border-box; }
 
         .ux-display { font-family: 'Space Grotesk', sans-serif; }
-        .ux-mono { font-family: 'Space Mono', monospace; letter-spacing: 0.04em; }
+        .ux-mono { font-family: 'Space Mono', monospace; letter-spacing: .04em; }
 
+        /* Ruler */
         .ux-ruler {
-          height: 22px;
-          width: 100%;
+          height: 24px; width: 100%;
           border-bottom: 1px solid var(--line);
           background-image:
             repeating-linear-gradient(to right, var(--line) 0, var(--line) 1px, transparent 1px, transparent 80px),
             repeating-linear-gradient(to right, var(--line) 0, var(--line) 1px, transparent 1px, transparent 16px);
           background-size: 100% 14px, 100% 7px;
-          background-position: bottom left, bottom left;
+          background-position: bottom left;
           background-repeat: no-repeat, repeat-x;
         }
 
-        .ux-frame {
-          position: relative;
-          padding: 64px 24px;
-          border-bottom: 1px solid var(--line);
-        }
-        @media (min-width: 768px) {
-          .ux-frame { padding: 96px 56px; }
-        }
+        /* Section frame */
+        .ux-frame { position: relative; padding: 72px 48px; border-bottom: 1px solid var(--line); }
+        @media (max-width: 768px) { .ux-frame { padding: 48px 20px; } }
 
         .ux-frame-label {
-          font-family: 'Space Mono', monospace;
-          font-size: 11px;
-          color: var(--pink);
-          display: flex;
-          justify-content: space-between;
-          align-items: baseline;
-          padding-bottom: 5px;
-          margin-bottom: 5px;
-          border-bottom: 1px dashed var(--line);
-          text-transform: uppercase;
+          font-family: 'Space Mono', monospace; font-size: 11px; color: var(--pink);
+          display: flex; justify-content: space-between; align-items: baseline;
+          padding-bottom: 8px; margin-bottom: 8px;
+          border-bottom: 1px dashed var(--line); text-transform: uppercase;
         }
-        .ux-frame-label .dim { color: var(--ink-soft); letter-spacing: 0.08em; }
+        .ux-frame-label .dim { color: var(--ink-soft); letter-spacing: .08em; }
 
-        .ux-handle {
-          position: absolute;
-          width: 9px;
-          height: 9px;
-          background: var(--canvas);
-          border: 1.5px solid var(--pink);
-          z-index: 2;
-        }
-        .ux-handle.tl { top: -1px; left: -1px; }
-        .ux-handle.tr { top: -1px; right: -1px; }
-        .ux-handle.bl { bottom: -1px; left: -1px; }
-        .ux-handle.br { bottom: -1px; right: -1px; }
+        /* Artboard handles */
+        .ux-handle { position: absolute; width: 9px; height: 9px; background: var(--canvas); border: 1.5px solid var(--pink); z-index: 2; }
+        .ux-handle.tl { top: -1px; left: -1px; } .ux-handle.tr { top: -1px; right: -1px; }
+        .ux-handle.bl { bottom: -1px; left: -1px; } .ux-handle.br { bottom: -1px; right: -1px; }
+        .ux-artboard { position: relative; border: 1px solid var(--line); }
 
-        .ux-artboard {
-          position: relative;
-          border: 1px solid var(--line);
-        }
+        /* Animated cursor */
+        .ux-cursor { position: absolute; color: var(--pink); animation: ux-float 3.4s ease-in-out infinite; pointer-events: none; }
+        @keyframes ux-float { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(5px,-7px) rotate(-4deg); } }
 
-        .ux-cursor {
-          position: absolute;
-          color: var(--pink);
-          animation: ux-float 3.4s ease-in-out infinite;
-          pointer-events: none;
-        }
-        @keyframes ux-float {
-          0%, 100% { transform: translate(0, 0) rotate(0deg); }
-          50% { transform: translate(5px, -7px) rotate(-4deg); }
-        }
-
-        .ux-btn-primary {
-          background: var(--ink);
-          color: var(--canvas);
-          transition: background 0.2s ease, transform 0.2s ease;
-        }
+        /* Buttons */
+        .ux-btn-primary { background: var(--ink); color: var(--canvas); padding: 13px 28px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background .2s, transform .2s; }
         .ux-btn-primary:hover { background: var(--pink); transform: translateY(-2px); }
-
-        .ux-btn-secondary {
-          border: 1px solid var(--ink);
-          color: var(--ink);
-          transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-        }
+        .ux-btn-secondary { border: 1.5px solid var(--ink); color: var(--ink); padding: 12px 24px; font-size: 13px; font-weight: 600; background: none; cursor: pointer; transition: border-color .2s, color .2s, transform .2s; }
         .ux-btn-secondary:hover { border-color: var(--pink); color: var(--pink); transform: translateY(-2px); }
 
-        .ux-service-card {
-          border: 1px solid var(--line);
-          transition: border-color 0.25s ease, transform 0.25s ease;
-          position: relative;
-        }
-        .ux-service-card:hover {
-          border-color: var(--pink);
-          transform: translateY(-3px);
-        }
-        .ux-service-tag {
-          font-family: 'Space Mono', monospace;
-          font-size: 11px;
-          color: var(--pink);
-        }
+        /* Service cards */
+        .ux-service-card { border: 1px solid var(--line); padding: 28px; transition: border-color .25s, transform .25s; position: relative; background: var(--canvas); }
+        .ux-service-card:hover { border-color: var(--pink); transform: translateY(-3px); }
+        .ux-svc-icon { width: 40px; height: 40px; background: #EEF0FF; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .ux-service-tag { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--pink); }
 
-        /* Work Grid */
-        .ux-work-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 1px;
-          background: var(--line);
-        }
-        @media (max-width: 640px) {
-          .ux-work-grid { grid-template-columns: 1fr; }
-        }
-        @media (min-width: 641px) and (max-width: 900px) {
-          .ux-work-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        /* Work grid */
+        .ux-work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); }
+        @media (max-width: 640px) { .ux-work-grid { grid-template-columns: 1fr; } }
+        @media (min-width: 641px) and (max-width: 900px) { .ux-work-grid { grid-template-columns: repeat(2, 1fr); } }
 
-        .ux-work-card {
-          background: var(--canvas);
-          cursor: pointer;
-        }
-        .ux-work-img-wrap {
-          position: relative;
-          overflow: hidden;
-        }
-        .ux-work-img-wrap img {
-          width: 100%;
-          height: 210px;
-          object-fit: cover;
-          display: block;
-          transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s ease;
-        }
+        .ux-work-card { background: var(--canvas); cursor: pointer; }
+        .ux-work-img-wrap { position: relative; overflow: hidden; }
+        .ux-work-img-wrap img { width: 100%; height: 220px; object-fit: cover; display: block; transition: transform .5s cubic-bezier(.25,.46,.45,.94), filter .4s ease; }
 
-        .ux-read-more-overlay {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: rgba(20, 20, 28, 0.55);
-          transition: opacity 0.3s ease;
-          pointer-events: none;
-        }
-        .ux-work-card:hover .ux-read-more-overlay {
-          pointer-events: auto;
-        }
-        .ux-read-more-btn {
-          background: var(--canvas);
-          color: var(--ink);
-          font-family: 'Space Mono', monospace;
-          font-size: 11px;
-          font-weight: 700;
-          letter-spacing: 0.04em;
-          padding: 10px 22px;
-          border: none;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          transition: background 0.2s ease, color 0.2s ease;
-        }
-        .ux-read-more-btn:hover {
-          background: var(--pink);
-          color: #fff;
-        }
+        .ux-read-more-overlay { position: absolute; inset: 0; background: rgba(20,20,28,.6); display: flex; align-items: center; justify-content: center; transition: opacity .3s ease; }
+        .ux-read-more-btn { background: var(--canvas); color: var(--ink); font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; padding: 11px 24px; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background .2s, color .2s; }
+        .ux-read-more-btn:hover { background: var(--pink); color: #fff; }
 
-        .ux-card-foot {
-          padding: 16px 18px 18px;
-          border-top: 1px solid var(--line);
-          background: var(--canvas);
-        }
-        .ux-card-top-row {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-bottom: 4px;
-        }
+        .ux-card-foot { padding: 16px 18px; border-top: 1px solid var(--line); }
+        .ux-card-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
         .ux-card-name { font-weight: 600; font-size: 15px; }
         .ux-card-dims { font-size: 10px; color: var(--ink-soft); }
 
-        .ux-sec-header {
-          display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
-          gap: 16px;
-          margin-bottom: 40px;
-          flex-wrap: wrap;
-        }
-        .ux-link-underline {
-          text-decoration: underline;
-          text-decoration-color: var(--pink);
-          text-underline-offset: 4px;
-        }
+        /* Section header */
+        .ux-sec-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 36px; flex-wrap: wrap; }
+        .ux-link-underline { text-decoration: underline; text-decoration-color: var(--pink); text-underline-offset: 4px; }
 
-        /* Modal */
-        .ux-modal-bg {
-          position: fixed;
-          inset: 0;
-          background: rgba(20, 20, 28, 0.65);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 999;
-          padding: 20px;
-        }
+        /* ── MODAL ── */
         .ux-modal {
           background: var(--canvas);
-          width: 100%;
-          max-width: 560px;
+          width: 100%; max-width: 580px;
           position: relative;
           border: 1px solid var(--line);
-          max-height: 90vh;
+          max-height: 88vh;
           overflow-y: auto;
-          animation: ux-modal-in 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          animation: ux-modal-in .28s cubic-bezier(.25,.46,.45,.94);
         }
         @keyframes ux-modal-in {
-          from { opacity: 0; transform: translateY(16px) scale(0.98); }
-          to   { opacity: 1; transform: translateY(0) scale(1); }
+          from { opacity: 0; transform: translateY(18px) scale(.97); }
+          to   { opacity: 1; transform: none; }
         }
         .ux-modal-close {
-          position: absolute;
-          top: 14px;
-          right: 16px;
-          background: none;
-          border: none;
-          cursor: pointer;
-          color: var(--ink-soft);
-          z-index: 2;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 4px;
-          transition: color 0.2s;
+          position: absolute; top: 14px; right: 16px;
+          background: none; border: none; cursor: pointer;
+          color: var(--ink-soft); z-index: 10;
+          width: 32px; height: 32px;
+          display: flex; align-items: center; justify-content: center;
+          border-radius: 50%;
+          transition: background .2s, color .2s;
         }
-        .ux-modal-close:hover { color: var(--pink); }
-        .ux-modal-img {
-          width: 100%;
-          height: 240px;
-          object-fit: cover;
-          display: block;
-          filter: grayscale(10%);
-        }
-        .ux-modal-body { padding: 24px 28px 32px; }
-        .ux-modal-tag {
-          font-family: 'Space Mono', monospace;
-          font-size: 10px;
-          color: var(--pink);
-          text-transform: uppercase;
-          margin-bottom: 8px;
-        }
-        .ux-modal-title { font-size: 24px; font-weight: 700; line-height: 1.2; margin-bottom: 10px; }
-        .ux-modal-dims { font-size: 10px; color: var(--ink-soft); margin-bottom: 16px; display: block; }
-        .ux-modal-desc {
-          font-size: 14px;
-          line-height: 1.75;
-          color: var(--ink-soft);
-          margin-bottom: 24px;
-        }
-        .ux-modal-meta {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 16px;
-          border-top: 1px solid var(--line);
-          padding-top: 20px;
-          margin-bottom: 24px;
-        }
-        .ux-modal-meta-item label {
-          display: block;
-          font-family: 'Space Mono', monospace;
-          font-size: 10px;
-          color: var(--pink);
-          margin-bottom: 4px;
-        }
+        .ux-modal-close:hover { background: var(--line); color: var(--pink); }
+        .ux-modal-img { width: 100%; height: 260px; object-fit: cover; display: block; }
+        .ux-modal-body { padding: 28px 32px 36px; }
+        .ux-modal-tag { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--pink); text-transform: uppercase; margin-bottom: 10px; }
+        .ux-modal-title { font-size: 26px; font-weight: 700; line-height: 1.2; margin-bottom: 8px; }
+        .ux-modal-dims { font-size: 10px; color: var(--ink-soft); display: block; margin-bottom: 18px; }
+        .ux-modal-desc { font-size: 14px; line-height: 1.8; color: var(--ink-soft); margin-bottom: 28px; }
+        .ux-modal-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; border-top: 1px solid var(--line); padding-top: 20px; margin-bottom: 28px; }
+        .ux-modal-meta-item label { display: block; font-family: 'Space Mono', monospace; font-size: 9px; color: var(--pink); text-transform: uppercase; margin-bottom: 5px; letter-spacing: .06em; }
         .ux-modal-meta-item span { font-size: 13px; font-weight: 500; }
-        .ux-modal-cta {
-          background: var(--ink);
-          color: var(--canvas);
-          border: none;
-          padding: 12px 24px;
-          font-family: 'Space Mono', monospace;
-          font-size: 11px;
-          letter-spacing: 0.04em;
-          cursor: pointer;
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          transition: background 0.2s ease;
-        }
+        .ux-modal-cta { background: var(--ink); color: var(--canvas); border: none; padding: 13px 28px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .04em; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background .2s; }
         .ux-modal-cta:hover { background: var(--pink); }
 
-        .ux-dark {
-          background: var(--ink);
-          color: var(--canvas);
-          border-bottom: none;
-        }
-        .ux-dark .ux-frame-label { border-bottom: 1px dashed #33333f; }
-        .ux-dark .ux-frame-label .dim { color: #8b8b97; }
+        /* Dark CTA section */
+        .ux-dark { background: var(--ink); color: var(--canvas); }
+        .ux-dark .ux-frame-label { border-bottom-color: #333; }
+        .ux-dark .ux-frame-label .dim { color: #888; }
+
+        /* Process */
+        .ux-process-step { padding-left: 20px; border-left: 1px dashed var(--line); }
+        .ux-step-num { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--pink); }
+        .ux-step-title { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; margin: 8px 0; }
+        .ux-step-desc { font-size: 13px; line-height: 1.75; color: var(--ink-soft); }
       `}</style>
 
-      {/* Ruler strip */}
       <div className="ux-ruler" />
 
-      {/* HERO */}
+      {/* ── HERO ── */}
       <section className="ux-frame">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
           <div>
-            <h1 className="ux-display text-3xl md:text-4xl font-semibold leading-tight mb-6">
+            <div className="ux-frame-label">
+              <span>UI/UX DESIGN STUDIO</span>
+              <span className="dim">Hero / 01</span>
+            </div>
+            <h1
+              className="ux-display text-4xl md:text-5xl font-bold leading-tight mb-5"
+              style={{ letterSpacing: "-0.5px" }}
+            >
               Design that disappears into the experience.
             </h1>
             <p
               className="text-base md:text-lg max-w-md mb-8"
-              style={{ color: "var(--ink-soft)" }}
+              style={{ color: "var(--ink-soft)", lineHeight: 1.75 }}
             >
               We design web apps, mobile apps and SaaS dashboards that feel
-              obvious the first time someone opens them — and even better the
-              hundredth time.
+              obvious the first time — and even better the hundredth.
             </p>
-            <div className="flex flex-wrap items-center gap-4 relative">
-              <a
-                href="#work"
-                className="ux-btn-primary px-6 py-3 text-sm font-medium flex items-center gap-2"
-              >
-                View our work <ArrowRight size={16} />
+            <div className="flex flex-wrap items-center gap-3 relative">
+              <a href="#work" className="ux-btn-primary">
+                View our work <ArrowRight size={15} />
               </a>
-              <a
-                href="#contact"
-                className="ux-btn-secondary px-6 py-3 text-sm font-medium"
-              >
+              <a href="#contact" className="ux-btn-secondary">
                 Book a discovery call
               </a>
               <MousePointer2
                 className="ux-cursor hidden md:block"
                 size={22}
-                style={{ top: "-26px", left: "210px" }}
+                style={{ top: "-26px", left: "218px" }}
               />
             </div>
 
-            <div className="grid grid-cols-3 gap-6 mt-16 max-w-md">
-              <div>
-                <p className="ux-display text-2xl font-semibold">120+</p>
-                <p
-                  className="text-xs mt-1"
-                  style={{ color: "var(--ink-soft)" }}
-                >
-                  Products shipped
-                </p>
-              </div>
-              <div>
-                <p className="ux-display text-2xl font-semibold">40+</p>
-                <p
-                  className="text-xs mt-1"
-                  style={{ color: "var(--ink-soft)" }}
-                >
-                  SaaS dashboards
-                </p>
-              </div>
-              <div>
-                <p className="ux-display text-2xl font-semibold">98%</p>
-                <p
-                  className="text-xs mt-1"
-                  style={{ color: "var(--ink-soft)" }}
-                >
-                  Client retention
-                </p>
-              </div>
+            <div className="grid grid-cols-3 gap-6 mt-14 max-w-sm">
+              {[
+                ["120+", "Products shipped"],
+                ["40+", "SaaS dashboards"],
+                ["98%", "Client retention"],
+              ].map(([num, lbl]) => (
+                <div key={lbl}>
+                  <p className="ux-display text-2xl font-bold">{num}</p>
+                  <p
+                    className="text-xs mt-1"
+                    style={{ color: "var(--ink-soft)" }}
+                  >
+                    {lbl}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -645,8 +495,8 @@ const Uiuxdesign = () => {
             <div className="ux-handle br" />
             <img
               src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80"
-              alt="Analytics dashboard UI design"
-              className="w-full h-full object-cover"
+              alt="Analytics dashboard UI"
+              className="w-full object-cover"
               style={{ display: "block", minHeight: "380px" }}
             />
             <div
@@ -656,19 +506,28 @@ const Uiuxdesign = () => {
                 border: "1px solid var(--line)",
               }}
             >
-              Dashboard & Analytics UI
+              Dashboard &amp; Analytics UI
             </div>
           </div>
         </div>
       </section>
 
-      {/* SERVICES */}
+      {/* ── SERVICES ── */}
       <section id="services" className="ux-frame">
+        <div className="ux-frame-label">
+          <span>SERVICES</span>
+          <span className="dim">F01 — F10</span>
+        </div>
         <div className="mb-12 max-w-xl">
-          <h2 className="ux-display text-3xl md:text-4xl font-semibold mb-4">
+          <h2
+            className="ux-display text-3xl md:text-4xl font-bold mb-4"
+            style={{ letterSpacing: "-0.3px" }}
+          >
             Ten deliverables. One design language.
           </h2>
-          <p style={{ color: "var(--ink-soft)" }}>
+          <p
+            style={{ color: "var(--ink-soft)", fontSize: 15, lineHeight: 1.75 }}
+          >
             Whatever stage your product is at — first wireframe or full redesign
             — these are the pieces we put on the table.
           </p>
@@ -681,16 +540,12 @@ const Uiuxdesign = () => {
           {services.map((s) => {
             const Icon = s.icon;
             return (
-              <div
-                key={s.id}
-                className="ux-service-card bg-[color:var(--canvas)] p-6 md:p-8"
-                style={{ background: "var(--canvas)" }}
-              >
-                <div className="flex items-center justify-between mb-6">
-                  <Icon size={22} style={{ color: "var(--violet)" }} />
-                  <span className="ux-service-tag">{s.id}</span>
+              <div key={s.id} className="ux-service-card">
+                <div className="ux-svc-icon">
+                  <Icon size={20} style={{ color: "var(--violet)" }} />
                 </div>
-                <h3 className="ux-display text-lg font-semibold mb-2">
+                <span className="ux-service-tag block mb-2">{s.id}</span>
+                <h3 className="ux-display text-base font-semibold mb-2">
                   {s.title}
                 </h3>
                 <p
@@ -702,41 +557,40 @@ const Uiuxdesign = () => {
               </div>
             );
           })}
-
-          {/* Featured 10th service */}
-          <div
-            className="ux-service-card bg-[color:var(--canvas)] p-6 md:p-8 sm:col-span-2 lg:col-span-3 flex flex-col md:flex-row md:items-center gap-6"
-            style={{ background: "var(--canvas)" }}
-          >
-            <div className="flex items-center gap-4 md:w-1/3">
-              <Users size={28} style={{ color: "var(--violet)" }} />
-              <div>
-                <span className="ux-service-tag">F10</span>
-                <h3 className="ux-display text-lg font-semibold">
-                  Usability Testing & Research
-                </h3>
-              </div>
+          {/* F10 wide */}
+          <div className="ux-service-card sm:col-span-2 lg:col-span-3 flex items-center gap-8 flex-wrap">
+            <div className="ux-svc-icon flex-shrink-0">
+              <Users size={20} style={{ color: "var(--violet)" }} />
             </div>
-            <p
-              className="text-sm leading-relaxed md:w-2/3"
-              style={{ color: "var(--ink-soft)" }}
-            >
-              We watch real users navigate your product so you don't have to
-              guess. Moderated sessions, heatmaps and surveys, turned into a
-              prioritized backlog your team can act on immediately.
-            </p>
+            <div className="flex-1">
+              <span className="ux-service-tag block mb-1">F10</span>
+              <h3 className="ux-display text-base font-semibold mb-2">
+                Usability Testing &amp; Research
+              </h3>
+              <p
+                className="text-sm leading-relaxed"
+                style={{ color: "var(--ink-soft)" }}
+              >
+                We watch real users navigate your product so you don't have to
+                guess. Moderated sessions, heatmaps and surveys, turned into a
+                prioritized backlog your team can act on immediately.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SELECTED WORK — 6 cards */}
+      {/* ── SELECTED WORK ── */}
       <section id="work" className="ux-frame">
         <div className="ux-frame-label">
           <span>SELECTED WORK</span>
           <span className="dim">6 / 6 projects</span>
         </div>
         <div className="ux-sec-header">
-          <h2 className="ux-display text-3xl md:text-4xl font-semibold">
+          <h2
+            className="ux-display text-3xl md:text-4xl font-bold"
+            style={{ letterSpacing: "-0.3px" }}
+          >
             A few recent screens.
           </h2>
           <a
@@ -746,7 +600,6 @@ const Uiuxdesign = () => {
             See full case studies <ArrowUpRight size={14} />
           </a>
         </div>
-
         <div className="ux-work-grid">
           {work.map((w) => (
             <WorkCard key={w.name} w={w} onClick={() => setActiveWork(w)} />
@@ -754,46 +607,38 @@ const Uiuxdesign = () => {
         </div>
       </section>
 
-      {/* PROCESS */}
+      {/* ── PROCESS ── */}
       <section id="process" className="ux-frame">
+        <div className="ux-frame-label">
+          <span>PROCESS</span>
+          <span className="dim">4 stages</span>
+        </div>
         <div className="mb-12 max-w-xl">
-          <h2 className="ux-display text-3xl md:text-4xl font-semibold mb-4">
+          <h2
+            className="ux-display text-3xl md:text-4xl font-bold mb-4"
+            style={{ letterSpacing: "-0.3px" }}
+          >
             How a project moves with us.
           </h2>
-          <p style={{ color: "var(--ink-soft)" }}>
+          <p
+            style={{ color: "var(--ink-soft)", fontSize: 15, lineHeight: 1.75 }}
+          >
             Every engagement follows the same backbone — predictable for you,
             flexible enough for whatever the product throws at us.
           </p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {process.map((p) => (
-            <div
-              key={p.n}
-              className="relative pl-6"
-              style={{ borderLeft: "1px dashed var(--line)" }}
-            >
-              <span
-                className="ux-mono text-xs"
-                style={{ color: "var(--pink)" }}
-              >
-                {p.n}
-              </span>
-              <h3 className="ux-display text-xl font-semibold mt-2 mb-2">
-                {p.title}
-              </h3>
-              <p
-                className="text-sm leading-relaxed"
-                style={{ color: "var(--ink-soft)" }}
-              >
-                {p.desc}
-              </p>
+            <div key={p.n} className="ux-process-step">
+              <div className="ux-step-num">{p.n}</div>
+              <h3 className="ux-step-title">{p.title}</h3>
+              <p className="ux-step-desc">{p.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* MODAL */}
+      {/* ── MODAL ── */}
       {activeWork && (
         <Modal item={activeWork} onClose={() => setActiveWork(null)} />
       )}
