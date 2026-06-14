@@ -49,7 +49,7 @@ const navLinks = [
       {
         name: "UI/UX Design",
         icon: "ti-palette",
-        href: "/services/ui-ux",
+        href: "/services/uiux",
         desc: "Beautiful interfaces",
       },
       {
