@@ -576,13 +576,7 @@ const Uiuxdesign = () => {
       <section className="ux-frame">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <p
-              className="ux-mono text-xs mb-5"
-              style={{ color: "var(--ink-soft)" }}
-            >
-              PRODUCT DESIGN STUDIO — UI/UX
-            </p>
-            <h1 className="ux-display text-4xl md:text-6xl font-semibold leading-tight mb-6">
+            <h1 className="ux-display text-3xl md:text-4xl font-semibold leading-tight mb-6">
               Design that disappears into the experience.
             </h1>
             <p
